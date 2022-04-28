@@ -5,7 +5,7 @@
 #' 
 #' @param survival_data A matrix of two columns with the first column indicates
 #' the survival time and the second column indicates the event indicator.
-#' @param round Whether survival time should be rounded.
+#' @param round Whether survival time should be rounded, default = FALSE.
 #' 
 #' @return 
 #' \code{meanimp} returns a list containing the following components:
@@ -18,13 +18,13 @@
 #' data_test <- matrix(c(1, 1, 1, 2.5, 5, 7, 1, 1, 0, 1, 0, 1), ncol = 2)
 #' 
 #' ## Mean imputation
-#' meanimp(data_test, F)
+#' meanimp(data_test, round = FALSE)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 
-meanimp <- function(survival_data, round = F) {
+meanimp <- function(survival_data, round = FALSE) {
   colnames(survival_data) <- c("Survival_time", "Event_indicator")
   n <- nrow(survival_data)
   survival_data <- cbind(survival_data, 1:n, NA)
