@@ -4,13 +4,13 @@
 \alias{meanimp}
 \title{Mean imputation for the survival time}
 \usage{
-meanimp(survival_data, round = F)
+meanimp(survival_data, round = FALSE)
 }
 \arguments{
 \item{survival_data}{A matrix of two columns with the first column indicates
 the survival time and the second column indicates the event indicator.}
 
-\item{round}{Whether survival time should be rounded.}
+\item{round}{Whether survival time should be rounded, default = FALSE.}
 }
 \value{
 \code{meanimp} returns a list containing the following components:
@@ -27,6 +27,6 @@ formula provided the censored values are imputed.
 data_test <- matrix(c(1, 1, 1, 2.5, 5, 7, 1, 1, 0, 1, 0, 1), ncol = 2)
 
 ## Mean imputation
-meanimp(data_test, F)
+meanimp(data_test, round = FALSE)
 
 }
