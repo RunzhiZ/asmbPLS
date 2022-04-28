@@ -58,7 +58,10 @@ to explain the outcome Y.
 data(asmbPLS.fit.example)
  
 ## asmbPLS fit
-asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix, Y.matrix = Y.matrix, 
-PLS.comp = PLS.comp, X.dim = X.dim, quantile.comb = quantile.comb)
+asmbPLS.results <- asmbPLS.fit(X.matrix = asmbPLS.fit.example$X.matrix, 
+Y.matrix = asmbPLS.fit.example$Y.matrix, 
+PLS.comp = asmbPLS.fit.example$PLS.comp, 
+X.dim = asmbPLS.fit.example$X.dim, 
+quantile.comb = asmbPLS.fit.example$quantile.comb)
 
 }

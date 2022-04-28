@@ -36,14 +36,21 @@
 #' data(asmbPLS.cv.example)
 #' 
 #' ## cv to find the best quantile combinations for model fitting
-#' cv.results <- asmbPLS.cv(X.matrix = X.matrix, Y.matrix = Y.matrix, PLS.comp 
-#' = PLS.comp, X.dim = X.dim, quantile.comb.table = quantile.comb.table, k = 5, 
-#' Y.indicator = Y.indicator, only.observe = T)
+#' cv.results <- asmbPLS.cv(
+#' X.matrix = asmbPLS.cv.example$X.matrix, 
+#' Y.matrix = asmbPLS.cv.example$Y.matrix, 
+#' PLS.comp = asmbPLS.cv.example$PLS.comp, 
+#' X.dim = asmbPLS.cv.example$X.dim, 
+#' quantile.comb.table = asmbPLS.cv.example$quantile.comb.table, k = 5, 
+#' Y.indicator = asmbPLS.cv.example$Y.indicator, only.observe = T)
 #' quantile.comb <- cv.results$quantile.comb[,1:2]
 #'  
 #' ## asmbPLS fit
-#' asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix, Y.matrix = Y.matrix, 
-#' PLS.comp = PLS.comp, X.dim = X.dim, quantile.comb = quantile.comb)
+#' asmbPLS.results <- asmbPLS.fit(
+#' X.matrix = asmbPLS.cv.example$X.matrix, 
+#' Y.matrix = asmbPLS.cv.example$Y.matrix, 
+#' PLS.comp = asmbPLS.cv.example$PLS.comp, 
+#' X.dim = asmbPLS.cv.example$X.dim, quantile.comb = quantile.comb)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE

@@ -18,13 +18,17 @@
 #' data(asmbPLS.predict.example)
 #'  
 #' ## asmbPLS fit
-#' asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix, Y.matrix = Y.matrix, 
-#' PLS.comp = PLS.comp, X.dim = X.dim, quantile.comb = quantile.comb)
+#' asmbPLS.results <- asmbPLS.fit(
+#' X.matrix = asmbPLS.predict.example$X.matrix, 
+#' Y.matrix = asmbPLS.predict.example$Y.matrix, 
+#' PLS.comp = asmbPLS.predict.example$PLS.comp, 
+#' X.dim = asmbPLS.predict.example$X.dim, 
+#' quantile.comb = asmbPLS.predict.example$quantile.comb)
 #' 
 #' ## asmbPLS prediction for the new data, you could use different numbers of 
 #' ## PLS components for prediction
-#' Y.pred.1 <- asmbPLS.predict(X.matrix.new, 1, asmbPLS.results)
-#' Y.pred.2 <- asmbPLS.predict(X.matrix.new, 2, asmbPLS.results)
+#' Y.pred.1 <- asmbPLS.predict(asmbPLS.predict.example$X.matrix.new, 1, asmbPLS.results)
+#' Y.pred.2 <- asmbPLS.predict(asmbPLS.predict.example$X.matrix.new, 2, asmbPLS.results)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE

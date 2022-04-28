@@ -20,3 +20,4 @@ Depends: R (>= 2.10)
 Imports: Rcpp (>= 1.0.8), stats
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.1.2
+LazyData: true
