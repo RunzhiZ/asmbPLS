@@ -13,7 +13,6 @@
 The DESCRIPTION file:
 \packageDESCRIPTION{asmbPLS}
 \packageIndices{asmbPLS}
-~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
 \packageAuthor{asmbPLS}
@@ -21,14 +20,9 @@ The DESCRIPTION file:
 Maintainer: \packageMaintainer{asmbPLS}
 }
 \references{
-~~ Literature or other references for background information ~~
+add later
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
-\keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+\code{\link{asmbPLS.fit}}, \code{\link{asmbPLS.cv}}, \code{\link{asmbPLS.predict}}, \code{\link{mbPLS.fit}}, \code{\link{meanimp}}
 }
-\examples{
-~~ simple examples of the most important functions88 ~~
-}
+
