@@ -2,7 +2,7 @@
 % Please edit documentation in R/asmbPLSDA.cv.R
 \name{asmbPLSDA.cv}
 \alias{asmbPLSDA.cv}
-\title{Cross-validation for asmbPLS to find the best combinations of quantiles for prediction}
+\title{Cross-validation for asmbPLS-DA to find the best combinations of quantiles for prediction}
 \usage{
 asmbPLSDA.cv(
   X.matrix,
@@ -22,12 +22,9 @@ asmbPLSDA.cv(
 \item{X.matrix}{Predictors matrix. Samples in rows, variables in columns}
 
 \item{Y.matrix}{Outcome matrix. Samples in rows, this is a matrix with one 
-column (continuous variable). The outcome could be imputed survival time or 
-other types of continuous outcome. For survival time with right-censored 
-survival time and event indicator, the right censored time could be imputed 
-by \code{\link{meanimp}}.}
+column (binary) or multiple columns (more than 2 levels, dummy variables).}
 
-\item{PLS.comp}{Number of PLS components in asmbPLS.}
+\item{PLS.comp}{Number of PLS components in asmbPLS-DA.}
 
 \item{X.dim}{A vector containing the number of predictors in each block 
 (ordered).}
@@ -36,24 +33,24 @@ by \code{\link{meanimp}}.}
 combinations used for CV, whose column number equals to the 
 number of blocks.}
 
-\item{outcome.type}{The type of the outcome Y. \code{binary} for binary 
-outcome, and \code{morethan2levels} for categorical outcome with more than 2 
+\item{outcome.type}{The type of the outcome Y. "\code{binary}" for binary 
+outcome, and "\code{morethan2levels}" for categorical outcome with more than 2 
 levels.}
 
 \item{Method}{Decision rule used for CV. For binary outcome, the 
-methods include \code{fixed_cutoff}, \code{Euclidean_distance_X} and
-\code{Mahalanobis_distance_X}. For categorical outcome with more than 2 
-levels, the methods include \code{Max_Y}, \code{Euclidean_distance_X},
-\code{Mahalanobis_distance_X}, \code{Euclidean_distance_Y}, 
-\code{Mahalanobis_distance_Y} and \code{PCA_Mahalanobis_distance_Y}.}
+methods include "\code{fixed_cutoff}", "\code{Euclidean_distance_X}" and
+"\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
+levels, the methods include "\code{Max_Y}", "\code{Euclidean_distance_X}",
+"\code{Mahalanobis_distance_X}", "\code{Euclidean_distance_Y}", 
+"\code{Mahalanobis_distance_Y}" and "\code{PCA_Mahalanobis_distance_Y}".}
 
 \item{k}{The number of folds of CV procedure. The default is 10.}
 
 \item{center}{A logical value indicating whether weighted mean center should 
-be implemented for X.matrix and Y.matrix. The default is TRUE.}
+be implemented for \code{X.matrix} and \code{Y.matrix}. The default is TRUE.}
 
 \item{scale}{A logical value indicating whether scale should be 
-implemented for X.matrix. The default is TRUE.}
+implemented for \code{X.matrix}. The default is TRUE.}
 
 \item{seed}{An integer given by user to obtain reproducible results. The
 default is 1.}
@@ -70,7 +67,7 @@ cross validation fold.}
 \description{
 Function to find the best combinations of quantiles used for prediction via
 cross-validation. Usually should be conducted before 
-\code{\link[asmbPLS]{asmbPLS.fit}} to obtain the quantile combinations.
+\code{\link[asmbPLS]{asmbPLSDA.fit}} to obtain the quantile combinations.
 }
 \examples{
 ## Use the example dataset

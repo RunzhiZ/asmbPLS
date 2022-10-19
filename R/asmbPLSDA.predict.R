@@ -1,4 +1,4 @@
-#' Using an asmbPLSDA model for prediction of new samples
+#' Using an asmbPLS-DA model for prediction of new samples
 #'
 #' Derives predictions for new samples from a model fitted by the function
 #' \code{\link[asmbPLS]{asmbPLSDA.fit}}.
@@ -6,14 +6,14 @@
 #' @param X.matrix.new A predictors matrix, whose predictors are the same as 
 #' the predictors in model fitting.
 #' @param PLS.comp Number of PLS components used for prediction.
-#' @param fit.results The output of either \code{\link[asmbPLS]{asmbPLS.fit}} or 
-#' \code{\link[asmbPLS]{mbPLS.fit}}.
+#' @param fit.results The output of either \code{\link[asmbPLS]{asmbPLSDA.fit}}
 #' @param Method Decision rule used for prediction. For binary outcome, the 
-#' methods include \code{fixed_cutoff} (default), \code{Euclidean_distance_X} and
-#' \code{Mahalanobis_distance_X}. For categorical outcome with more than 2 
-#' levels, the methods include \code{Max_Y} (default), \code{Euclidean_distance_X},
-#' \code{Mahalanobis_distance_X}, \code{Euclidean_distance_Y}, 
-#' \code{Mahalanobis_distance_Y} and \code{PCA_Mahalanobis_distance_Y}.
+#' methods include "\code{fixed_cutoff}" (default), "\code{Euclidean_distance_X}" 
+#' and "\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
+#' levels, the methods include "\code{Max_Y}" (default), 
+#' "\code{Euclidean_distance_X}", "\code{Mahalanobis_distance_X}", 
+#' "\code{Euclidean_distance_Y}", "\code{Mahalanobis_distance_Y}" and 
+#' "\code{PCA_Mahalanobis_distance_Y}".
 #' 
 #' @return 
 #' \code{asmbPLSDA.predict} returns a list containing the following components:

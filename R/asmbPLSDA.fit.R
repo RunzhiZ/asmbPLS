@@ -7,14 +7,14 @@
 #' @param X.matrix Predictors matrix. Samples in rows, variables in columns
 #' @param Y.matrix Outcome matrix. Samples in rows, this is a matrix with one 
 #' column (binary) or multiple columns (more than 2 levels, dummy variables). 
-#' @param PLS.comp Number of PLS components in asmbPLS.
+#' @param PLS.comp Number of PLS components in asmbPLS-DA.
 #' @param X.dim A vector containing the number of predictors in each block 
 #' (ordered).
 #' @param quantile.comb A matrix containing quantile combinations used for 
 #' different PLS components, whose row number equals to the number of PLS 
 #' components used, column number equals to the number of blocks.
-#' @param outcome.type The type of the outcome Y. \code{binary} for binary 
-#' outcome, and \code{morethan2levels} for categorical outcome with more than 2 
+#' @param outcome.type The type of the outcome Y. "\code{binary}" for binary 
+#' outcome, and "\code{morethan2levels}" for categorical outcome with more than 2 
 #' levels.
 #' @param center A logical value indicating whether weighted mean center should 
 #' be implemented for X.matrix and Y.matrix. The default is TRUE.
@@ -49,8 +49,8 @@
 #' implemented for X.matrix.}
 #' \item{scale}{A logical value indicating whether scale is implemented for 
 #' X.matrix.}
-#' \item{Outcome_type}{The type of the outcome Y. \code{binary} for binary 
-#' outcome, and \code{morethan2levels} for categorical outcome with more than 2
+#' \item{Outcome_type}{The type of the outcome Y. "\code{binary}" for binary 
+#' outcome, and "\code{morethan2levels}" for categorical outcome with more than 2
 #' levels.}
 #' \item{Y_group}{Original Y.matrix.}
 

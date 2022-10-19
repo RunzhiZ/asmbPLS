@@ -21,7 +21,7 @@ asmbPLSDA.fit(
 \item{Y.matrix}{Outcome matrix. Samples in rows, this is a matrix with one 
 column (binary) or multiple columns (more than 2 levels, dummy variables).}
 
-\item{PLS.comp}{Number of PLS components in asmbPLS.}
+\item{PLS.comp}{Number of PLS components in asmbPLS-DA.}
 
 \item{X.dim}{A vector containing the number of predictors in each block 
 (ordered).}
@@ -30,8 +30,8 @@ column (binary) or multiple columns (more than 2 levels, dummy variables).}
 different PLS components, whose row number equals to the number of PLS 
 components used, column number equals to the number of blocks.}
 
-\item{outcome.type}{The type of the outcome Y. \code{binary} for binary 
-outcome, and \code{morethan2levels} for categorical outcome with more than 2 
+\item{outcome.type}{The type of the outcome Y. "\code{binary}" for binary 
+outcome, and "\code{morethan2levels}" for categorical outcome with more than 2 
 levels.}
 
 \item{center}{A logical value indicating whether weighted mean center should 
@@ -68,8 +68,8 @@ predictor for scaling. sd for predictors with sd = 0 will be changed to 1.}
 implemented for X.matrix.}
 \item{scale}{A logical value indicating whether scale is implemented for 
 X.matrix.}
-\item{Outcome_type}{The type of the outcome Y. \code{binary} for binary 
-outcome, and \code{morethan2levels} for categorical outcome with more than 2
+\item{Outcome_type}{The type of the outcome Y. "\code{binary}" for binary 
+outcome, and "\code{morethan2levels}" for categorical outcome with more than 2
 levels.}
 \item{Y_group}{Original Y.matrix.}
 }

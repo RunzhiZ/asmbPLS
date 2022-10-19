@@ -2,7 +2,7 @@
 % Please edit documentation in R/asmbPLSDA.predict.R
 \name{asmbPLSDA.predict}
 \alias{asmbPLSDA.predict}
-\title{Using an asmbPLSDA model for prediction of new samples}
+\title{Using an asmbPLS-DA model for prediction of new samples}
 \usage{
 asmbPLSDA.predict(X.matrix.new, PLS.comp, fit.results, Method = NULL)
 }
@@ -12,15 +12,15 @@ the predictors in model fitting.}
 
 \item{PLS.comp}{Number of PLS components used for prediction.}
 
-\item{fit.results}{The output of either \code{\link[asmbPLS]{asmbPLS.fit}} or 
-\code{\link[asmbPLS]{mbPLS.fit}}.}
+\item{fit.results}{The output of either \code{\link[asmbPLS]{asmbPLSDA.fit}}}
 
 \item{Method}{Decision rule used for prediction. For binary outcome, the 
-methods include \code{fixed_cutoff} (default), \code{Euclidean_distance_X} and
-\code{Mahalanobis_distance_X}. For categorical outcome with more than 2 
-levels, the methods include \code{Max_Y} (default), \code{Euclidean_distance_X},
-\code{Mahalanobis_distance_X}, \code{Euclidean_distance_Y}, 
-\code{Mahalanobis_distance_Y} and \code{PCA_Mahalanobis_distance_Y}.}
+methods include "\code{fixed_cutoff}" (default), "\code{Euclidean_distance_X}" 
+and "\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
+levels, the methods include "\code{Max_Y}" (default), 
+"\code{Euclidean_distance_X}", "\code{Mahalanobis_distance_X}", 
+"\code{Euclidean_distance_Y}", "\code{Mahalanobis_distance_Y}" and 
+"\code{PCA_Mahalanobis_distance_Y}".}
 }
 \value{
 \code{asmbPLSDA.predict} returns a list containing the following components:
