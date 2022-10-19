@@ -1,6 +1,6 @@
-#' Using an asmbPLS model for prediction of new observations
+#' Using an asmbPLS model for prediction of new samples
 #'
-#' Derives predictions for new observations from a model fitted by the function
+#' Derives predictions for new samples from a model fitted by the function
 #' \code{\link[asmbPLS]{asmbPLS.fit}} or \code{\link[asmbPLS]{mbPLS.fit}}.
 #' 
 #' @param X.matrix.new A predictors matrix, whose predictors are the same as 
@@ -39,5 +39,5 @@ asmbPLS.predict <- function(X.matrix.new, PLS.comp, fit.results){
             !missing(PLS.comp),
             !missing(fit.results),
             is.matrix(X.matrix.new))
-  return(asmbPLS_predict_rcpp(X.matrix.new, PLS.comp, fit.results))
+  return(asmbPLS_predict(X.matrix.new, PLS.comp, fit.results))
 }

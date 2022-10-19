@@ -40,8 +40,8 @@ different PLS components.}
 PLS components.}
 \item{y_score}{A matrix containing the scores of outcome for different 
 PLS components.}
-\item{col_mean}{A vector containing the mean of each predictor for scaling.}
-\item{col_sd}{A vector containing the standard deviation of each predictor
+\item{col_mean}{A matrix containing the mean of each predictor for scaling.}
+\item{col_sd}{A matrix containing the standard deviation of each predictor
 for scaling. Predictor with sd = 0 will be changed to 1.}
 \item{X_scaled}{Scaled predictors matrix.}
 \item{Y_mean}{The mean of outcome matrix for scaling.}

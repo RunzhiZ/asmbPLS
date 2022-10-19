@@ -2,7 +2,7 @@
 % Please edit documentation in R/asmbPLS.predict.R
 \name{asmbPLS.predict}
 \alias{asmbPLS.predict}
-\title{Using an asmbPLS model for prediction of new observations}
+\title{Using an asmbPLS model for prediction of new samples}
 \usage{
 asmbPLS.predict(X.matrix.new, PLS.comp, fit.results)
 }
@@ -20,7 +20,7 @@ the predictors in model fitting.}
 new data.
 }
 \description{
-Derives predictions for new observations from a model fitted by the function
+Derives predictions for new samples from a model fitted by the function
 \code{\link[asmbPLS]{asmbPLS.fit}} or \code{\link[asmbPLS]{mbPLS.fit}}.
 }
 \examples{

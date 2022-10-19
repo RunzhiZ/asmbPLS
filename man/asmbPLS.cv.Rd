@@ -10,18 +10,20 @@ asmbPLS.cv(
   PLS.comp,
   X.dim,
   quantile.comb.table,
-  k = 5,
   Y.indicator,
-  only.observe = T
+  k = 5,
+  only.observe = TRUE,
+  seed = 1
 )
 }
 \arguments{
 \item{X.matrix}{Predictors matrix. Samples in rows, variables in columns}
 
 \item{Y.matrix}{Outcome matrix. Samples in rows, this is a matrix with one 
-column (continuous variable). The outcome could be imputed survival time. 
-For survival time with right-censored survival time and event indicator, the 
-right censored time could be imputed by \code{\link{meanimp}}.}
+column (continuous variable). The outcome could be imputed survival time or 
+other types of continuous outcome. For survival time with right-censored 
+survival time and event indicator, the right censored time could be imputed 
+by \code{\link{meanimp}}.}
 
 \item{PLS.comp}{Number of PLS components in asmbPLS.}
 
@@ -32,8 +34,6 @@ right censored time could be imputed by \code{\link{meanimp}}.}
 combinations used for CV, whose column number equals to the 
 number of blocks.}
 
-\item{k}{The number of folds of CV procedure. The default is 5.}
-
 \item{Y.indicator}{A vector containing the event indicator for each sample, 
 whose length is equal to the number of samples. This vector allows the ratio 
 of observed/unobserved to be the same in the training set and validation set. 
@@ -41,14 +41,22 @@ Observed = 1, and unobserved = 0. If other types of outcome data rather than
 survival outcome is used, you can use a vector with all components = 1 
 instead.}
 
+\item{k}{The number of folds of CV procedure. The default is 5.}
+
 \item{only.observe}{Whether only observed samples in the validation set 
 should be used for calculating the MSE for CV. The default is TRUE.}
+
+\item{seed}{An integer given by user to obtain reproducible results. The
+default is 1.}
 }
 \value{
 \code{asmbPLS.cv} returns a list containing the following components:
-\item{quantile.comb}{A matrix containing the selected quantile 
+\item{quantile_table_CV}{A matrix containing the selected quantile 
 combination and the corresponding MSE of CV for each PLS component.}
-\item{time}{Computation time.}
+\item{CV_results}{A list containing the details of the CV results for each PLS 
+component.}
+\item{CV_index}{A list containing the validation and training index for each 
+cross validation fold.}
 }
 \description{
 Function to find the best combinations of quantiles used for prediction via
@@ -65,9 +73,10 @@ X.matrix = asmbPLS.cv.example$X.matrix,
 Y.matrix = asmbPLS.cv.example$Y.matrix, 
 PLS.comp = asmbPLS.cv.example$PLS.comp, 
 X.dim = asmbPLS.cv.example$X.dim, 
-quantile.comb.table = asmbPLS.cv.example$quantile.comb.table, k = 5, 
-Y.indicator = asmbPLS.cv.example$Y.indicator, only.observe = T)
-quantile.comb <- cv.results$quantile.comb[,1:2]
+quantile.comb.table = asmbPLS.cv.example$quantile.comb.table, 
+Y.indicator = asmbPLS.cv.example$Y.indicator, k = 5, 
+only.observe = TRUE, seed = 123)
+quantile.comb <- cv.results$quantile_table_CV[,1:2]
  
 ## asmbPLS fit
 asmbPLS.results <- asmbPLS.fit(

@@ -61,5 +61,5 @@ mbPLS.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim){
             !missing(X.dim),
             is.matrix(X.matrix), 
             is.matrix(Y.matrix))
-  return(mbPLS_fit_rcpp(X.matrix, Y.matrix, PLS.comp, X.dim))
+  return(mbPLS_fit(X.matrix, Y.matrix, PLS.comp, X.dim))
 }

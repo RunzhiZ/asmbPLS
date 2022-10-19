@@ -1,0 +1,108 @@
+#' Cross-validation for asmbPLS to find the best combinations of quantiles for prediction
+#'
+#' Function to find the best combinations of quantiles used for prediction via
+#' cross-validation. Usually should be conducted before 
+#' \code{\link[asmbPLS]{asmbPLS.fit}} to obtain the quantile combinations.
+#' 
+#' @param X.matrix Predictors matrix. Samples in rows, variables in columns
+#' @param Y.matrix Outcome matrix. Samples in rows, this is a matrix with one 
+#' column (continuous variable). The outcome could be imputed survival time or 
+#' other types of continuous outcome. For survival time with right-censored 
+#' survival time and event indicator, the right censored time could be imputed 
+#' by \code{\link{meanimp}}.
+#' @param PLS.comp Number of PLS components in asmbPLS.
+#' @param X.dim A vector containing the number of predictors in each block 
+#' (ordered).
+#' @param quantile.comb.table A matrix containing user-defined quantile 
+#' combinations used for CV, whose column number equals to the 
+#' number of blocks.
+#' @param outcome.type The type of the outcome Y. \code{binary} for binary 
+#' outcome, and \code{morethan2levels} for categorical outcome with more than 2 
+#' levels.
+#' @param Method Decision rule used for CV. For binary outcome, the 
+#' methods include \code{fixed_cutoff}, \code{Euclidean_distance_X} and
+#' \code{Mahalanobis_distance_X}. For categorical outcome with more than 2 
+#' levels, the methods include \code{Max_Y}, \code{Euclidean_distance_X},
+#' \code{Mahalanobis_distance_X}, \code{Euclidean_distance_Y}, 
+#' \code{Mahalanobis_distance_Y} and \code{PCA_Mahalanobis_distance_Y}.
+#' @param k The number of folds of CV procedure. The default is 10.
+#' @param center A logical value indicating whether weighted mean center should 
+#' be implemented for X.matrix and Y.matrix. The default is TRUE.
+#' @param scale  A logical value indicating whether scale should be 
+#' implemented for X.matrix. The default is TRUE.
+#' @param seed An integer given by user to obtain reproducible results. The
+#' default is 1.
+#' 
+#' @return 
+#' \code{asmbPLSDA.cv} returns a list containing the following components:
+#' \item{quantile_table_CV}{A matrix containing the selected quantile 
+#' combination and the corresponding accuracy of CV for each PLS component.}
+#' \item{CV_results}{A list containing the details of the CV results for each PLS 
+#' component.}
+#' \item{CV_index}{A list containing the validation and training index for each 
+#' cross validation fold.}
+#' 
+#' @examples
+#' ## Use the example dataset
+#' data(asmbPLSDA.cv.example)
+#' 
+#' ## cv to find the best quantile combinations for model fitting (binary outcome)
+#' cv.binary.results <- asmbPLSDA.cv(
+#' X.matrix = asmbPLSDA.cv.example$X.matrix, 
+#' Y.matrix = asmbPLSDA.cv.example$Y.matrix.binary, 
+#' PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
+#' X.dim = asmbPLSDA.cv.example$X.dim, 
+#' quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
+#' outcome.type = "binary", Method = "fixed_cutoff", k = 10,
+#' center = TRUE, scale = TRUE, seed = 1)
+#' quantile.comb.binary <- cv.binary.results$quantile_table_CV[,1:2]
+#' 
+#' ## cv to find the best quantile combinations for model fitting 
+#' ## (categorical outcome with more than 2 levels)
+#' cv.morethan2levels.results <- asmbPLSDA.cv(
+#' X.matrix = asmbPLSDA.cv.example$X.matrix, 
+#' Y.matrix = asmbPLSDA.cv.example$Y.matrix.morethan2levels, 
+#' PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
+#' X.dim = asmbPLSDA.cv.example$X.dim, 
+#' quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
+#' outcome.type = "morethan2levels", Method = "Max_Y", k = 10,
+#' center = TRUE, scale = TRUE, seed = 1)
+#' quantile.comb.morethan2levels <- cv.morethan2levels.results$quantile_table_CV[,1:2]
+#'  
+#' ## asmbPLSDA fit (binary outcome)
+#' asmbPLSDA.binary.results <- asmbPLSDA.fit(
+#' X.matrix = asmbPLSDA.cv.example$X.matrix, 
+#' Y.matrix = asmbPLSDA.cv.example$Y.matrix.binary, 
+#' PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
+#' X.dim = asmbPLSDA.cv.example$X.dim, 
+#' quantile.comb = quantile.comb.binary,
+#' "binary")
+#' 
+#' ## asmbPLSDA fit (categorical outcome with more than 2 levels)
+#' asmbPLSDA.morethan2levels.results <- asmbPLSDA.fit(
+#' X.matrix = asmbPLSDA.cv.example$X.matrix, 
+#' Y.matrix = asmbPLSDA.cv.example$Y.matrix.morethan2levels, 
+#' PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
+#' X.dim = asmbPLSDA.cv.example$X.dim, 
+#' quantile.comb = quantile.comb.morethan2levels,
+#' "morethan2levels")
+#' 
+#' @export
+#' @useDynLib asmbPLS, .registration=TRUE
+#' @importFrom Rcpp sourceCpp
+
+asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k = 10, center = TRUE, scale = TRUE, seed = 1) {
+  ## error check
+  stopifnot(!missing(X.matrix),
+            !missing(Y.matrix),
+            !missing(PLS.comp),
+            !missing(X.dim),
+            !missing(quantile.comb.table),
+            !missing(outcome.type),
+            !missing(Method),
+            is.matrix(X.matrix),
+            is.matrix(Y.matrix),
+            is.matrix(quantile.comb.table),
+            is.numeric(PLS.comp))
+  return(asmbPLSDA_CV(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k, center, scale, seed))
+}

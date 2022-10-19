@@ -11,9 +11,134 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// asmbPLS_fit_rcpp
-List asmbPLS_fit_rcpp(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent);
-RcppExport SEXP _asmbPLS_asmbPLS_fit_rcpp(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP) {
+// CV_index
+List CV_index(arma::colvec Y_indicator, int K_input, int seed, LogicalVector only_observe);
+RcppExport SEXP _asmbPLS_CV_index(SEXP Y_indicatorSEXP, SEXP K_inputSEXP, SEXP seedSEXP, SEXP only_observeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::colvec >::type Y_indicator(Y_indicatorSEXP);
+    Rcpp::traits::input_parameter< int >::type K_input(K_inputSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type only_observe(only_observeSEXP);
+    rcpp_result_gen = Rcpp::wrap(CV_index(Y_indicator, K_input, seed, only_observe));
+    return rcpp_result_gen;
+END_RCPP
+}
+// CV_index_binary
+List CV_index_binary(arma::mat F_matrix, int K_input, int seed);
+RcppExport SEXP _asmbPLS_CV_index_binary(SEXP F_matrixSEXP, SEXP K_inputSEXP, SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type K_input(K_inputSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    rcpp_result_gen = Rcpp::wrap(CV_index_binary(F_matrix, K_input, seed));
+    return rcpp_result_gen;
+END_RCPP
+}
+// CV_index_morethan2levels
+List CV_index_morethan2levels(arma::mat F_matrix, int K_input, int seed);
+RcppExport SEXP _asmbPLS_CV_index_morethan2levels(SEXP F_matrixSEXP, SEXP K_inputSEXP, SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type K_input(K_inputSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    rcpp_result_gen = Rcpp::wrap(CV_index_morethan2levels(F_matrix, K_input, seed));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Euclidean_distance
+arma::mat Euclidean_distance(arma::mat matrix_fit, arma::mat matrix_predict, arma::mat F_matrix, String outcome_type);
+RcppExport SEXP _asmbPLS_Euclidean_distance(SEXP matrix_fitSEXP, SEXP matrix_predictSEXP, SEXP F_matrixSEXP, SEXP outcome_typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type matrix_fit(matrix_fitSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type matrix_predict(matrix_predictSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
+    Rcpp::traits::input_parameter< String >::type outcome_type(outcome_typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(Euclidean_distance(matrix_fit, matrix_predict, F_matrix, outcome_type));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Mahalanobis_distance
+arma::mat Mahalanobis_distance(arma::mat matrix_fit, arma::mat matrix_predict, arma::mat F_matrix, String outcome_type);
+RcppExport SEXP _asmbPLS_Mahalanobis_distance(SEXP matrix_fitSEXP, SEXP matrix_predictSEXP, SEXP F_matrixSEXP, SEXP outcome_typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type matrix_fit(matrix_fitSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type matrix_predict(matrix_predictSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
+    Rcpp::traits::input_parameter< String >::type outcome_type(outcome_typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(Mahalanobis_distance(matrix_fit, matrix_predict, F_matrix, outcome_type));
+    return rcpp_result_gen;
+END_RCPP
+}
+// PCA_Mahalanobis_distance
+arma::mat PCA_Mahalanobis_distance(arma::mat Y_fit, arma::mat Y_predict);
+RcppExport SEXP _asmbPLS_PCA_Mahalanobis_distance(SEXP Y_fitSEXP, SEXP Y_predictSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type Y_fit(Y_fitSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type Y_predict(Y_predictSEXP);
+    rcpp_result_gen = Rcpp::wrap(PCA_Mahalanobis_distance(Y_fit, Y_predict));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Results_comparison_MSE
+double Results_comparison_MSE(arma::mat Y_predict, arma::mat Y_true);
+RcppExport SEXP _asmbPLS_Results_comparison_MSE(SEXP Y_predictSEXP, SEXP Y_trueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type Y_predict(Y_predictSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type Y_true(Y_trueSEXP);
+    rcpp_result_gen = Rcpp::wrap(Results_comparison_MSE(Y_predict, Y_true));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Results_comparison_accuracy
+double Results_comparison_accuracy(arma::mat Y_predict, arma::mat Y_true);
+RcppExport SEXP _asmbPLS_Results_comparison_accuracy(SEXP Y_predictSEXP, SEXP Y_trueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type Y_predict(Y_predictSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type Y_true(Y_trueSEXP);
+    rcpp_result_gen = Rcpp::wrap(Results_comparison_accuracy(Y_predict, Y_true));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asmbPLSDA_CV
+List asmbPLSDA_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, String outcome_type, String Method, Nullable<int> K, Nullable<LogicalVector> center, Nullable<LogicalVector> scale, Nullable<int> seed);
+RcppExport SEXP _asmbPLS_asmbPLSDA_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP outcome_typeSEXP, SEXP MethodSEXP, SEXP KSEXP, SEXP centerSEXP, SEXP scaleSEXP, SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type E_matrix(E_matrixSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type quantile_table(quantile_tableSEXP);
+    Rcpp::traits::input_parameter< String >::type outcome_type(outcome_typeSEXP);
+    Rcpp::traits::input_parameter< String >::type Method(MethodSEXP);
+    Rcpp::traits::input_parameter< Nullable<int> >::type K(KSEXP);
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< Nullable<int> >::type seed(seedSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, center, scale, seed));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asmbPLSDA_binary_fit
+List asmbPLSDA_binary_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+RcppExport SEXP _asmbPLS_asmbPLSDA_binary_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -22,26 +147,33 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type percent(percentSEXP);
-    rcpp_result_gen = Rcpp::wrap(asmbPLS_fit_rcpp(E_matrix, F_matrix, PLS_term, X_dim, percent));
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_binary_fit(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale));
     return rcpp_result_gen;
 END_RCPP
 }
-// asmbPLS_predict_rcpp
-arma::mat asmbPLS_predict_rcpp(arma::mat newdata, int PLS_term_selected, List asmbPLS_results);
-RcppExport SEXP _asmbPLS_asmbPLS_predict_rcpp(SEXP newdataSEXP, SEXP PLS_term_selectedSEXP, SEXP asmbPLS_resultsSEXP) {
+// asmbPLSDA_fit
+List asmbPLSDA_fit(arma::mat X_matrix, arma::mat Y_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, String outcome_type, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+RcppExport SEXP _asmbPLS_asmbPLSDA_fit(SEXP X_matrixSEXP, SEXP Y_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP, SEXP outcome_typeSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type newdata(newdataSEXP);
-    Rcpp::traits::input_parameter< int >::type PLS_term_selected(PLS_term_selectedSEXP);
-    Rcpp::traits::input_parameter< List >::type asmbPLS_results(asmbPLS_resultsSEXP);
-    rcpp_result_gen = Rcpp::wrap(asmbPLS_predict_rcpp(newdata, PLS_term_selected, asmbPLS_results));
+    Rcpp::traits::input_parameter< arma::mat >::type X_matrix(X_matrixSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type Y_matrix(Y_matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type percent(percentSEXP);
+    Rcpp::traits::input_parameter< String >::type outcome_type(outcome_typeSEXP);
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_fit(X_matrix, Y_matrix, PLS_term, X_dim, percent, outcome_type, center, scale));
     return rcpp_result_gen;
 END_RCPP
 }
-// mbPLS_fit_rcpp
-List mbPLS_fit_rcpp(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim);
-RcppExport SEXP _asmbPLS_mbPLS_fit_rcpp(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP) {
+// asmbPLSDA_morethantwo_fit
+List asmbPLSDA_morethantwo_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+RcppExport SEXP _asmbPLS_asmbPLSDA_morethantwo_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -49,15 +181,158 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
     Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
-    rcpp_result_gen = Rcpp::wrap(mbPLS_fit_rcpp(E_matrix, F_matrix, PLS_term, X_dim));
+    Rcpp::traits::input_parameter< arma::mat >::type percent(percentSEXP);
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_morethantwo_fit(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asmbPLSDA_predict
+List asmbPLSDA_predict(arma::mat newdata, int PLS_term_selected, List asmbPLSDA_results, Nullable<String> Method);
+RcppExport SEXP _asmbPLS_asmbPLSDA_predict(SEXP newdataSEXP, SEXP PLS_term_selectedSEXP, SEXP asmbPLSDA_resultsSEXP, SEXP MethodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type newdata(newdataSEXP);
+    Rcpp::traits::input_parameter< int >::type PLS_term_selected(PLS_term_selectedSEXP);
+    Rcpp::traits::input_parameter< List >::type asmbPLSDA_results(asmbPLSDA_resultsSEXP);
+    Rcpp::traits::input_parameter< Nullable<String> >::type Method(MethodSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_predict(newdata, PLS_term_selected, asmbPLSDA_results, Method));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asmbPLS_CV
+List asmbPLS_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, arma::colvec Y_indicator, Nullable<int> K, Nullable<LogicalVector> only_observe, Nullable<int> seed);
+RcppExport SEXP _asmbPLS_asmbPLS_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP Y_indicatorSEXP, SEXP KSEXP, SEXP only_observeSEXP, SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type E_matrix(E_matrixSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type quantile_table(quantile_tableSEXP);
+    Rcpp::traits::input_parameter< arma::colvec >::type Y_indicator(Y_indicatorSEXP);
+    Rcpp::traits::input_parameter< Nullable<int> >::type K(KSEXP);
+    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type only_observe(only_observeSEXP);
+    Rcpp::traits::input_parameter< Nullable<int> >::type seed(seedSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLS_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, Y_indicator, K, only_observe, seed));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asmbPLS_fit
+List asmbPLS_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent);
+RcppExport SEXP _asmbPLS_asmbPLS_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type E_matrix(E_matrixSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type percent(percentSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLS_fit(E_matrix, F_matrix, PLS_term, X_dim, percent));
+    return rcpp_result_gen;
+END_RCPP
+}
+// asmbPLS_predict
+arma::mat asmbPLS_predict(arma::mat newdata, int PLS_term_selected, List asmbPLS_results);
+RcppExport SEXP _asmbPLS_asmbPLS_predict(SEXP newdataSEXP, SEXP PLS_term_selectedSEXP, SEXP asmbPLS_resultsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type newdata(newdataSEXP);
+    Rcpp::traits::input_parameter< int >::type PLS_term_selected(PLS_term_selectedSEXP);
+    Rcpp::traits::input_parameter< List >::type asmbPLS_results(asmbPLS_resultsSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLS_predict(newdata, PLS_term_selected, asmbPLS_results));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mbPLS_fit
+List mbPLS_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim);
+RcppExport SEXP _asmbPLS_mbPLS_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type E_matrix(E_matrixSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
+    rcpp_result_gen = Rcpp::wrap(mbPLS_fit(E_matrix, F_matrix, PLS_term, X_dim));
+    return rcpp_result_gen;
+END_RCPP
+}
+// quantile_f
+arma::vec quantile_f(arma::vec V, arma::vec P);
+RcppExport SEXP _asmbPLS_quantile_f(SEXP VSEXP, SEXP PSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type V(VSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type P(PSEXP);
+    rcpp_result_gen = Rcpp::wrap(quantile_f(V, P));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sample_group
+NumericVector sample_group(double n, double K_input);
+RcppExport SEXP _asmbPLS_sample_group(SEXP nSEXP, SEXP K_inputSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type K_input(K_inputSEXP);
+    rcpp_result_gen = Rcpp::wrap(sample_group(n, K_input));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stl_sort
+NumericVector stl_sort(NumericVector x);
+RcppExport SEXP _asmbPLS_stl_sort(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(stl_sort(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// weight_sparse
+arma::colvec weight_sparse(arma::colvec input, double lambda);
+RcppExport SEXP _asmbPLS_weight_sparse(SEXP inputSEXP, SEXP lambdaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::colvec >::type input(inputSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(weight_sparse(input, lambda));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_asmbPLS_asmbPLS_fit_rcpp", (DL_FUNC) &_asmbPLS_asmbPLS_fit_rcpp, 5},
-    {"_asmbPLS_asmbPLS_predict_rcpp", (DL_FUNC) &_asmbPLS_asmbPLS_predict_rcpp, 3},
-    {"_asmbPLS_mbPLS_fit_rcpp", (DL_FUNC) &_asmbPLS_mbPLS_fit_rcpp, 4},
+    {"_asmbPLS_CV_index", (DL_FUNC) &_asmbPLS_CV_index, 4},
+    {"_asmbPLS_CV_index_binary", (DL_FUNC) &_asmbPLS_CV_index_binary, 3},
+    {"_asmbPLS_CV_index_morethan2levels", (DL_FUNC) &_asmbPLS_CV_index_morethan2levels, 3},
+    {"_asmbPLS_Euclidean_distance", (DL_FUNC) &_asmbPLS_Euclidean_distance, 4},
+    {"_asmbPLS_Mahalanobis_distance", (DL_FUNC) &_asmbPLS_Mahalanobis_distance, 4},
+    {"_asmbPLS_PCA_Mahalanobis_distance", (DL_FUNC) &_asmbPLS_PCA_Mahalanobis_distance, 2},
+    {"_asmbPLS_Results_comparison_MSE", (DL_FUNC) &_asmbPLS_Results_comparison_MSE, 2},
+    {"_asmbPLS_Results_comparison_accuracy", (DL_FUNC) &_asmbPLS_Results_comparison_accuracy, 2},
+    {"_asmbPLS_asmbPLSDA_CV", (DL_FUNC) &_asmbPLS_asmbPLSDA_CV, 11},
+    {"_asmbPLS_asmbPLSDA_binary_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_binary_fit, 7},
+    {"_asmbPLS_asmbPLSDA_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_fit, 8},
+    {"_asmbPLS_asmbPLSDA_morethantwo_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_morethantwo_fit, 7},
+    {"_asmbPLS_asmbPLSDA_predict", (DL_FUNC) &_asmbPLS_asmbPLSDA_predict, 4},
+    {"_asmbPLS_asmbPLS_CV", (DL_FUNC) &_asmbPLS_asmbPLS_CV, 9},
+    {"_asmbPLS_asmbPLS_fit", (DL_FUNC) &_asmbPLS_asmbPLS_fit, 5},
+    {"_asmbPLS_asmbPLS_predict", (DL_FUNC) &_asmbPLS_asmbPLS_predict, 3},
+    {"_asmbPLS_mbPLS_fit", (DL_FUNC) &_asmbPLS_mbPLS_fit, 4},
+    {"_asmbPLS_quantile_f", (DL_FUNC) &_asmbPLS_quantile_f, 2},
+    {"_asmbPLS_sample_group", (DL_FUNC) &_asmbPLS_sample_group, 2},
+    {"_asmbPLS_stl_sort", (DL_FUNC) &_asmbPLS_stl_sort, 1},
+    {"_asmbPLS_weight_sparse", (DL_FUNC) &_asmbPLS_weight_sparse, 2},
     {NULL, NULL, 0}
 };
 
