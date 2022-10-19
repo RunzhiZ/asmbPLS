@@ -3,7 +3,7 @@
 \docType{data}
 \name{asmbPLSDA.fit.example}
 \alias{asmbPLSDA.fit.example}
-\title{Example data for asmbPLSDA fit}
+\title{Example data for asmbPLS-DA fit}
 \format{
 A list including 5 components: 
 1) X.matrix, a matrix with 100 samples (rows) and 400 features; 
@@ -17,6 +17,6 @@ A list including 5 components:
 data(asmbPLSDA.fit.example)
 }
 \description{
-Simulated data for asmbPLSDA fit.
+Simulated data for asmbPLS-DA fit.
 }
 \keyword{datasets}

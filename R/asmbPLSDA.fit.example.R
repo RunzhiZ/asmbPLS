@@ -1,6 +1,6 @@
-#' Example data for asmbPLSDA fit
+#' Example data for asmbPLS-DA fit
 #'
-#' Simulated data for asmbPLSDA fit. 
+#' Simulated data for asmbPLS-DA fit. 
 #'
 #' @docType data
 #'

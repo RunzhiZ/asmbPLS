@@ -3,7 +3,7 @@
 \docType{data}
 \name{asmbPLSDA.cv.example}
 \alias{asmbPLSDA.cv.example}
-\title{Example data for asmbPLSDA CV}
+\title{Example data for asmbPLS-DA CV}
 \format{
 A list including 6 components:  
 1) X.matrix, a matrix with 100 samples (rows) and 400 features; 
@@ -17,6 +17,6 @@ A list including 6 components:
 data(asmbPLSDA.cv.example)
 }
 \description{
-Simulated data for asmbPLSDA CV.
+Simulated data for asmbPLS-DA CV.
 }
 \keyword{datasets}

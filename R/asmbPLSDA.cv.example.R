@@ -1,6 +1,6 @@
-#' Example data for asmbPLSDA CV
+#' Example data for asmbPLS-DA CV
 #'
-#' Simulated data for asmbPLSDA CV. 
+#' Simulated data for asmbPLS-DA CV. 
 #'
 #' @docType data
 #'

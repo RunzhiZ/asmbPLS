@@ -3,7 +3,7 @@
 \docType{data}
 \name{asmbPLSDA.predict.example}
 \alias{asmbPLSDA.predict.example}
-\title{Example data for asmbPLSDA predict}
+\title{Example data for asmbPLS-DA predict}
 \format{
 A list including 7 components:  
 1) X.matrix, a matrix with 100 samples (rows) and 400 features; 
@@ -18,6 +18,6 @@ A list including 7 components:
 data(asmbPLSDA.predict.example)
 }
 \description{
-Simulated data for asmbPLSDA predict.
+Simulated data for asmbPLS-DA predict.
 }
 \keyword{datasets}

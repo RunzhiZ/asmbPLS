@@ -1,6 +1,6 @@
-#' Example data for asmbPLSDA predict
+#' Example data for asmbPLS-DA predict
 #'
-#' Simulated data for asmbPLSDA predict. 
+#' Simulated data for asmbPLS-DA predict. 
 #'
 #' @docType data
 #'
