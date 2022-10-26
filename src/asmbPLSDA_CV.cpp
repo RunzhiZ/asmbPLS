@@ -112,7 +112,7 @@ List asmbPLSDA_CV(arma::mat E_matrix,
       arma::mat F_matrix_training = F_matrix.rows(training_index);
       
       for (int l = 0; l < n_quantile_comb; ++l) {
-        quantile_table_accuracy.submat(l, 0, l, 1) = quantile_table.row(l);
+        quantile_table_accuracy.submat(l, 0, l, X_dim.size() - 1) = quantile_table.row(l);
         quantile_optimal_table.row(i) = quantile_table.row(l);
         arma::mat quantile_temp =  quantile_optimal_table.rows(0, i);
         // fit model using training set
@@ -124,11 +124,11 @@ List asmbPLSDA_CV(arma::mat E_matrix,
       }
     }
     arma::colvec results_CV_mean = mean(results_CV, 1);
-    quantile_table_accuracy.col(2) = results_CV_mean;
+    quantile_table_accuracy.col(X_dim.size()) = results_CV_mean;
     int index_max_accuracy = results_CV_mean.index_max();
     quantile_optimal_table.row(i) = quantile_table.row(index_max_accuracy);
-    quantile_table_CV.submat(i, 0, i, 1) = quantile_table.row(index_max_accuracy);
-    quantile_table_CV(i, 2) = results_CV_mean(index_max_accuracy);
+    quantile_table_CV.submat(i, 0, i, X_dim.size() - 1) = quantile_table.row(index_max_accuracy);
+    quantile_table_CV(i, X_dim.size()) = results_CV_mean(index_max_accuracy);
     
     CV_results(i) = quantile_table_accuracy;
   }

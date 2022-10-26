@@ -100,11 +100,11 @@ List asmbPLS_CV(arma::mat E_matrix,
       }
     }
     arma::colvec results_CV_mean = mean(results_CV, 1);
-    quantile_table_MSE.col(2) = results_CV_mean;
+    quantile_table_MSE.col(X_dim.size()) = results_CV_mean;
     int index_min_MSE = results_CV_mean.index_min();
     quantile_optimal_table.row(i) = quantile_table.row(index_min_MSE);
-    quantile_table_CV.submat(i, 0, i, 1) = quantile_table.row(index_min_MSE);
-    quantile_table_CV(i, 2) = results_CV_mean(index_min_MSE);
+    quantile_table_CV.submat(i, 0, i, X_dim.size() - 1) = quantile_table.row(index_min_MSE);
+    quantile_table_CV(i, X_dim.size()) = results_CV_mean(index_min_MSE);
     
     CV_results(i) = quantile_table_MSE;
   }
