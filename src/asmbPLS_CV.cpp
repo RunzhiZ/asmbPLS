@@ -57,7 +57,7 @@ List asmbPLS_CV(arma::mat E_matrix,
   
   
   arma::mat quantile_table_MSE(n_quantile_comb, X_dim.size() + 1);
-  quantile_table_MSE.cols(0, 1) = quantile_table;
+  quantile_table_MSE.cols(0, X_dim.size() - 1) = quantile_table;
   
   
   List CV_index_results = CV_index(Y_indicator, K_input, seed_input, only_observe_input);
