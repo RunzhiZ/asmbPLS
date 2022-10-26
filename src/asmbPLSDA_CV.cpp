@@ -73,7 +73,7 @@ List asmbPLSDA_CV(arma::mat E_matrix,
   List CV_index_results_output;
   
   arma::mat quantile_table_accuracy(n_quantile_comb, X_dim.size() + 1);
-  quantile_table_accuracy.cols(0, 1) = quantile_table;
+  quantile_table_accuracy.cols(0, X_dim.size() - 1) = quantile_table;
   
   
   if (outcome_type == "binary") {
