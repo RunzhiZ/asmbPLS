@@ -9,10 +9,9 @@ List asmbPLS_fit(arma::mat E_matrix,
                  NumericVector X_dim, 
                  arma::mat percent) {
   
-  Function quantile_f = Environment::namespace_env("asmbPLS")["quantile_f"];
+  Environment stats("package:stats");
+  Function quantile_f = stats["quantile"];
   Function weight_sparse = Environment::namespace_env("asmbPLS")["weight_sparse"];
-  // Function quantile_f("quantile_f");
-  // Function weight_sparse("weight_sparse");
   
   // // column mean and sd
   int E_col = E_matrix.n_cols;

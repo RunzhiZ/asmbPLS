@@ -11,10 +11,9 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
                                Nullable<LogicalVector> center = R_NilValue, 
                                Nullable<LogicalVector> scale = R_NilValue) {
   
-  Function quantile_f = Environment::namespace_env("asmbPLS")["quantile_f"];
+  Environment stats("package:stats");
+  Function quantile_f = stats["quantile"];
   Function weight_sparse = Environment::namespace_env("asmbPLS")["weight_sparse"];
-  // Function quantile_f("quantile_f");
-  // Function weight_sparse("weight_sparse");
   
   int E_col = E_matrix.n_cols;
   int F_col = F_matrix.n_cols;

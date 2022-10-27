@@ -14,8 +14,6 @@ List asmbPLSDA_fit(arma::mat X_matrix,
   
   Function asmbPLSDA_binary_fit = Environment::namespace_env("asmbPLS")["asmbPLSDA_binary_fit"];
   Function asmbPLSDA_morethantwo_fit = Environment::namespace_env("asmbPLS")["asmbPLSDA_morethantwo_fit"];
-  // Function asmbPLSDA_binary_fit("asmbPLSDA_binary_fit");
-  // Function asmbPLSDA_morethantwo_fit("asmbPLSDA_morethantwo_fit");
   
   List output;
   if (outcome_type == "binary") {
