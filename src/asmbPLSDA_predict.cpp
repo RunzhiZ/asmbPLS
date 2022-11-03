@@ -25,6 +25,7 @@ List asmbPLSDA_predict(arma::mat newdata,
   arma::rowvec Y_col_mean = as<arma::rowvec>(asmbPLSDA_results["Y_col_mean"]);
   arma::mat x_super_score = as<arma::mat>(asmbPLSDA_results["x_super_score"]);
   arma::mat F_matrix = as<arma::mat>(asmbPLSDA_results["Y_group"]);
+  x_super_score = x_super_score.cols(0, PLS_term_selected - 1);
   
   // newdata scale
   int E_col = newdata.n_cols;
