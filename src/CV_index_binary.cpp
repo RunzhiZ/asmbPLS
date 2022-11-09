@@ -4,15 +4,13 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 List CV_index_binary(arma::mat F_matrix, 
-                     int K_input, 
-                     int seed) {
+                     int K_input) {
   
   // call functions
   Function stl_sort = Environment::namespace_env("asmbPLS")["stl_sort"];
   Function sample_group = Environment::namespace_env("asmbPLS")["sample_group"];
   Environment base("package:base");
   Function sample_function = base["sample"];
-  Function set_seed = base["set.seed"];
   
   // Take same proportion samples from both training and validation sets
   arma::colvec F_group = unique(F_matrix);
@@ -24,8 +22,6 @@ List CV_index_binary(arma::mat F_matrix,
   int n_g1 = g1_index.n_rows;
   int n_g2 = g2_index.n_rows;
   
-  // set seed
-  set_seed(seed);
   NumericVector g1_index_resample = sample_function(g1_index, n_g1, false);
   NumericVector g2_index_resample = sample_function(g2_index, n_g2, false);
   

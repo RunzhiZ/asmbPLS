@@ -5,12 +5,12 @@ CV_index <- function(Y_indicator, K_input, seed, only_observe) {
     .Call(`_asmbPLS_CV_index`, Y_indicator, K_input, seed, only_observe)
 }
 
-CV_index_binary <- function(F_matrix, K_input, seed) {
-    .Call(`_asmbPLS_CV_index_binary`, F_matrix, K_input, seed)
+CV_index_binary <- function(F_matrix, K_input) {
+    .Call(`_asmbPLS_CV_index_binary`, F_matrix, K_input)
 }
 
-CV_index_morethan2levels <- function(F_matrix, K_input, seed) {
-    .Call(`_asmbPLS_CV_index_morethan2levels`, F_matrix, K_input, seed)
+CV_index_morethan2levels <- function(F_matrix, K_input) {
+    .Call(`_asmbPLS_CV_index_morethan2levels`, F_matrix, K_input)
 }
 
 Euclidean_distance <- function(matrix_fit, matrix_predict, F_matrix, outcome_type) {
@@ -33,8 +33,8 @@ Results_comparison_accuracy <- function(Y_predict, Y_true) {
     .Call(`_asmbPLS_Results_comparison_accuracy`, Y_predict, Y_true)
 }
 
-asmbPLSDA_CV <- function(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K = NULL, center = NULL, scale = NULL, seed = NULL) {
-    .Call(`_asmbPLS_asmbPLSDA_CV`, E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, center, scale, seed)
+asmbPLSDA_CV <- function(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, center = NULL, scale = NULL) {
+    .Call(`_asmbPLS_asmbPLSDA_CV`, E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, center, scale)
 }
 
 asmbPLSDA_binary_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent, center = NULL, scale = NULL) {

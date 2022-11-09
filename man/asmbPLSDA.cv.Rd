@@ -13,9 +13,9 @@ asmbPLSDA.cv(
   outcome.type,
   Method,
   k = 10,
+  ncv = 5,
   center = TRUE,
-  scale = TRUE,
-  seed = 1
+  scale = TRUE
 )
 }
 \arguments{
@@ -46,14 +46,13 @@ levels, the methods include "\code{Max_Y}", "\code{Euclidean_distance_X}",
 
 \item{k}{The number of folds of CV procedure. The default is 10.}
 
+\item{ncv}{The number of repetitions of CV.}
+
 \item{center}{A logical value indicating whether weighted mean center should 
 be implemented for \code{X.matrix} and \code{Y.matrix}. The default is TRUE.}
 
 \item{scale}{A logical value indicating whether scale should be 
 implemented for \code{X.matrix}. The default is TRUE.}
-
-\item{seed}{An integer given by user to obtain reproducible results. The
-default is 1.}
 }
 \value{
 \code{asmbPLSDA.cv} returns a list containing the following components:
@@ -80,8 +79,8 @@ Y.matrix = asmbPLSDA.cv.example$Y.matrix.binary,
 PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
 X.dim = asmbPLSDA.cv.example$X.dim, 
 quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
-outcome.type = "binary", Method = "fixed_cutoff", k = 10,
-center = TRUE, scale = TRUE, seed = 1)
+outcome.type = "binary", Method = "fixed_cutoff", k = 10, ncv = 5,
+center = TRUE, scale = TRUE)
 quantile.comb.binary <- cv.binary.results$quantile_table_CV[,1:2]
 
 ## cv to find the best quantile combinations for model fitting 
@@ -92,8 +91,8 @@ Y.matrix = asmbPLSDA.cv.example$Y.matrix.morethan2levels,
 PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
 X.dim = asmbPLSDA.cv.example$X.dim, 
 quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
-outcome.type = "morethan2levels", Method = "Max_Y", k = 10,
-center = TRUE, scale = TRUE, seed = 1)
+outcome.type = "morethan2levels", Method = "Max_Y", k = 10, ncv = 5,
+center = TRUE, scale = TRUE)
 quantile.comb.morethan2levels <- cv.morethan2levels.results$quantile_table_CV[,1:2]
  
 ## asmbPLSDA fit (binary outcome)

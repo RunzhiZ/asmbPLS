@@ -4,15 +4,13 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 List CV_index_morethan2levels(arma::mat F_matrix, 
-                              int K_input, 
-                              int seed) {
+                              int K_input) {
   
   // call functions
   Function stl_sort = Environment::namespace_env("asmbPLS")["stl_sort"];
   Function sample_group = Environment::namespace_env("asmbPLS")["sample_group"];
   Environment base("package:base");
   Function sample_function = base["sample"];
-  Function set_seed = base["set.seed"];
   
   // Take same proportion samples from both training and validation sets
   arma::colvec F_group = unique(F_matrix);
@@ -30,8 +28,6 @@ List CV_index_morethan2levels(arma::mat F_matrix,
     arma::uvec g_index = find(F_matrix.col(i) == 1);
     int n_g = g_index.n_rows;
     
-    // set seed
-    set_seed(seed);
     NumericVector g_index_resample = sample_function(g_index, n_g, false);
     NumericVector g_index_K = sample_group(n_g, K_input);
     g_index_resample_list[i] = g_index_resample;

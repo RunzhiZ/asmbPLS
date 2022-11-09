@@ -26,28 +26,26 @@ BEGIN_RCPP
 END_RCPP
 }
 // CV_index_binary
-List CV_index_binary(arma::mat F_matrix, int K_input, int seed);
-RcppExport SEXP _asmbPLS_CV_index_binary(SEXP F_matrixSEXP, SEXP K_inputSEXP, SEXP seedSEXP) {
+List CV_index_binary(arma::mat F_matrix, int K_input);
+RcppExport SEXP _asmbPLS_CV_index_binary(SEXP F_matrixSEXP, SEXP K_inputSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
     Rcpp::traits::input_parameter< int >::type K_input(K_inputSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(CV_index_binary(F_matrix, K_input, seed));
+    rcpp_result_gen = Rcpp::wrap(CV_index_binary(F_matrix, K_input));
     return rcpp_result_gen;
 END_RCPP
 }
 // CV_index_morethan2levels
-List CV_index_morethan2levels(arma::mat F_matrix, int K_input, int seed);
-RcppExport SEXP _asmbPLS_CV_index_morethan2levels(SEXP F_matrixSEXP, SEXP K_inputSEXP, SEXP seedSEXP) {
+List CV_index_morethan2levels(arma::mat F_matrix, int K_input);
+RcppExport SEXP _asmbPLS_CV_index_morethan2levels(SEXP F_matrixSEXP, SEXP K_inputSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
     Rcpp::traits::input_parameter< int >::type K_input(K_inputSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(CV_index_morethan2levels(F_matrix, K_input, seed));
+    rcpp_result_gen = Rcpp::wrap(CV_index_morethan2levels(F_matrix, K_input));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -116,8 +114,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // asmbPLSDA_CV
-List asmbPLSDA_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, String outcome_type, String Method, Nullable<int> K, Nullable<LogicalVector> center, Nullable<LogicalVector> scale, Nullable<int> seed);
-RcppExport SEXP _asmbPLS_asmbPLSDA_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP outcome_typeSEXP, SEXP MethodSEXP, SEXP KSEXP, SEXP centerSEXP, SEXP scaleSEXP, SEXP seedSEXP) {
+List asmbPLSDA_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, String outcome_type, String Method, int K, int ncv, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+RcppExport SEXP _asmbPLS_asmbPLSDA_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP outcome_typeSEXP, SEXP MethodSEXP, SEXP KSEXP, SEXP ncvSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -128,11 +126,11 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::mat >::type quantile_table(quantile_tableSEXP);
     Rcpp::traits::input_parameter< String >::type outcome_type(outcome_typeSEXP);
     Rcpp::traits::input_parameter< String >::type Method(MethodSEXP);
-    Rcpp::traits::input_parameter< Nullable<int> >::type K(KSEXP);
+    Rcpp::traits::input_parameter< int >::type K(KSEXP);
+    Rcpp::traits::input_parameter< int >::type ncv(ncvSEXP);
     Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
     Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
-    Rcpp::traits::input_parameter< Nullable<int> >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, center, scale, seed));
+    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, center, scale));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -313,8 +311,8 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_asmbPLS_CV_index", (DL_FUNC) &_asmbPLS_CV_index, 4},
-    {"_asmbPLS_CV_index_binary", (DL_FUNC) &_asmbPLS_CV_index_binary, 3},
-    {"_asmbPLS_CV_index_morethan2levels", (DL_FUNC) &_asmbPLS_CV_index_morethan2levels, 3},
+    {"_asmbPLS_CV_index_binary", (DL_FUNC) &_asmbPLS_CV_index_binary, 2},
+    {"_asmbPLS_CV_index_morethan2levels", (DL_FUNC) &_asmbPLS_CV_index_morethan2levels, 2},
     {"_asmbPLS_Euclidean_distance", (DL_FUNC) &_asmbPLS_Euclidean_distance, 4},
     {"_asmbPLS_Mahalanobis_distance", (DL_FUNC) &_asmbPLS_Mahalanobis_distance, 4},
     {"_asmbPLS_PCA_Mahalanobis_distance", (DL_FUNC) &_asmbPLS_PCA_Mahalanobis_distance, 2},
