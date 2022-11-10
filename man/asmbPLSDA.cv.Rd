@@ -41,8 +41,8 @@ levels.}
 methods include "\code{fixed_cutoff}", "\code{Euclidean_distance_X}" and
 "\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
 levels, the methods include "\code{Max_Y}", "\code{Euclidean_distance_X}",
-"\code{Mahalanobis_distance_X}", "\code{Euclidean_distance_Y}", 
-"\code{Mahalanobis_distance_Y}" and "\code{PCA_Mahalanobis_distance_Y}".}
+"\code{Mahalanobis_distance_X}", "\code{Euclidean_distance_Y}", and 
+"\code{PCA_Mahalanobis_distance_Y}".}
 
 \item{k}{The number of folds of CV procedure. The default is 10.}
 

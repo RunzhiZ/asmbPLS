@@ -9,6 +9,7 @@ arma::mat Mahalanobis_distance(arma::mat matrix_fit,
                                String outcome_type) {
   
   double n_row_predict = matrix_predict.n_rows;
+  double n_col_predict = matrix_predict.n_cols;
   double n_col_F = F_matrix.n_cols;
   arma::mat predict_output(n_row_predict, n_col_F);
   
@@ -60,7 +61,7 @@ arma::mat Mahalanobis_distance(arma::mat matrix_fit,
       g_S[i] = g_S_temp;
     }
     
-    arma::mat S(n_col_F, n_col_F);
+    arma::mat S(n_col_predict, n_col_predict);
     S = S.zeros();
     double n = 0;
     for (int i = 0; i < n_col_F; ++i) {

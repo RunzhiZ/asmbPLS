@@ -20,11 +20,6 @@ List asmbPLSDA_CV(arma::mat E_matrix,
   Function CV_index_binary = Environment::namespace_env("asmbPLS")["CV_index_binary"];
   Function CV_index_morethan2levels = Environment::namespace_env("asmbPLS")["CV_index_morethan2levels"];
   Function Results_comparison_accuracy = Environment::namespace_env("asmbPLS")["Results_comparison_accuracy"];
-  // Function asmbPLSDA_fit("asmbPLSDA_fit");
-  // Function asmbPLSDA_predict("asmbPLSDA_predict");
-  // Function CV_index_binary("CV_index_binary");
-  // Function CV_index_morethan2levels("CV_index_morethan2levels");
-  // Function Results_comparison_accuracy("Results_comparison_accuracy");
   
   // check if center or scale
   LogicalVector if_center;
@@ -110,7 +105,21 @@ List asmbPLSDA_CV(arma::mat E_matrix,
     CV_results(i) = quantile_table_accuracy;
   }
   
+  arma::colvec PLS_accuracy = quantile_table_CV.col(X_dim.size());
+  int optimal_nPLS = 1;
+  if(PLS_term > 1) {
+    for (int i = 0; i < PLS_term - 1; ++i) {
+      double current_accuracy = arma::as_scalar(PLS_accuracy.row(i));
+      double next_accuracy = arma::as_scalar(PLS_accuracy.row(i + 1));
+      if(next_accuracy > current_accuracy + 0.01) {
+        optimal_nPLS = optimal_nPLS + 1;
+      } else {break;}
+    }
+  }
+  
+  
   List output = List::create(_["quantile_table_CV"] = quantile_table_CV,
+                             _["optimal_nPLS"] = optimal_nPLS,
                              _["CV_results"] = CV_results);
   
   return(output);

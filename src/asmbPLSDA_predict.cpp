@@ -11,9 +11,6 @@ List asmbPLSDA_predict(arma::mat newdata,
   Function Euclidean_distance = Environment::namespace_env("asmbPLS")["Euclidean_distance"];
   Function Mahalanobis_distance = Environment::namespace_env("asmbPLS")["Mahalanobis_distance"];
   Function PCA_Mahalanobis_distance = Environment::namespace_env("asmbPLS")["PCA_Mahalanobis_distance"];
-  // Function Euclidean_distance("Euclidean_distance");
-  // Function Mahalanobis_distance("Mahalanobis_distance");
-  // Function PCA_Mahalanobis_distance("PCA_Mahalanobis_distance");
   
   // define
   NumericVector X_dim = asmbPLSDA_results["X_dim"];
@@ -147,7 +144,7 @@ List asmbPLSDA_predict(arma::mat newdata,
     }
     // Mahalanobis distance on X super score
     if (Method_used == "Mahalanobis_distance_X") {
-      Y_pred_output = as<arma::mat>(Euclidean_distance(x_super_score, t_T_all, F_matrix, outcome_type));
+      Y_pred_output = as<arma::mat>(Mahalanobis_distance(x_super_score, t_T_all, F_matrix, outcome_type));
     }
   }
   
@@ -167,14 +164,10 @@ List asmbPLSDA_predict(arma::mat newdata,
     }
     // Mahalanobis distance on X super score
     if (Method_used == "Mahalanobis_distance_X") {
-      Y_pred_output = as<arma::mat>(Euclidean_distance(x_super_score, t_T_all, F_matrix, outcome_type));
+      Y_pred_output = as<arma::mat>(Mahalanobis_distance(x_super_score, t_T_all, F_matrix, outcome_type));
     }
     // Euclidean distance on Y
     if (Method_used == "Euclidean_distance_Y") {
-      Y_pred_output = as<arma::mat>(Euclidean_distance(Y_fit, Y_pred, F_matrix, outcome_type));
-    }
-    // Mahalanobis distance on Y
-    if (Method_used == "Mahalanobis_distance_Y") {
       Y_pred_output = as<arma::mat>(Euclidean_distance(Y_fit, Y_pred, F_matrix, outcome_type));
     }
     // PCA + Mahalanobis distance on Y

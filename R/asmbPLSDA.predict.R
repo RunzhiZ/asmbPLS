@@ -12,8 +12,7 @@
 #' and "\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
 #' levels, the methods include "\code{Max_Y}" (default), 
 #' "\code{Euclidean_distance_X}", "\code{Mahalanobis_distance_X}", 
-#' "\code{Euclidean_distance_Y}", "\code{Mahalanobis_distance_Y}" and 
-#' "\code{PCA_Mahalanobis_distance_Y}".
+#' "\code{Euclidean_distance_Y}", and "\code{PCA_Mahalanobis_distance_Y}".
 #' 
 #' @return 
 #' \code{asmbPLSDA.predict} returns a list containing the following components:

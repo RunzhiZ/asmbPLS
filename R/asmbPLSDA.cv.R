@@ -20,8 +20,8 @@
 #' methods include "\code{fixed_cutoff}", "\code{Euclidean_distance_X}" and
 #' "\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
 #' levels, the methods include "\code{Max_Y}", "\code{Euclidean_distance_X}",
-#' "\code{Mahalanobis_distance_X}", "\code{Euclidean_distance_Y}", 
-#' "\code{Mahalanobis_distance_Y}" and "\code{PCA_Mahalanobis_distance_Y}".
+#' "\code{Mahalanobis_distance_X}", "\code{Euclidean_distance_Y}", and 
+#' "\code{PCA_Mahalanobis_distance_Y}".
 #' @param k The number of folds of CV procedure. The default is 10.
 #' @param ncv The number of repetitions of CV.
 #' @param center A logical value indicating whether weighted mean center should 
