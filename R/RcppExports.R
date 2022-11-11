@@ -49,8 +49,8 @@ asmbPLSDA_morethantwo_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, perce
     .Call(`_asmbPLS_asmbPLSDA_morethantwo_fit`, E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale)
 }
 
-asmbPLSDA_predict <- function(newdata, PLS_term_selected, asmbPLSDA_results, Method = NULL) {
-    .Call(`_asmbPLS_asmbPLSDA_predict`, newdata, PLS_term_selected, asmbPLSDA_results, Method)
+asmbPLSDA_predict <- function(asmbPLSDA_results, newdata, PLS_term_selected, Method = NULL) {
+    .Call(`_asmbPLS_asmbPLSDA_predict`, asmbPLSDA_results, newdata, PLS_term_selected, Method)
 }
 
 asmbPLS_CV <- function(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, Y_indicator, K = NULL, only_observe = NULL, seed = NULL) {
@@ -61,8 +61,8 @@ asmbPLS_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent) {
     .Call(`_asmbPLS_asmbPLS_fit`, E_matrix, F_matrix, PLS_term, X_dim, percent)
 }
 
-asmbPLS_predict <- function(newdata, PLS_term_selected, asmbPLS_results) {
-    .Call(`_asmbPLS_asmbPLS_predict`, newdata, PLS_term_selected, asmbPLS_results)
+asmbPLS_predict <- function(asmbPLS_results, newdata, PLS_term_selected) {
+    .Call(`_asmbPLS_asmbPLS_predict`, asmbPLS_results, newdata, PLS_term_selected)
 }
 
 mbPLS_fit <- function(E_matrix, F_matrix, PLS_term, X_dim) {

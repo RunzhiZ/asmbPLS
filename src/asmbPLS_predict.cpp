@@ -3,9 +3,9 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-arma::mat asmbPLS_predict(arma::mat newdata, 
-                          int PLS_term_selected, 
-                          List asmbPLS_results) {
+arma::mat asmbPLS_predict(List asmbPLS_results,
+                          arma::mat newdata, 
+                          int PLS_term_selected) {
   
   NumericVector X_dim = asmbPLS_results["X_dim"];
   

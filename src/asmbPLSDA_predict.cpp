@@ -3,9 +3,9 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-List asmbPLSDA_predict(arma::mat newdata, 
+List asmbPLSDA_predict(List asmbPLSDA_results,
+                       arma::mat newdata, 
                        int PLS_term_selected, 
-                       List asmbPLSDA_results,
                        Nullable<String> Method = R_NilValue) {
   
   Function Euclidean_distance = Environment::namespace_env("asmbPLS")["Euclidean_distance"];

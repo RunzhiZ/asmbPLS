@@ -17,10 +17,6 @@ List asmbPLS_CV(arma::mat E_matrix,
   Function asmbPLS_predict = Environment::namespace_env("asmbPLS")["asmbPLS_predict"];
   Function CV_index = Environment::namespace_env("asmbPLS")["CV_index"];
   Function Results_comparison_MSE = Environment::namespace_env("asmbPLS")["Results_comparison_MSE"];
-  // Function asmbPLS_fit("asmbPLS_fit");
-  // Function asmbPLS_predict("asmbPLS_predict");
-  // Function CV_index("CV_index");
-  // Function Results_comparison_MSE("Results_comparison_MSE");
   
   // Set default K = 5 if no input K
   int K_input;
@@ -94,7 +90,7 @@ List asmbPLS_CV(arma::mat E_matrix,
         arma::mat quantile_temp =  quantile_optimal_table.rows(0, i);
         // fit model using training set
         List asmbPLS_fit_results = asmbPLS_fit(E_matrix_training, F_matrix_training, i + 1, X_dim, quantile_temp);
-        arma::mat Y_pred = as<arma::mat>(asmbPLS_predict(E_matrix_validation, i + 1, asmbPLS_fit_results));
+        arma::mat Y_pred = as<arma::mat>(asmbPLS_predict(asmbPLS_fit_results, E_matrix_validation, i + 1));
         double MSE = as<double>(Results_comparison_MSE(Y_pred, F_matrix_validation));
         results_CV(l, j) = MSE;
       }

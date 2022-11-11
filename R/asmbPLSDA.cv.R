@@ -22,8 +22,8 @@
 #' levels, the methods include "\code{Max_Y}", "\code{Euclidean_distance_X}",
 #' "\code{Mahalanobis_distance_X}", "\code{Euclidean_distance_Y}", and 
 #' "\code{PCA_Mahalanobis_distance_Y}".
-#' @param k The number of folds of CV procedure. The default is 10.
-#' @param ncv The number of repetitions of CV.
+#' @param k The number of folds of CV procedure. The default is 5.
+#' @param ncv The number of repetitions of CV. The default is 5.
 #' @param center A logical value indicating whether weighted mean center should 
 #' be implemented for \code{X.matrix} and \code{Y.matrix}. The default is TRUE.
 #' @param scale  A logical value indicating whether scale should be 
@@ -87,7 +87,7 @@
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 
-asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k = 10, ncv = 5, center = TRUE, scale = TRUE) {
+asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k = 5, ncv = 5, center = TRUE, scale = TRUE) {
   ## error check
   stopifnot(!missing(X.matrix),
             !missing(Y.matrix),

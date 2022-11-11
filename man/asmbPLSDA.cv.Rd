@@ -12,7 +12,7 @@ asmbPLSDA.cv(
   quantile.comb.table,
   outcome.type,
   Method,
-  k = 10,
+  k = 5,
   ncv = 5,
   center = TRUE,
   scale = TRUE
@@ -44,9 +44,9 @@ levels, the methods include "\code{Max_Y}", "\code{Euclidean_distance_X}",
 "\code{Mahalanobis_distance_X}", "\code{Euclidean_distance_Y}", and 
 "\code{PCA_Mahalanobis_distance_Y}".}
 
-\item{k}{The number of folds of CV procedure. The default is 10.}
+\item{k}{The number of folds of CV procedure. The default is 5.}
 
-\item{ncv}{The number of repetitions of CV.}
+\item{ncv}{The number of repetitions of CV. The default is 5.}
 
 \item{center}{A logical value indicating whether weighted mean center should 
 be implemented for \code{X.matrix} and \code{Y.matrix}. The default is TRUE.}

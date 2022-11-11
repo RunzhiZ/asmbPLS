@@ -187,16 +187,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // asmbPLSDA_predict
-List asmbPLSDA_predict(arma::mat newdata, int PLS_term_selected, List asmbPLSDA_results, Nullable<String> Method);
-RcppExport SEXP _asmbPLS_asmbPLSDA_predict(SEXP newdataSEXP, SEXP PLS_term_selectedSEXP, SEXP asmbPLSDA_resultsSEXP, SEXP MethodSEXP) {
+List asmbPLSDA_predict(List asmbPLSDA_results, arma::mat newdata, int PLS_term_selected, Nullable<String> Method);
+RcppExport SEXP _asmbPLS_asmbPLSDA_predict(SEXP asmbPLSDA_resultsSEXP, SEXP newdataSEXP, SEXP PLS_term_selectedSEXP, SEXP MethodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type asmbPLSDA_results(asmbPLSDA_resultsSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type newdata(newdataSEXP);
     Rcpp::traits::input_parameter< int >::type PLS_term_selected(PLS_term_selectedSEXP);
-    Rcpp::traits::input_parameter< List >::type asmbPLSDA_results(asmbPLSDA_resultsSEXP);
     Rcpp::traits::input_parameter< Nullable<String> >::type Method(MethodSEXP);
-    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_predict(newdata, PLS_term_selected, asmbPLSDA_results, Method));
+    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_predict(asmbPLSDA_results, newdata, PLS_term_selected, Method));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -235,15 +235,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // asmbPLS_predict
-arma::mat asmbPLS_predict(arma::mat newdata, int PLS_term_selected, List asmbPLS_results);
-RcppExport SEXP _asmbPLS_asmbPLS_predict(SEXP newdataSEXP, SEXP PLS_term_selectedSEXP, SEXP asmbPLS_resultsSEXP) {
+arma::mat asmbPLS_predict(List asmbPLS_results, arma::mat newdata, int PLS_term_selected);
+RcppExport SEXP _asmbPLS_asmbPLS_predict(SEXP asmbPLS_resultsSEXP, SEXP newdataSEXP, SEXP PLS_term_selectedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type asmbPLS_results(asmbPLS_resultsSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type newdata(newdataSEXP);
     Rcpp::traits::input_parameter< int >::type PLS_term_selected(PLS_term_selectedSEXP);
-    Rcpp::traits::input_parameter< List >::type asmbPLS_results(asmbPLS_resultsSEXP);
-    rcpp_result_gen = Rcpp::wrap(asmbPLS_predict(newdata, PLS_term_selected, asmbPLS_results));
+    rcpp_result_gen = Rcpp::wrap(asmbPLS_predict(asmbPLS_results, newdata, PLS_term_selected));
     return rcpp_result_gen;
 END_RCPP
 }

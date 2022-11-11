@@ -4,15 +4,15 @@
 \alias{asmbPLSDA.predict}
 \title{Using an asmbPLS-DA model for prediction of new samples}
 \usage{
-asmbPLSDA.predict(X.matrix.new, PLS.comp, fit.results, Method = NULL)
+asmbPLSDA.predict(fit.results, X.matrix.new, PLS.comp, Method = NULL)
 }
 \arguments{
+\item{fit.results}{The output of either \code{\link[asmbPLS]{asmbPLSDA.fit}}}
+
 \item{X.matrix.new}{A predictors matrix, whose predictors are the same as 
 the predictors in model fitting.}
 
 \item{PLS.comp}{Number of PLS components used for prediction.}
-
-\item{fit.results}{The output of either \code{\link[asmbPLS]{asmbPLSDA.fit}}}
 
 \item{Method}{Decision rule used for prediction. For binary outcome, the 
 methods include "\code{fixed_cutoff}" (default), "\code{Euclidean_distance_X}" 
@@ -59,16 +59,17 @@ outcome.type = "morethan2levels")
 ## asmbPLSDA prediction for the new data, you could use different numbers of 
 ## PLS components for prediction
 Y.pred.binary.1 <- asmbPLSDA.predict(
-asmbPLSDA.predict.example$X.matrix.new, 1, 
-asmbPLSDA.binary.results)
+asmbPLSDA.binary.results, 
+asmbPLSDA.predict.example$X.matrix.new, 1)
 Y.pred.binary.2 <- asmbPLSDA.predict(
-asmbPLSDA.predict.example$X.matrix.new, 2, 
-asmbPLSDA.binary.results)
+asmbPLSDA.binary.results,
+asmbPLSDA.predict.example$X.matrix.new, 2)
+
 Y.pred.morethan2levels.1 <- asmbPLSDA.predict(
-asmbPLSDA.predict.example$X.matrix.new, 1, 
-asmbPLSDA.morethan2levels.results)
+asmbPLSDA.morethan2levels.results,
+asmbPLSDA.predict.example$X.matrix.new, 1)
 Y.pred.morethan2levels.2 <- asmbPLSDA.predict(
-asmbPLSDA.predict.example$X.matrix.new, 2, 
-asmbPLSDA.morethan2levels.results)
+asmbPLSDA.morethan2levels.results,
+asmbPLSDA.predict.example$X.matrix.new, 2)
 
 }

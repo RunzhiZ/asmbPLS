@@ -87,7 +87,7 @@ List asmbPLSDA_CV(arma::mat E_matrix,
           arma::mat quantile_temp =  quantile_optimal_table.rows(0, i);
           // fit model using training set
           List asmbPLSDA_fit_results = asmbPLSDA_fit(E_matrix_training, F_matrix_training, i+1, X_dim, quantile_temp, outcome_type, if_center, if_scale);
-          List asmbPLSDA_predict_results = asmbPLSDA_predict(E_matrix_validation, i+1, asmbPLSDA_fit_results, Method);
+          List asmbPLSDA_predict_results = asmbPLSDA_predict(asmbPLSDA_fit_results, E_matrix_validation, i+1, Method);
           arma::mat Y_pred = asmbPLSDA_predict_results["Y_pred"];
           double accuracy = as<double>(Results_comparison_accuracy(Y_pred, F_matrix_validation));
           results_CV(l, j) = accuracy;

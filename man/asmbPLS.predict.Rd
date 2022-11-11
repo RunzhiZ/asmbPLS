@@ -4,16 +4,16 @@
 \alias{asmbPLS.predict}
 \title{Using an asmbPLS model for prediction of new samples}
 \usage{
-asmbPLS.predict(X.matrix.new, PLS.comp, fit.results)
+asmbPLS.predict(fit.results, X.matrix.new, PLS.comp)
 }
 \arguments{
+\item{fit.results}{The output of either \code{\link[asmbPLS]{asmbPLS.fit}} or 
+\code{\link[asmbPLS]{mbPLS.fit}}.}
+
 \item{X.matrix.new}{A predictors matrix, whose predictors are the same as 
 the predictors in model fitting.}
 
 \item{PLS.comp}{Number of PLS components used for prediction.}
-
-\item{fit.results}{The output of either \code{\link[asmbPLS]{asmbPLS.fit}} or 
-\code{\link[asmbPLS]{mbPLS.fit}}.}
 }
 \value{
 \code{asmbPLS.predict} returns a matrix containing the prediction for the 
@@ -37,7 +37,7 @@ quantile.comb = asmbPLS.predict.example$quantile.comb)
 
 ## asmbPLS prediction for the new data, you could use different numbers of 
 ## PLS components for prediction
-Y.pred.1 <- asmbPLS.predict(asmbPLS.predict.example$X.matrix.new, 1, asmbPLS.results)
-Y.pred.2 <- asmbPLS.predict(asmbPLS.predict.example$X.matrix.new, 2, asmbPLS.results)
+Y.pred.1 <- asmbPLS.predict(asmbPLS.results, asmbPLS.predict.example$X.matrix.new, 1)
+Y.pred.2 <- asmbPLS.predict(asmbPLS.results, asmbPLS.predict.example$X.matrix.new, 2)
 
 }

@@ -48,26 +48,27 @@
 #' ## asmbPLSDA prediction for the new data, you could use different numbers of 
 #' ## PLS components for prediction
 #' Y.pred.binary.1 <- asmbPLSDA.predict(
-#' asmbPLSDA.predict.example$X.matrix.new, 1, 
-#' asmbPLSDA.binary.results)
+#' asmbPLSDA.binary.results, 
+#' asmbPLSDA.predict.example$X.matrix.new, 1)
 #' Y.pred.binary.2 <- asmbPLSDA.predict(
-#' asmbPLSDA.predict.example$X.matrix.new, 2, 
-#' asmbPLSDA.binary.results)
+#' asmbPLSDA.binary.results,
+#' asmbPLSDA.predict.example$X.matrix.new, 2)
+#' 
 #' Y.pred.morethan2levels.1 <- asmbPLSDA.predict(
-#' asmbPLSDA.predict.example$X.matrix.new, 1, 
-#' asmbPLSDA.morethan2levels.results)
+#' asmbPLSDA.morethan2levels.results,
+#' asmbPLSDA.predict.example$X.matrix.new, 1)
 #' Y.pred.morethan2levels.2 <- asmbPLSDA.predict(
-#' asmbPLSDA.predict.example$X.matrix.new, 2, 
-#' asmbPLSDA.morethan2levels.results)
+#' asmbPLSDA.morethan2levels.results,
+#' asmbPLSDA.predict.example$X.matrix.new, 2)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 
-asmbPLSDA.predict <- function(X.matrix.new, PLS.comp, fit.results, Method = NULL){
+asmbPLSDA.predict <- function(fit.results, X.matrix.new, PLS.comp, Method = NULL){
   stopifnot(!missing(X.matrix.new),
             !missing(PLS.comp),
             !missing(fit.results),
             is.matrix(X.matrix.new))
-  return(asmbPLSDA_predict(X.matrix.new, PLS.comp, fit.results, Method))
+  return(asmbPLSDA_predict(fit.results, X.matrix.new, PLS.comp, Method))
 }
