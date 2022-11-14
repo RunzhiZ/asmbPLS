@@ -114,8 +114,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // asmbPLSDA_CV
-List asmbPLSDA_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, String outcome_type, String Method, int K, int ncv, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
-RcppExport SEXP _asmbPLS_asmbPLSDA_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP outcome_typeSEXP, SEXP MethodSEXP, SEXP KSEXP, SEXP ncvSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
+List asmbPLSDA_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, String outcome_type, String Method, int K, int ncv, double expected_accuracy_increase, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+RcppExport SEXP _asmbPLS_asmbPLSDA_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP outcome_typeSEXP, SEXP MethodSEXP, SEXP KSEXP, SEXP ncvSEXP, SEXP expected_accuracy_increaseSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -128,9 +128,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< String >::type Method(MethodSEXP);
     Rcpp::traits::input_parameter< int >::type K(KSEXP);
     Rcpp::traits::input_parameter< int >::type ncv(ncvSEXP);
+    Rcpp::traits::input_parameter< double >::type expected_accuracy_increase(expected_accuracy_increaseSEXP);
     Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
     Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
-    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, center, scale));
+    rcpp_result_gen = Rcpp::wrap(asmbPLSDA_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, expected_accuracy_increase, center, scale));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -318,7 +319,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_asmbPLS_PCA_Mahalanobis_distance", (DL_FUNC) &_asmbPLS_PCA_Mahalanobis_distance, 2},
     {"_asmbPLS_Results_comparison_MSE", (DL_FUNC) &_asmbPLS_Results_comparison_MSE, 2},
     {"_asmbPLS_Results_comparison_accuracy", (DL_FUNC) &_asmbPLS_Results_comparison_accuracy, 2},
-    {"_asmbPLS_asmbPLSDA_CV", (DL_FUNC) &_asmbPLS_asmbPLSDA_CV, 11},
+    {"_asmbPLS_asmbPLSDA_CV", (DL_FUNC) &_asmbPLS_asmbPLSDA_CV, 12},
     {"_asmbPLS_asmbPLSDA_binary_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_binary_fit, 7},
     {"_asmbPLS_asmbPLSDA_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_fit, 8},
     {"_asmbPLS_asmbPLSDA_morethantwo_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_morethantwo_fit, 7},

@@ -12,6 +12,7 @@ List asmbPLSDA_CV(arma::mat E_matrix,
                   String Method,
                   int K,
                   int ncv,
+                  double expected_accuracy_increase,
                   Nullable<LogicalVector> center = R_NilValue, 
                   Nullable<LogicalVector> scale = R_NilValue) {
   
@@ -111,7 +112,7 @@ List asmbPLSDA_CV(arma::mat E_matrix,
     for (int i = 0; i < PLS_term - 1; ++i) {
       double current_accuracy = arma::as_scalar(PLS_accuracy.row(i));
       double next_accuracy = arma::as_scalar(PLS_accuracy.row(i + 1));
-      if(next_accuracy > current_accuracy + 0.01) {
+      if(next_accuracy > current_accuracy + expected_accuracy_increase) {
         optimal_nPLS = optimal_nPLS + 1;
       } else {break;}
     }

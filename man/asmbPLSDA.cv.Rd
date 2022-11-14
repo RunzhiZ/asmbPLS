@@ -14,6 +14,7 @@ asmbPLSDA.cv(
   Method,
   k = 5,
   ncv = 5,
+  expected.accuracy.increase = 0.005,
   center = TRUE,
   scale = TRUE
 )
@@ -48,6 +49,10 @@ levels, the methods include "\code{Max_Y}", "\code{Euclidean_distance_X}",
 
 \item{ncv}{The number of repetitions of CV. The default is 5.}
 
+\item{expected.accuracy.increase}{The accuracy you expect to increase after 
+including one more PLS component, which will affect the selection of optimal 
+PLS components. The default is 0.005.}
+
 \item{center}{A logical value indicating whether weighted mean center should 
 be implemented for \code{X.matrix} and \code{Y.matrix}. The default is TRUE.}
 
@@ -80,7 +85,7 @@ PLS.comp = asmbPLSDA.cv.example$PLS.comp,
 X.dim = asmbPLSDA.cv.example$X.dim, 
 quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
 outcome.type = "binary", Method = "fixed_cutoff", k = 10, ncv = 5,
-center = TRUE, scale = TRUE)
+expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE)
 quantile.comb.binary <- cv.binary.results$quantile_table_CV[,1:2]
 
 ## cv to find the best quantile combinations for model fitting 
@@ -92,7 +97,7 @@ PLS.comp = asmbPLSDA.cv.example$PLS.comp,
 X.dim = asmbPLSDA.cv.example$X.dim, 
 quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
 outcome.type = "morethan2levels", Method = "Max_Y", k = 10, ncv = 5,
-center = TRUE, scale = TRUE)
+expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE)
 quantile.comb.morethan2levels <- cv.morethan2levels.results$quantile_table_CV[,1:2]
  
 ## asmbPLSDA fit (binary outcome)

@@ -7,7 +7,7 @@
 asmbPLSDA.predict(fit.results, X.matrix.new, PLS.comp, Method = NULL)
 }
 \arguments{
-\item{fit.results}{The output of either \code{\link[asmbPLS]{asmbPLSDA.fit}}}
+\item{fit.results}{The output of \code{\link[asmbPLS]{asmbPLSDA.fit}}}
 
 \item{X.matrix.new}{A predictors matrix, whose predictors are the same as 
 the predictors in model fitting.}

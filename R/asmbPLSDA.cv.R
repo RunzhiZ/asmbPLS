@@ -24,6 +24,9 @@
 #' "\code{PCA_Mahalanobis_distance_Y}".
 #' @param k The number of folds of CV procedure. The default is 5.
 #' @param ncv The number of repetitions of CV. The default is 5.
+#' @param expected.accuracy.increase The accuracy you expect to increase after 
+#' including one more PLS component, which will affect the selection of optimal 
+#' PLS components. The default is 0.005.
 #' @param center A logical value indicating whether weighted mean center should 
 #' be implemented for \code{X.matrix} and \code{Y.matrix}. The default is TRUE.
 #' @param scale  A logical value indicating whether scale should be 
@@ -50,7 +53,7 @@
 #' X.dim = asmbPLSDA.cv.example$X.dim, 
 #' quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
 #' outcome.type = "binary", Method = "fixed_cutoff", k = 10, ncv = 5,
-#' center = TRUE, scale = TRUE)
+#' expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE)
 #' quantile.comb.binary <- cv.binary.results$quantile_table_CV[,1:2]
 #' 
 #' ## cv to find the best quantile combinations for model fitting 
@@ -62,7 +65,7 @@
 #' X.dim = asmbPLSDA.cv.example$X.dim, 
 #' quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
 #' outcome.type = "morethan2levels", Method = "Max_Y", k = 10, ncv = 5,
-#' center = TRUE, scale = TRUE)
+#' expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE)
 #' quantile.comb.morethan2levels <- cv.morethan2levels.results$quantile_table_CV[,1:2]
 #'  
 #' ## asmbPLSDA fit (binary outcome)
@@ -87,7 +90,8 @@
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 
-asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k = 5, ncv = 5, center = TRUE, scale = TRUE) {
+asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k = 5, ncv = 5, 
+                         expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE) {
   ## error check
   stopifnot(!missing(X.matrix),
             !missing(Y.matrix),
@@ -100,5 +104,5 @@ asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.tabl
             is.matrix(Y.matrix),
             is.matrix(quantile.comb.table),
             is.numeric(PLS.comp))
-  return(asmbPLSDA_CV(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k, ncv, center, scale))
+  return(asmbPLSDA_CV(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k, ncv, expected.accuracy.increase, center, scale))
 }

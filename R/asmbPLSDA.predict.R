@@ -3,10 +3,10 @@
 #' Derives predictions for new samples from a model fitted by the function
 #' \code{\link[asmbPLS]{asmbPLSDA.fit}}.
 #' 
+#' @param fit.results The output of \code{\link[asmbPLS]{asmbPLSDA.fit}}
 #' @param X.matrix.new A predictors matrix, whose predictors are the same as 
 #' the predictors in model fitting.
 #' @param PLS.comp Number of PLS components used for prediction.
-#' @param fit.results The output of either \code{\link[asmbPLS]{asmbPLSDA.fit}}
 #' @param Method Decision rule used for prediction. For binary outcome, the 
 #' methods include "\code{fixed_cutoff}" (default), "\code{Euclidean_distance_X}" 
 #' and "\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
