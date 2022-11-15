@@ -4,7 +4,7 @@
 #' cross-validation. Usually should be conducted before 
 #' \code{\link[asmbPLS]{asmbPLS.fit}} to obtain the quantile combinations.
 #' 
-#' @param X.matrix Predictors matrix. Samples in rows, variables in columns
+#' @param X.matrix Predictors matrix. Samples in rows, variables in columns.
 #' @param Y.matrix Outcome matrix. Samples in rows, this is a matrix with one 
 #' column (continuous variable). The outcome could be imputed survival time or 
 #' other types of continuous outcome. For survival time with right-censored 
@@ -39,25 +39,32 @@
 #' 
 #' @examples
 #' ## Use the example dataset
-#' data(asmbPLS.cv.example)
+#' data(asmbPLS.example)
+#' X.matrix = asmbPLS.example$X.matrix
+#' Y.matrix = asmbPLS.example$Y.matrix
+#' PLS.comp = asmbPLS.example$PLS.comp
+#' X.dim = asmbPLS.example$X.dim
+#' quantile.comb.table.cv = asmbPLS.example$quantile.comb.table.cv
+#' Y.indicator = asmbPLS.example$Y.indicator
 #' 
 #' ## cv to find the best quantile combinations for model fitting
-#' cv.results <- asmbPLS.cv(
-#' X.matrix = asmbPLS.cv.example$X.matrix, 
-#' Y.matrix = asmbPLS.cv.example$Y.matrix, 
-#' PLS.comp = asmbPLS.cv.example$PLS.comp, 
-#' X.dim = asmbPLS.cv.example$X.dim, 
-#' quantile.comb.table = asmbPLS.cv.example$quantile.comb.table, 
-#' Y.indicator = asmbPLS.cv.example$Y.indicator, k = 5, 
-#' only.observe = TRUE, seed = 123)
-#' quantile.comb <- cv.results$quantile_table_CV[,1:2]
+#' cv.results <- asmbPLS.cv(X.matrix = X.matrix, 
+#'                          Y.matrix = Y.matrix, 
+#'                          PLS.comp = PLS.comp, 
+#'                          X.dim = X.dim, 
+#'                          quantile.comb.table = quantile.comb.table.cv, 
+#'                          Y.indicator = Y.indicator, 
+#'                          k = 5, 
+#'                          only.observe = TRUE, 
+#'                          seed = 123)
+#' quantile.comb <- cv.results$quantile_table_CV[,1:length(X.dim)]
 #'  
 #' ## asmbPLS fit
-#' asmbPLS.results <- asmbPLS.fit(
-#' X.matrix = asmbPLS.cv.example$X.matrix, 
-#' Y.matrix = asmbPLS.cv.example$Y.matrix, 
-#' PLS.comp = asmbPLS.cv.example$PLS.comp, 
-#' X.dim = asmbPLS.cv.example$X.dim, quantile.comb = quantile.comb)
+#' asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix, 
+#'                                Y.matrix = Y.matrix, 
+#'                                PLS.comp = PLS.comp, 
+#'                                X.dim = X.dim, 
+#'                                quantile.comb = quantile.comb)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE

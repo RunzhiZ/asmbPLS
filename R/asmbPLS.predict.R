@@ -15,20 +15,27 @@
 #' 
 #' @examples
 #' ## Use the example dataset
-#' data(asmbPLS.predict.example)
+#' data(asmbPLS.example)
+#' X.matrix = asmbPLS.example$X.matrix
+#' X.matrix.new = asmbPLS.example$X.matrix.new
+#' Y.matrix = asmbPLS.example$Y.matrix
+#' PLS.comp = asmbPLS.example$PLS.comp
+#' X.dim = asmbPLS.example$X.dim
+#' quantile.comb = asmbPLS.example$quantile.comb
 #'  
 #' ## asmbPLS fit
-#' asmbPLS.results <- asmbPLS.fit(
-#' X.matrix = asmbPLS.predict.example$X.matrix, 
-#' Y.matrix = asmbPLS.predict.example$Y.matrix, 
-#' PLS.comp = asmbPLS.predict.example$PLS.comp, 
-#' X.dim = asmbPLS.predict.example$X.dim, 
-#' quantile.comb = asmbPLS.predict.example$quantile.comb)
+#' asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix, 
+#'                                Y.matrix = Y.matrix, 
+#'                                PLS.comp = PLS.comp, 
+#'                                X.dim = X.dim, 
+#'                                quantile.comb = quantile.comb)
 #' 
 #' ## asmbPLS prediction for the new data, you could use different numbers of 
 #' ## PLS components for prediction
-#' Y.pred.1 <- asmbPLS.predict(asmbPLS.results, asmbPLS.predict.example$X.matrix.new, 1)
-#' Y.pred.2 <- asmbPLS.predict(asmbPLS.results, asmbPLS.predict.example$X.matrix.new, 2)
+#' ## Use only the first PLS component 
+#' Y.pred.1 <- asmbPLS.predict(asmbPLS.results, X.matrix.new, 1)
+#' ## Use the first two PLS components
+#' Y.pred.2 <- asmbPLS.predict(asmbPLS.results, X.matrix.new, 2)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE

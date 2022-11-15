@@ -1,6 +1,6 @@
-#' Using an asmbPLS-DA model for prediction of new samples
+#' Using an asmbPLS-DA model for classification of new samples
 #'
-#' Derives predictions for new samples from a model fitted by the function
+#' Derives classification for new samples from a model fitted by the function
 #' \code{\link[asmbPLS]{asmbPLSDA.fit}}.
 #' 
 #' @param fit.results The output of \code{\link[asmbPLS]{asmbPLSDA.fit}}
@@ -25,41 +25,50 @@
 #' 
 #' @examples
 #' ## Use the example dataset
-#' data(asmbPLSDA.predict.example)
+#' data(asmbPLSDA.example)
+#' X.matrix = asmbPLSDA.example$X.matrix
+#' X.matrix.new = asmbPLSDA.example$X.matrix.new
+#' Y.matrix.binary = asmbPLSDA.example$Y.matrix.binary
+#' Y.matrix.morethan2levels = asmbPLSDA.example$Y.matrix.morethan2levels
+#' X.dim = asmbPLSDA.example$X.dim
+#' PLS.comp = asmbPLSDA.example$PLS.comp
+#' quantile.comb = asmbPLSDA.example$quantile.comb
 #'  
 #' ## asmbPLSDA fit for binary outcome
-#' asmbPLSDA.binary.results <- asmbPLSDA.fit(
-#' X.matrix = asmbPLSDA.predict.example$X.matrix, 
-#' Y.matrix = asmbPLSDA.predict.example$Y.matrix.binary, 
-#' PLS.comp = asmbPLSDA.predict.example$PLS.comp, 
-#' X.dim = asmbPLSDA.predict.example$X.dim, 
-#' quantile.comb = asmbPLSDA.predict.example$quantile.comb,
-#' outcome.type = "binary")
+#' asmbPLSDA.fit.binary <- asmbPLSDA.fit(X.matrix = X.matrix, 
+#'                                       Y.matrix = Y.matrix.binary, 
+#'                                       PLS.comp = PLS.comp, 
+#'                                       X.dim = X.dim, 
+#'                                       quantile.comb = quantile.comb,
+#'                                       outcome.type = "binary")
 #' 
 #' ## asmbPLSDA fit for categorical outcome with more than 2 levels
-#' asmbPLSDA.morethan2levels.results <- asmbPLSDA.fit(
-#' X.matrix = asmbPLSDA.predict.example$X.matrix, 
-#' Y.matrix = asmbPLSDA.predict.example$Y.matrix.morethan2levels, 
-#' PLS.comp = asmbPLSDA.predict.example$PLS.comp, 
-#' X.dim = asmbPLSDA.predict.example$X.dim, 
-#' quantile.comb = asmbPLSDA.predict.example$quantile.comb,
-#' outcome.type = "morethan2levels")
+#' asmbPLSDA.fit.morethan2levels <- asmbPLSDA.fit(X.matrix = X.matrix, 
+#'                                                Y.matrix = Y.matrix.morethan2levels,
+#'                                                PLS.comp = PLS.comp, 
+#'                                                X.dim = X.dim, 
+#'                                                quantile.comb = quantile.comb,
+#'                                                outcome.type = "morethan2levels")
 #' 
 #' ## asmbPLSDA prediction for the new data, you could use different numbers of 
 #' ## PLS components for prediction
-#' Y.pred.binary.1 <- asmbPLSDA.predict(
-#' asmbPLSDA.binary.results, 
-#' asmbPLSDA.predict.example$X.matrix.new, 1)
-#' Y.pred.binary.2 <- asmbPLSDA.predict(
-#' asmbPLSDA.binary.results,
-#' asmbPLSDA.predict.example$X.matrix.new, 2)
+#' ## Use only the first PLS component 
+#' Y.pred.binary.1 <- asmbPLSDA.predict(asmbPLSDA.fit.binary, 
+#'                                      X.matrix.new, 
+#'                                      PLS.comp = 1)
+#' ## Use the first two PLS components                                      
+#' Y.pred.binary.2 <- asmbPLSDA.predict(asmbPLSDA.fit.binary,
+#'                                      X.matrix.new, 
+#'                                      PLS.comp = 2)
 #' 
-#' Y.pred.morethan2levels.1 <- asmbPLSDA.predict(
-#' asmbPLSDA.morethan2levels.results,
-#' asmbPLSDA.predict.example$X.matrix.new, 1)
-#' Y.pred.morethan2levels.2 <- asmbPLSDA.predict(
-#' asmbPLSDA.morethan2levels.results,
-#' asmbPLSDA.predict.example$X.matrix.new, 2)
+#' ## PLS components for prediction
+#' Y.pred.morethan2levels.1 <- asmbPLSDA.predict(asmbPLSDA.fit.morethan2levels,
+#'                                               X.matrix.new, 
+#'                                               PLS.comp = 1)
+#' ## Use the first two PLS components     
+#' Y.pred.morethan2levels.2 <- asmbPLSDA.predict(asmbPLSDA.fit.morethan2levels,
+#'                                               X.matrix.new, 
+#'                                               PLS.comp = 2)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE

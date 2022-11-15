@@ -41,14 +41,17 @@
 
 #' @examples
 #' ## Use the example dataset
-#' data(asmbPLS.fit.example)
+#' data(asmbPLS.example)
+#' X.matrix = asmbPLS.example$X.matrix 
+#' Y.matrix = asmbPLS.example$Y.matrix
+#' PLS.comp = asmbPLS.example$PLS.comp
+#' X.dim = asmbPLS.example$X.dim
 #'  
 #' ## mbPLS fit
-#' mbPLS.results <- mbPLS.fit(
-#' X.matrix = asmbPLS.fit.example$X.matrix, 
-#' Y.matrix = asmbPLS.fit.example$Y.matrix, 
-#' PLS.comp = asmbPLS.fit.example$PLS.comp, 
-#' X.dim = asmbPLS.fit.example$X.dim)
+#' mbPLS.results <- mbPLS.fit(X.matrix = X.matrix, 
+#'                            Y.matrix = Y.matrix, 
+#'                            PLS.comp = PLS.comp, 
+#'                            X.dim = X.dim)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE

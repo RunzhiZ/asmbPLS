@@ -4,7 +4,7 @@
 #' (asmbPLS) with several explanatory blocks (X_1, ..., X_B) as our predictors
 #' to explain the outcome Y.
 #' 
-#' @param X.matrix Predictors matrix. Samples in rows, variables in columns
+#' @param X.matrix Predictors matrix. Samples in rows, variables in columns.
 #' @param Y.matrix Outcome matrix. Samples in rows, this is a matrix with one 
 #' column (continuous variable). The outcome could be imputed survival time. 
 #' For survival time with right-censored survival time and event indicator, the 
@@ -44,14 +44,19 @@
 
 #' @examples
 #' ## Use the example dataset
-#' data(asmbPLS.fit.example)
+#' data(asmbPLS.example)
+#' X.matrix = asmbPLS.example$X.matrix
+#' Y.matrix = asmbPLS.example$Y.matrix
+#' PLS.comp = asmbPLS.example$PLS.comp
+#' X.dim = asmbPLS.example$X.dim
+#' quantile.comb = asmbPLS.example$quantile.comb
 #'  
 #' ## asmbPLS fit
-#' asmbPLS.results <- asmbPLS.fit(X.matrix = asmbPLS.fit.example$X.matrix, 
-#' Y.matrix = asmbPLS.fit.example$Y.matrix, 
-#' PLS.comp = asmbPLS.fit.example$PLS.comp, 
-#' X.dim = asmbPLS.fit.example$X.dim, 
-#' quantile.comb = asmbPLS.fit.example$quantile.comb)
+#' asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix, 
+#'                                Y.matrix = Y.matrix, 
+#'                                PLS.comp = PLS.comp, 
+#'                                X.dim = X.dim, 
+#'                                quantile.comb = quantile.comb)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE

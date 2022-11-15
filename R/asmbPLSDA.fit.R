@@ -56,25 +56,29 @@
 
 #' @examples
 #' ## Use the example dataset
-#' data(asmbPLSDA.fit.example)
+#' data(asmbPLSDA.example)
+#' X.matrix = asmbPLSDA.example$X.matrix
+#' Y.matrix.binary = asmbPLSDA.example$Y.matrix.binary
+#' Y.matrix.morethan2levels = asmbPLSDA.example$Y.matrix.morethan2levels
+#' X.dim = asmbPLSDA.example$X.dim
+#' PLS.comp = asmbPLSDA.example$PLS.comp
+#' quantile.comb = asmbPLSDA.example$quantile.comb
 #'  
 #' ## asmbPLSDA fit for binary outcome
-#' asmbPLSDA.binary.results <- asmbPLSDA.fit(
-#' X.matrix = asmbPLSDA.fit.example$X.matrix, 
-#' Y.matrix = asmbPLSDA.fit.example$Y.matrix.binary, 
-#' PLS.comp = asmbPLSDA.fit.example$PLS.comp, 
-#' X.dim = asmbPLSDA.fit.example$X.dim, 
-#' quantile.comb = asmbPLSDA.fit.example$quantile.comb,
-#' outcome.type = "binary")
+#' asmbPLSDA.fit.binary <- asmbPLSDA.fit(X.matrix = X.matrix, 
+#'                                       Y.matrix = Y.matrix.binary, 
+#'                                       PLS.comp = PLS.comp, 
+#'                                       X.dim = X.dim, 
+#'                                       quantile.comb = quantile.comb,
+#'                                       outcome.type = "binary")
 #' 
 #' ## asmbPLSDA fit for categorical outcome with more than 2 levels
-#' asmbPLSDA.morethan2levels.results <- asmbPLSDA.fit(
-#' X.matrix = asmbPLSDA.fit.example$X.matrix, 
-#' Y.matrix = asmbPLSDA.fit.example$Y.matrix.morethan2levels, 
-#' PLS.comp = asmbPLSDA.fit.example$PLS.comp, 
-#' X.dim = asmbPLSDA.fit.example$X.dim, 
-#' quantile.comb = asmbPLSDA.fit.example$quantile.comb,
-#' outcome.type = "morethan2levels")
+#' asmbPLSDA.fit.morethan2levels <- asmbPLSDA.fit(X.matrix = X.matrix, 
+#'                                                Y.matrix = Y.matrix.morethan2levels, 
+#'                                                PLS.comp = PLS.comp, 
+#'                                                X.dim = X.dim, 
+#'                                                quantile.comb = quantile.comb,
+#'                                                outcome.type = "morethan2levels")
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE

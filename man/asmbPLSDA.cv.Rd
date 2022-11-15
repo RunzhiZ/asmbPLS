@@ -20,7 +20,7 @@ asmbPLSDA.cv(
 )
 }
 \arguments{
-\item{X.matrix}{Predictors matrix. Samples in rows, variables in columns}
+\item{X.matrix}{Predictors matrix. Samples in rows, variables in columns.}
 
 \item{Y.matrix}{Outcome matrix. Samples in rows, this is a matrix with one 
 column (binary) or multiple columns (more than 2 levels, dummy variables).}
@@ -63,10 +63,9 @@ implemented for \code{X.matrix}. The default is TRUE.}
 \code{asmbPLSDA.cv} returns a list containing the following components:
 \item{quantile_table_CV}{A matrix containing the selected quantile 
 combination and the corresponding accuracy of CV for each PLS component.}
+\item{optimal_nPLS}{Optimal number of PLS components.}
 \item{CV_results}{A list containing the details of the CV results for each PLS 
 component.}
-\item{CV_index}{A list containing the validation and training index for each 
-cross validation fold.}
 }
 \description{
 Function to find the best combinations of quantiles used for prediction via
@@ -75,47 +74,50 @@ cross-validation. Usually should be conducted before
 }
 \examples{
 ## Use the example dataset
-data(asmbPLSDA.cv.example)
+data(asmbPLSDA.example)
+X.matrix = asmbPLSDA.example$X.matrix
+Y.matrix.binary = asmbPLSDA.example$Y.matrix.binary
+Y.matrix.morethan2levels = asmbPLSDA.example$Y.matrix.morethan2levels
+X.dim = asmbPLSDA.example$X.dim
+PLS.comp = asmbPLSDA.example$PLS.comp
+quantile.comb.table.cv = asmbPLSDA.example$quantile.comb.table.cv
 
 ## cv to find the best quantile combinations for model fitting (binary outcome)
-cv.binary.results <- asmbPLSDA.cv(
-X.matrix = asmbPLSDA.cv.example$X.matrix, 
-Y.matrix = asmbPLSDA.cv.example$Y.matrix.binary, 
-PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
-X.dim = asmbPLSDA.cv.example$X.dim, 
-quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
-outcome.type = "binary", Method = "fixed_cutoff", k = 10, ncv = 5,
-expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE)
-quantile.comb.binary <- cv.binary.results$quantile_table_CV[,1:2]
+cv.results.binary <- asmbPLSDA.cv(X.matrix = X.matrix, 
+                                  Y.matrix = Y.matrix.binary, 
+                                  PLS.comp = PLS.comp, 
+                                  X.dim = X.dim, 
+                                  quantile.comb.table = quantile.comb.table.cv, 
+                                  outcome.type = "binary", 
+                                  Method = "fixed_cutoff")
+quantile.comb.binary <- cv.results.binary$quantile_table_CV[,1:length(X.dim)]
+
+## asmbPLSDA fit using the selected quantile combination (binary outcome)
+asmbPLSDA.fit.binary <- asmbPLSDA.fit(X.matrix = X.matrix, 
+                                      Y.matrix = Y.matrix.binary, 
+                                      PLS.comp = PLS.comp, 
+                                      X.dim = X.dim, 
+                                      quantile.comb = quantile.comb.binary,
+                                      outcome.type = "binary")
+
 
 ## cv to find the best quantile combinations for model fitting 
 ## (categorical outcome with more than 2 levels)
-cv.morethan2levels.results <- asmbPLSDA.cv(
-X.matrix = asmbPLSDA.cv.example$X.matrix, 
-Y.matrix = asmbPLSDA.cv.example$Y.matrix.morethan2levels, 
-PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
-X.dim = asmbPLSDA.cv.example$X.dim, 
-quantile.comb.table = asmbPLSDA.cv.example$quantile.comb.table, 
-outcome.type = "morethan2levels", Method = "Max_Y", k = 10, ncv = 5,
-expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE)
-quantile.comb.morethan2levels <- cv.morethan2levels.results$quantile_table_CV[,1:2]
- 
-## asmbPLSDA fit (binary outcome)
-asmbPLSDA.binary.results <- asmbPLSDA.fit(
-X.matrix = asmbPLSDA.cv.example$X.matrix, 
-Y.matrix = asmbPLSDA.cv.example$Y.matrix.binary, 
-PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
-X.dim = asmbPLSDA.cv.example$X.dim, 
-quantile.comb = quantile.comb.binary,
-"binary")
+cv.results.morethan2levels <- asmbPLSDA.cv(X.matrix = X.matrix, 
+                                           Y.matrix = Y.matrix.morethan2levels, 
+                                           PLS.comp = PLS.comp, 
+                                           X.dim = X.dim, 
+                                           quantile.comb.table = quantile.comb.table.cv, 
+                                           outcome.type = "morethan2levels", 
+                                           Method = "Max_Y")
+quantile.comb.morethan2levels <- cv.results.morethan2levels$quantile_table_CV[,1:length(X.dim)]
 
 ## asmbPLSDA fit (categorical outcome with more than 2 levels)
-asmbPLSDA.morethan2levels.results <- asmbPLSDA.fit(
-X.matrix = asmbPLSDA.cv.example$X.matrix, 
-Y.matrix = asmbPLSDA.cv.example$Y.matrix.morethan2levels, 
-PLS.comp = asmbPLSDA.cv.example$PLS.comp, 
-X.dim = asmbPLSDA.cv.example$X.dim, 
-quantile.comb = quantile.comb.morethan2levels,
-"morethan2levels")
+asmbPLSDA.fit.morethan2levels <- asmbPLSDA.fit(X.matrix = X.matrix, 
+                                               Y.matrix = Y.matrix.morethan2levels, 
+                                               PLS.comp = PLS.comp, 
+                                               X.dim = X.dim, 
+                                               quantile.comb = quantile.comb.morethan2levels,
+                                               outcome.type = "morethan2levels")
 
 }
