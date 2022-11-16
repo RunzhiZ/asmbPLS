@@ -50,6 +50,7 @@ fit information for model with specific decision rule:
 \item{fit.model}{A list containing model fit information.}
 \item{nPLS.optimal}{The optimal number of PLS components.}
 \item{weight}{The weight for this model.}
+\item{outcome.type}{The type of the outcome Y.}
 }
 \description{
 Function to fit multiple asmbPLS-DA models using cross validation results with 

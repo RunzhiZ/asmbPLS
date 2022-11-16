@@ -33,6 +33,7 @@
 #' \item{fit.model}{A list containing model fit information.}
 #' \item{nPLS.optimal}{The optimal number of PLS components.}
 #' \item{weight}{The weight for this model.}
+#' \item{outcome.type}{The type of the outcome Y.}
 #' 
 #' @examples
 #' ## Use the example dataset
@@ -136,7 +137,9 @@ asmbPLSDA.vote.fit <- function(X.matrix,
                                scale)
     fit.list[[i]] <- list(fit.model = fit.model, 
                           nPLS.optimal = nPLS_optimal[i], 
-                          weight = accuracy.weight[i])
+                          weight = accuracy.weight[i],
+                          outcome.type = outcome.type)
   }
+  
   return(fit.list)
 }

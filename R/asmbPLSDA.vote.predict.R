@@ -73,6 +73,7 @@
 
 asmbPLSDA.vote.predict <- function(fit.results, X.matrix.new) {
   G <- ncol(fit.results[[1]]$fit.model$Y_group)
+  outcome.type <- fit.results[[1]]$outcome.type
   predict.results <- matrix(0, nrow = nrow(X.matrix.new), ncol = G)
   predict.results.output <- matrix(0, nrow = nrow(X.matrix.new), ncol = G)
   for(i in 1:length(fit.results)) {
@@ -82,9 +83,14 @@ asmbPLSDA.vote.predict <- function(fit.results, X.matrix.new) {
     predict.results = predict.results + fit.single$weight * predict.single$Y_pred
   }
   
-  for(i in 1:nrow(predict.results)) {
-    max_index <- which.max(predict.results[i,])
-    predict.results.output[i, max_index] <- 1
+  if(outcome.type == "binary"){
+    predict.results.output <- matrix(as.numeric(predict.results > 0.5))
+  }
+  if(outcome.type == "morethan2levels"){
+    for(i in 1:nrow(predict.results)) {
+      max_index <- which.max(predict.results[i,])
+      predict.results.output[i, max_index] <- 1
+    }
   }
   return(predict.results.output)
 }
