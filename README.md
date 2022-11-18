@@ -1,4 +1,4 @@
-# asmbPLS: Adaptive Sparse Multi-block Partial Lease Square for Prediction using Multi-Omics Data
+# asmbPLS: Adaptive Sparse Multi-block Partial Least Square for Prediction using Multi-Omics Data
 
 Runzhi Zhang, Susmita Datta
 
