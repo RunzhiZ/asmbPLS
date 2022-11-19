@@ -8,8 +8,8 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
                           int PLS_term, 
                           NumericVector X_dim, 
                           arma::mat percent,
-                          Nullable<LogicalVector> center = R_NilValue, 
-                          Nullable<LogicalVector> scale = R_NilValue) {
+                          LogicalVector center, 
+                          LogicalVector scale) {
   
   Environment stats("package:stats");
   Function quantile_f = stats["quantile"];
@@ -28,56 +28,31 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
   arma::rowvec col_mean;
   arma::rowvec col_sd;
   double Y_mean;
-  LogicalVector if_center;
-  LogicalVector if_scale;
   String outcome_type = "binary";
   
-  if (center.isNotNull()) {
-    LogicalVector CT(center); 
-    if (CT[0]) {
-      // center = TRUE
-      if_center = 1;
-      // center for X
-      arma::rowvec col_mean_1 = mean(E_matrix_1, 0);
-      arma::rowvec col_mean_2 = mean(E_matrix_2, 0);
-      col_mean = (col_mean_1 + col_mean_2)/2;
-      for (int i = 0; i < E_col; ++i) {
-        arma::mat temp = E_matrix.col(i) - as_scalar(col_mean.col(i));
-        E_matrix.col(i) = temp;
-      }
-      // center for Y
-      Y_mean = as_scalar(mean(F_group, 0));
-      arma::mat temp = F_matrix - Y_mean;
-      F_matrix = temp;
-    } else {if_center = 0;}
-  } else {
-    // No input, set center = TRUE
-    if_center = 1;
+  //Center and scale
+  if(center[0]) {
     // center for X
     arma::rowvec col_mean_1 = mean(E_matrix_1, 0);
     arma::rowvec col_mean_2 = mean(E_matrix_2, 0);
     col_mean = (col_mean_1 + col_mean_2)/2;
     for (int i = 0; i < E_col; ++i) {
-      arma::mat temp = E_matrix.col(i) - as_scalar(col_mean.col(i));
+      arma::mat temp = E_matrix.col(i) - arma::as_scalar(col_mean.col(i));
       E_matrix.col(i) = temp;
     }
     // center for Y
-    Y_mean = as_scalar(mean(F_group, 0));
+    Y_mean = arma::as_scalar(mean(F_group, 0));
     arma::mat temp = F_matrix - Y_mean;
     F_matrix = temp;
   }
-  if (scale.isNotNull()) {
-    LogicalVector SC(scale); 
-    if (SC[0]) {
-      if_scale = 1;
-      col_sd = stddev(E_matrix, 0, 0 );
-      col_sd.elem( find(col_sd == 0) ).ones();
-      for (int i = 0; i < E_col; ++i) {
-        arma::mat temp = E_matrix.col(i)/as_scalar(col_sd.col(i));
-        E_matrix.col(i) = temp;
-      }
-    } else {if_scale = 0;}
-  } else {if_scale = 0;}
+  if(scale[0]) {
+    col_sd = stddev(E_matrix, 0, 0);
+    col_sd.elem(find(col_sd == 0)).ones();
+    for (int i = 0; i < E_col; ++i) {
+      arma::mat temp = E_matrix.col(i)/arma::as_scalar(col_sd.col(i));
+      E_matrix.col(i) = temp;
+    }
+  }
   
   //scaled data
   arma::mat E_matrix_scaled = E_matrix;
@@ -128,14 +103,14 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
       
       for (int j = 0; j < B; ++j) {
         X_matrix_temp = E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1);
-        w_temp = X_matrix_temp.t()*u/as_scalar(u.t()*u);
+        w_temp = X_matrix_temp.t()*u/arma::as_scalar(u.t()*u);
         if (percent(i, j) == 0) {
           l_temp = 0;
         } else {
           l_temp = as<double>(quantile_f(abs(w_temp), percent(i, j)));
         }
         w_temp = as<arma::mat>(weight_sparse(w_temp, l_temp));
-        w_temp = w_temp/sqrt(as_scalar(w_temp.t()*w_temp));
+        w_temp = w_temp/sqrt(arma::as_scalar(w_temp.t()*w_temp));
         t_temp = X_matrix_temp*w_temp/sqrt(X_dim[j+1]);
         t_cbind.col(j) = t_temp;
         
@@ -143,12 +118,12 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
         x_weight_mat.submat(sum(X_dim[Range(0, j)]), i, sum(X_dim[Range(0, j+1)]) - 1, i) = w_temp;
         x_score_mat.submat((j)*n_row, i, (j+1)*n_row-1, i) = t_temp;
       }
-      w_T_temp = t_cbind.t()*u/as_scalar(u.t()*u);
-      w_T_temp = w_T_temp/sqrt(as_scalar(w_T_temp.t()*w_T_temp));
-      t_diff = t_T - t_cbind*w_T_temp/as_scalar(w_T_temp.t()*w_T_temp);
-      t_T = t_cbind*w_T_temp/as_scalar(w_T_temp.t()*w_T_temp);
-      q = F_matrix.t()*t_T/as_scalar(t_T.t()*t_T);
-      u = F_matrix*q/as_scalar(q.t()*q);
+      w_T_temp = t_cbind.t()*u/arma::as_scalar(u.t()*u);
+      w_T_temp = w_T_temp/sqrt(arma::as_scalar(w_T_temp.t()*w_T_temp));
+      t_diff = t_T - t_cbind*w_T_temp/arma::as_scalar(w_T_temp.t()*w_T_temp);
+      t_T = t_cbind*w_T_temp/arma::as_scalar(w_T_temp.t()*w_T_temp);
+      q = F_matrix.t()*t_T/arma::as_scalar(t_T.t()*t_T);
+      u = F_matrix*q/arma::as_scalar(q.t()*q);
       // save matrix
       x_super_weight.col(i) = w_T_temp;
       x_super_score.col(i) = t_T;
@@ -161,7 +136,7 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
     // X and Y deflation
     for (int j = 0; j < B; ++j) {
       X_matrix_temp = E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1);
-      p_temp = X_matrix_temp.t()*t_T/as_scalar(t_T.t()*t_T);
+      p_temp = X_matrix_temp.t()*t_T/arma::as_scalar(t_T.t()*t_T);
       X_matrix_temp = X_matrix_temp - t_T*(p_temp.t());
       E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1) = X_matrix_temp;
       // save x_loading
@@ -188,8 +163,8 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
                              _["X_col_mean"] = col_mean,
                              _["Y_col_mean"] = Y_mean,
                              _["X_col_sd"] = col_sd,
-                             _["center"] = if_center,
-                             _["scale"] = if_scale,
+                             _["center"] = center,
+                             _["scale"] = scale,
                              _["Outcome_type"] = outcome_type,
                              _["Y_group"] = F_matrix_origin);
   

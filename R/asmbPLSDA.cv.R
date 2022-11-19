@@ -37,8 +37,6 @@
 #' \item{quantile_table_CV}{A matrix containing the selected quantile 
 #' combination and the corresponding accuracy of CV for each PLS component.}
 #' \item{optimal_nPLS}{Optimal number of PLS components.}
-#' \item{CV_results}{A list containing the details of the CV results for each PLS 
-#' component.}
 #' 
 #' @examples
 #' ## Use the example dataset

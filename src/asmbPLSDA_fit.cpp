@@ -9,8 +9,8 @@ List asmbPLSDA_fit(arma::mat X_matrix,
                    NumericVector X_dim, 
                    arma::mat percent, 
                    String outcome_type,
-                   Nullable<LogicalVector> center = R_NilValue, 
-                   Nullable<LogicalVector> scale = R_NilValue) {
+                   LogicalVector center, 
+                   LogicalVector scale) {
   
   Function asmbPLSDA_binary_fit = Environment::namespace_env("asmbPLS")["asmbPLSDA_binary_fit"];
   Function asmbPLSDA_morethantwo_fit = Environment::namespace_env("asmbPLS")["asmbPLSDA_morethantwo_fit"];

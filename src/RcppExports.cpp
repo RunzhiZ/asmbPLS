@@ -114,7 +114,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // asmbPLSDA_CV
-List asmbPLSDA_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, String outcome_type, String Method, int K, int ncv, double expected_accuracy_increase, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+List asmbPLSDA_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, String outcome_type, String Method, int K, int ncv, double expected_accuracy_increase, LogicalVector center, LogicalVector scale);
 RcppExport SEXP _asmbPLS_asmbPLSDA_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP outcome_typeSEXP, SEXP MethodSEXP, SEXP KSEXP, SEXP ncvSEXP, SEXP expected_accuracy_increaseSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -129,14 +129,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type K(KSEXP);
     Rcpp::traits::input_parameter< int >::type ncv(ncvSEXP);
     Rcpp::traits::input_parameter< double >::type expected_accuracy_increase(expected_accuracy_increaseSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type scale(scaleSEXP);
     rcpp_result_gen = Rcpp::wrap(asmbPLSDA_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, expected_accuracy_increase, center, scale));
     return rcpp_result_gen;
 END_RCPP
 }
 // asmbPLSDA_binary_fit
-List asmbPLSDA_binary_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+List asmbPLSDA_binary_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, LogicalVector center, LogicalVector scale);
 RcppExport SEXP _asmbPLS_asmbPLSDA_binary_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -146,14 +146,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type percent(percentSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type scale(scaleSEXP);
     rcpp_result_gen = Rcpp::wrap(asmbPLSDA_binary_fit(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale));
     return rcpp_result_gen;
 END_RCPP
 }
 // asmbPLSDA_fit
-List asmbPLSDA_fit(arma::mat X_matrix, arma::mat Y_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, String outcome_type, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+List asmbPLSDA_fit(arma::mat X_matrix, arma::mat Y_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, String outcome_type, LogicalVector center, LogicalVector scale);
 RcppExport SEXP _asmbPLS_asmbPLSDA_fit(SEXP X_matrixSEXP, SEXP Y_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP, SEXP outcome_typeSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -164,14 +164,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type percent(percentSEXP);
     Rcpp::traits::input_parameter< String >::type outcome_type(outcome_typeSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type scale(scaleSEXP);
     rcpp_result_gen = Rcpp::wrap(asmbPLSDA_fit(X_matrix, Y_matrix, PLS_term, X_dim, percent, outcome_type, center, scale));
     return rcpp_result_gen;
 END_RCPP
 }
 // asmbPLSDA_morethantwo_fit
-List asmbPLSDA_morethantwo_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, Nullable<LogicalVector> center, Nullable<LogicalVector> scale);
+List asmbPLSDA_morethantwo_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, LogicalVector center, LogicalVector scale);
 RcppExport SEXP _asmbPLS_asmbPLSDA_morethantwo_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP, SEXP centerSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -181,8 +181,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type percent(percentSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type center(centerSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type scale(scaleSEXP);
     rcpp_result_gen = Rcpp::wrap(asmbPLSDA_morethantwo_fit(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale));
     return rcpp_result_gen;
 END_RCPP

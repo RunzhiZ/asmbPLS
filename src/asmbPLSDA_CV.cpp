@@ -13,8 +13,8 @@ List asmbPLSDA_CV(arma::mat E_matrix,
                   int K,
                   int ncv,
                   double expected_accuracy_increase,
-                  Nullable<LogicalVector> center = R_NilValue, 
-                  Nullable<LogicalVector> scale = R_NilValue) {
+                  LogicalVector center, 
+                  LogicalVector scale) {
   
   Function asmbPLSDA_fit = Environment::namespace_env("asmbPLS")["asmbPLSDA_fit"];
   Function asmbPLSDA_predict = Environment::namespace_env("asmbPLS")["asmbPLSDA_predict"];
@@ -22,27 +22,10 @@ List asmbPLSDA_CV(arma::mat E_matrix,
   Function CV_index_morethan2levels = Environment::namespace_env("asmbPLS")["CV_index_morethan2levels"];
   Function Results_comparison_accuracy = Environment::namespace_env("asmbPLS")["Results_comparison_accuracy"];
   
-  // check if center or scale
-  LogicalVector if_center;
-  LogicalVector if_scale;
-  if(center.isNotNull()){
-    LogicalVector center_temp(center);
-    if_center = center_temp[0];
-  } else {
-    if_center = true;
-  }
-  if(scale.isNotNull()){
-    LogicalVector scale_temp(scale);
-    if_scale = scale_temp[0];
-  } else {
-    if_scale = true;
-  }
-  
   arma::mat quantile_optimal_table(PLS_term, X_dim.size());
   int n_quantile_comb = quantile_table.n_rows;
   arma::mat quantile_table_CV(PLS_term, X_dim.size() + 1);
   arma::mat results_CV(n_quantile_comb, K);
-  List CV_results(PLS_term);
   arma::uvec validation_index;
   arma::uvec training_index;
   
@@ -75,7 +58,6 @@ List asmbPLSDA_CV(arma::mat E_matrix,
         validation_index = as<arma::uvec>(CV_index_temp["validation_index"]);
         training_index = as<arma::uvec>(CV_index_temp["training_index"]);  
         
-        
         // obtain validation and training sets
         arma::mat E_matrix_validation = E_matrix.rows(validation_index);
         arma::mat F_matrix_validation = F_matrix.rows(validation_index);
@@ -87,7 +69,7 @@ List asmbPLSDA_CV(arma::mat E_matrix,
           quantile_optimal_table.row(i) = quantile_table.row(l);
           arma::mat quantile_temp =  quantile_optimal_table.rows(0, i);
           // fit model using training set
-          List asmbPLSDA_fit_results = asmbPLSDA_fit(E_matrix_training, F_matrix_training, i+1, X_dim, quantile_temp, outcome_type, if_center, if_scale);
+          List asmbPLSDA_fit_results = asmbPLSDA_fit(E_matrix_training, F_matrix_training, i+1, X_dim, quantile_temp, outcome_type, center, scale);
           List asmbPLSDA_predict_results = asmbPLSDA_predict(asmbPLSDA_fit_results, E_matrix_validation, i+1, Method);
           arma::mat Y_pred = asmbPLSDA_predict_results["Y_pred"];
           double accuracy = as<double>(Results_comparison_accuracy(Y_pred, F_matrix_validation));
@@ -102,8 +84,6 @@ List asmbPLSDA_CV(arma::mat E_matrix,
     quantile_optimal_table.row(i) = quantile_table.row(index_max_accuracy);
     quantile_table_CV.submat(i, 0, i, X_dim.size() - 1) = quantile_table.row(index_max_accuracy);
     quantile_table_CV(i, X_dim.size()) = results_CV_mean(index_max_accuracy);
-    
-    CV_results(i) = quantile_table_accuracy;
   }
   
   arma::colvec PLS_accuracy = quantile_table_CV.col(X_dim.size());
@@ -120,8 +100,7 @@ List asmbPLSDA_CV(arma::mat E_matrix,
   
   
   List output = List::create(_["quantile_table_CV"] = quantile_table_CV,
-                             _["optimal_nPLS"] = optimal_nPLS,
-                             _["CV_results"] = CV_results);
+                             _["optimal_nPLS"] = optimal_nPLS);
   
   return(output);
 }

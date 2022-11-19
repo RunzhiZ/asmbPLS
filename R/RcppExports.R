@@ -33,19 +33,19 @@ Results_comparison_accuracy <- function(Y_predict, Y_true) {
     .Call(`_asmbPLS_Results_comparison_accuracy`, Y_predict, Y_true)
 }
 
-asmbPLSDA_CV <- function(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, expected_accuracy_increase, center = NULL, scale = NULL) {
+asmbPLSDA_CV <- function(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, expected_accuracy_increase, center, scale) {
     .Call(`_asmbPLS_asmbPLSDA_CV`, E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, expected_accuracy_increase, center, scale)
 }
 
-asmbPLSDA_binary_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent, center = NULL, scale = NULL) {
+asmbPLSDA_binary_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale) {
     .Call(`_asmbPLS_asmbPLSDA_binary_fit`, E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale)
 }
 
-asmbPLSDA_fit <- function(X_matrix, Y_matrix, PLS_term, X_dim, percent, outcome_type, center = NULL, scale = NULL) {
+asmbPLSDA_fit <- function(X_matrix, Y_matrix, PLS_term, X_dim, percent, outcome_type, center, scale) {
     .Call(`_asmbPLS_asmbPLSDA_fit`, X_matrix, Y_matrix, PLS_term, X_dim, percent, outcome_type, center, scale)
 }
 
-asmbPLSDA_morethantwo_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent, center = NULL, scale = NULL) {
+asmbPLSDA_morethantwo_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale) {
     .Call(`_asmbPLS_asmbPLSDA_morethantwo_fit`, E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale)
 }
 

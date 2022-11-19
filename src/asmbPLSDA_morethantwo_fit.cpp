@@ -8,8 +8,8 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
                                int PLS_term, 
                                NumericVector X_dim, 
                                arma::mat percent,
-                               Nullable<LogicalVector> center = R_NilValue, 
-                               Nullable<LogicalVector> scale = R_NilValue) {
+                               LogicalVector center, 
+                               LogicalVector scale) {
   
   Environment stats("package:stats");
   Function quantile_f = stats["quantile"];
@@ -22,8 +22,7 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
   List F_matrix_group(F_col);
   arma::rowvec X_col_mean;
   arma::rowvec Y_col_mean;
-  LogicalVector if_center;
-  LogicalVector if_scale;
+  arma::rowvec col_sd;
   String outcome_type = "morethan2levels";
   
   // Different groups of samples
@@ -35,35 +34,8 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
     F_matrix_group[i] = F_matrix_temp;
   }
   
-  // Center and scale
-  if (center.isNotNull()) {
-    LogicalVector CT(center); 
-    if (CT[0]) {
-      if_center = 1;
-      arma::rowvec X_col_mean_sum(E_col, arma::fill::zeros);
-      arma::rowvec Y_col_mean_sum(F_col, arma::fill::zeros);
-      for (int i = 0; i < F_col; ++i) {
-        arma::rowvec X_col_mean_temp = arma::mean(as<arma::mat>(E_matrix_group[i]), 0);
-        X_col_mean_sum = X_col_mean_sum + X_col_mean_temp;
-        arma::rowvec Y_col_mean_temp = arma::mean(as<arma::mat>(F_matrix_group[i]), 0);
-        Y_col_mean_sum = Y_col_mean_sum + Y_col_mean_temp;
-        
-      }
-      X_col_mean = X_col_mean_sum/F_col;
-      Y_col_mean = Y_col_mean_sum/F_col;
-      
-      for (int i = 0; i < E_col; ++i) {
-        arma::mat temp = E_matrix.col(i) - as_scalar(X_col_mean.col(i));
-        E_matrix.col(i) = temp;
-      }
-      
-      for (int i = 0; i < F_col; ++i) {
-        arma::mat temp = F_matrix.col(i) - as_scalar(Y_col_mean.col(i));
-        F_matrix.col(i) = temp;
-      }
-    } else {if_center = 0;}
-  } else {
-    if_center = 1;
+  //Center and scale
+  if(center[0]) {
     arma::rowvec X_col_mean_sum(E_col, arma::fill::zeros);
     arma::rowvec Y_col_mean_sum(F_col, arma::fill::zeros);
     for (int i = 0; i < F_col; ++i) {
@@ -86,19 +58,15 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
       F_matrix.col(i) = temp;
     }
   }
-  arma::rowvec col_sd;
-  if (scale.isNotNull()) {
-    LogicalVector SC(scale); 
-    if (SC[0]) {
-      if_scale = 1;
-      col_sd = stddev(E_matrix, 0, 0 );
-      col_sd.elem( find(col_sd == 0) ).ones();
-      for (int i = 0; i < E_col; ++i) {
-        arma::mat temp = E_matrix.col(i)/as_scalar(col_sd.col(i));
-        E_matrix.col(i) = temp;
-      }
-    } else {if_scale = 0;}
-  } else {if_scale = 0;}
+  
+  if(scale[0]) {
+    col_sd = stddev(E_matrix, 0, 0 );
+    col_sd.elem( find(col_sd == 0) ).ones();
+    for (int i = 0; i < E_col; ++i) {
+      arma::mat temp = E_matrix.col(i)/arma::as_scalar(col_sd.col(i));
+      E_matrix.col(i) = temp;
+    }
+  }
   
   //scaled data
   arma::mat E_matrix_scaled = E_matrix;
@@ -140,7 +108,6 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
   // asmbPLS fit
   arma::mat t_diff = arma::ones<arma::colvec>(n_row);
   
-  
   for (int i = 0; i < PLS_term; ++i) {
     u = F_matrix.col(0); // u take the first column of F_matrix
     t_T = F_matrix.col(0);
@@ -149,14 +116,14 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
       
       for (int j = 0; j < B; ++j) {
         X_matrix_temp = E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1);
-        w_temp = X_matrix_temp.t()*u/as_scalar(u.t()*u);
+        w_temp = X_matrix_temp.t()*u/arma::as_scalar(u.t()*u);
         if (percent(i, j) == 0) {
           l_temp = 0;
         } else {
           l_temp = as<double>(quantile_f(abs(w_temp), percent(i, j)));
         }
         w_temp = as<arma::mat>(weight_sparse(w_temp, l_temp));
-        w_temp = w_temp/sqrt(as_scalar(w_temp.t()*w_temp));
+        w_temp = w_temp/sqrt(arma::as_scalar(w_temp.t()*w_temp));
         t_temp = X_matrix_temp*w_temp/sqrt(X_dim[j+1]);
         t_cbind.col(j) = t_temp;
         
@@ -164,12 +131,12 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
         x_weight_mat.submat(sum(X_dim[Range(0, j)]), i, sum(X_dim[Range(0, j+1)]) - 1, i) = w_temp;
         x_score_mat.submat((j)*n_row, i, (j+1)*n_row-1, i) = t_temp;
       }
-      w_T_temp = t_cbind.t()*u/as_scalar(u.t()*u);
-      w_T_temp = w_T_temp/sqrt(as_scalar(w_T_temp.t()*w_T_temp));
-      t_diff = t_T - t_cbind*w_T_temp/as_scalar(w_T_temp.t()*w_T_temp);
-      t_T = t_cbind*w_T_temp/as_scalar(w_T_temp.t()*w_T_temp);
-      q = F_matrix.t()*t_T/as_scalar(t_T.t()*t_T);
-      u = F_matrix*q/as_scalar(q.t()*q);
+      w_T_temp = t_cbind.t()*u/arma::as_scalar(u.t()*u);
+      w_T_temp = w_T_temp/sqrt(arma::as_scalar(w_T_temp.t()*w_T_temp));
+      t_diff = t_T - t_cbind*w_T_temp/arma::as_scalar(w_T_temp.t()*w_T_temp);
+      t_T = t_cbind*w_T_temp/arma::as_scalar(w_T_temp.t()*w_T_temp);
+      q = F_matrix.t()*t_T/arma::as_scalar(t_T.t()*t_T);
+      u = F_matrix*q/arma::as_scalar(q.t()*q);
       // save matrix
       x_super_weight.col(i) = w_T_temp;
       x_super_score.col(i) = t_T;
@@ -182,7 +149,7 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
     // X and Y deflation
     for (int j = 0; j < B; ++j) {
       X_matrix_temp = E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1);
-      p_temp = X_matrix_temp.t()*t_T/as_scalar(t_T.t()*t_T);
+      p_temp = X_matrix_temp.t()*t_T/arma::as_scalar(t_T.t()*t_T);
       X_matrix_temp = X_matrix_temp - t_T*(p_temp.t());
       E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1) = X_matrix_temp;
       // save x_loading
@@ -209,8 +176,8 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
                              _["X_col_mean"] = X_col_mean,
                              _["Y_col_mean"] = Y_col_mean,
                              _["X_col_sd"] = col_sd,
-                             _["center"] = if_center,
-                             _["scale"] = if_scale,
+                             _["center"] = center,
+                             _["scale"] = scale,
                              _["Outcome_type"] = outcome_type,
                              _["Y_group"] = F_matrix_origin);
   
