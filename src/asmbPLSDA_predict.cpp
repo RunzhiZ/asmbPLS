@@ -19,7 +19,6 @@ List asmbPLSDA_predict(List asmbPLSDA_results,
   LogicalVector if_scale = asmbPLSDA_results["scale"];
   arma::rowvec X_col_mean = as<arma::rowvec>(asmbPLSDA_results["X_col_mean"]);
   arma::rowvec X_col_sd = as<arma::rowvec>(asmbPLSDA_results["X_col_sd"]);
-  arma::rowvec Y_col_mean = as<arma::rowvec>(asmbPLSDA_results["Y_col_mean"]);
   arma::mat x_super_score = as<arma::mat>(asmbPLSDA_results["x_super_score"]);
   arma::mat F_matrix = as<arma::mat>(asmbPLSDA_results["Y_group"]);
   x_super_score = x_super_score.cols(0, PLS_term_selected - 1);
@@ -66,7 +65,7 @@ List asmbPLSDA_predict(List asmbPLSDA_results,
   // variables for convenient
   int B = X_dim.length();
   X_dim.push_front(0);
-  int F_col = Y_col_mean.n_cols;
+  int F_col = F_matrix.n_cols;
   int n_row = newdata.n_rows;
   int n_row_fit = x_super_score.n_rows;
   arma::mat y_weight = as<arma::mat>(asmbPLSDA_results["y_weight"]);
@@ -107,18 +106,6 @@ List asmbPLSDA_predict(List asmbPLSDA_results,
     Y_fit = Y_fit + Y_fit_temp;
     Y_pred_temp = t_T*q.t();
     Y_pred = Y_pred + Y_pred_temp;
-  }
-  
-  
-  
-  // if_center = 1, add the mean of Y back
-  if (if_center[0]) {
-    for (int i = 0; i < F_col; ++i) {
-      arma::mat temp_fit = Y_fit.col(i) + as_scalar(Y_col_mean.col(i));
-      arma::mat temp_predict = Y_pred.col(i) + as_scalar(Y_col_mean.col(i));
-      Y_fit.col(i) = temp_fit;
-      Y_pred.col(i) = temp_predict;
-    }
   }
   
   arma::mat Y_pred_output(n_row, F_col);
