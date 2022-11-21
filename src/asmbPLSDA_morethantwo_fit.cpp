@@ -21,6 +21,7 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
   List E_matrix_group(F_col);
   List F_matrix_group(F_col);
   arma::rowvec X_col_mean;
+  arma::rowvec Y_col_mean;
   arma::rowvec col_sd;
   String outcome_type = "morethan2levels";
   
@@ -28,21 +29,31 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
   for (int i = 0; i < F_col; ++i) {
     arma::uvec temp = find(F_matrix.col(i) == 1);
     arma::mat E_matrix_temp = E_matrix.rows(temp);
+    arma::mat F_matrix_temp = F_matrix.rows(temp);
     E_matrix_group[i] = E_matrix_temp;
+    F_matrix_group[i] = F_matrix_temp;
   }
   
   //Center and scale
   if(center[0]) {
     arma::rowvec X_col_mean_sum(E_col, arma::fill::zeros);
+    arma::rowvec Y_col_mean_sum(F_col, arma::fill::zeros);
     for (int i = 0; i < F_col; ++i) {
       arma::rowvec X_col_mean_temp = arma::mean(as<arma::mat>(E_matrix_group[i]), 0);
       X_col_mean_sum = X_col_mean_sum + X_col_mean_temp;
+      arma::rowvec Y_col_mean_temp = arma::mean(as<arma::mat>(F_matrix_group[i]), 0);
+      Y_col_mean_sum = Y_col_mean_sum + Y_col_mean_temp;
     }
     X_col_mean = X_col_mean_sum/F_col;
+    Y_col_mean = Y_col_mean_sum/F_col;
     
     for (int i = 0; i < E_col; ++i) {
       arma::mat temp = E_matrix.col(i) - arma::as_scalar(X_col_mean.col(i));
       E_matrix.col(i) = temp;
+    }
+    for (int i = 0; i < F_col; ++i) {
+      arma::mat temp = F_matrix.col(i) - arma::as_scalar(Y_col_mean.col(i));
+      F_matrix.col(i) = temp;
     }
   }
   
@@ -57,6 +68,7 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
   
   //scaled data
   arma::mat E_matrix_scaled = E_matrix;
+  arma::mat F_matrix_scaled = F_matrix;
   
   // variables for convenient
   int B = X_dim.length();
@@ -160,7 +172,9 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
                              _["y_weight"] = y_weight,
                              _["y_score"] = y_score,
                              _["X_scaled"] = E_matrix_scaled,
+                             _["Y_scaled"] = F_matrix_scaled,
                              _["X_col_mean"] = X_col_mean,
+                             _["Y_col_mean"] = Y_col_mean,
                              _["X_col_sd"] = col_sd,
                              _["center"] = center,
                              _["scale"] = scale,

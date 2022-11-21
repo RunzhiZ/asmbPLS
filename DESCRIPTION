@@ -2,7 +2,7 @@ Package: asmbPLS
 Type: Package
 Title: Adaptive Sparse Multi-block Partial Least Square (asmbPLS): prediction of outcome by clinical and multi-omics data
 Version: 2.0
-Date: 2022-10-19
+Date: 2022-11-20
 Author: Runzhi Zhang
 Maintainer: Runzhi Zhang <runzhi.zhang@ufl.edu>
 Description: asmbPLS, a supervised algorithm, is an extension of the smbPLS, which allows different quantiles to be used in 

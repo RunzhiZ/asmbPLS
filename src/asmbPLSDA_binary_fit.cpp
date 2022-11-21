@@ -27,6 +27,7 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
   // column mean and sd
   arma::rowvec col_mean;
   arma::rowvec col_sd;
+  double Y_mean;
   String outcome_type = "binary";
   
   //Center and scale
@@ -39,6 +40,10 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
       arma::mat temp = E_matrix.col(i) - arma::as_scalar(col_mean.col(i));
       E_matrix.col(i) = temp;
     }
+    // center for Y
+    Y_mean = arma::as_scalar(mean(F_group, 0));
+    arma::mat temp = F_matrix - Y_mean;
+    F_matrix = temp;
   }
   if(scale[0]) {
     col_sd = stddev(E_matrix, 0, 0);
@@ -51,6 +56,7 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
   
   //scaled data
   arma::mat E_matrix_scaled = E_matrix;
+  arma::mat F_matrix_scaled = F_matrix;
   
   // variables for convenient
   int B = X_dim.length();
@@ -153,7 +159,9 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
                              _["y_weight"] = y_weight,
                              _["y_score"] = y_score,
                              _["X_scaled"] = E_matrix_scaled,
+                             _["Y_scaled"] = F_matrix_scaled,
                              _["X_col_mean"] = col_mean,
+                             _["Y_col_mean"] = Y_mean,
                              _["X_col_sd"] = col_sd,
                              _["center"] = center,
                              _["scale"] = scale,
