@@ -111,8 +111,8 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
     double rand_col = random_col(0);
     u = F_matrix.col(rand_col);
     t_T = F_matrix.col(0);
-    
-    while (accu(abs(t_diff)) > 0.00001) {
+    int n_iter = 0;
+    while (accu(abs(t_diff)) > 0.00001 && n_iter <= 100) {
       
       for (int j = 0; j < B; ++j) {
         X_matrix_temp = E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1);
@@ -142,9 +142,15 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
       x_super_score.col(i) = t_T;
       y_weight.col(i) = q;
       y_score.col(i) = u;
+      // number of iterations
+      n_iter = n_iter + 1;
     } 
     // make while function run in the next loop
     t_diff = arma::ones<arma::colvec>(n_row);
+    
+    if (n_iter > 100) {
+      Rcout << "Warning: asmbPLSDA algorithm may not converge. \n";
+    }
     
     // X and Y deflation
     for (int j = 0; j < B; ++j) {
