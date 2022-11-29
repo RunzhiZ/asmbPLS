@@ -101,15 +101,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// Results_comparison_accuracy
-double Results_comparison_accuracy(arma::mat Y_predict, arma::mat Y_true);
-RcppExport SEXP _asmbPLS_Results_comparison_accuracy(SEXP Y_predictSEXP, SEXP Y_trueSEXP) {
+// Results_comparison_measure
+arma::rowvec Results_comparison_measure(arma::mat Y_predict, arma::mat Y_true);
+RcppExport SEXP _asmbPLS_Results_comparison_measure(SEXP Y_predictSEXP, SEXP Y_trueSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type Y_predict(Y_predictSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type Y_true(Y_trueSEXP);
-    rcpp_result_gen = Rcpp::wrap(Results_comparison_accuracy(Y_predict, Y_true));
+    rcpp_result_gen = Rcpp::wrap(Results_comparison_measure(Y_predict, Y_true));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -318,7 +318,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_asmbPLS_Mahalanobis_distance", (DL_FUNC) &_asmbPLS_Mahalanobis_distance, 4},
     {"_asmbPLS_PCA_Mahalanobis_distance", (DL_FUNC) &_asmbPLS_PCA_Mahalanobis_distance, 2},
     {"_asmbPLS_Results_comparison_MSE", (DL_FUNC) &_asmbPLS_Results_comparison_MSE, 2},
-    {"_asmbPLS_Results_comparison_accuracy", (DL_FUNC) &_asmbPLS_Results_comparison_accuracy, 2},
+    {"_asmbPLS_Results_comparison_measure", (DL_FUNC) &_asmbPLS_Results_comparison_measure, 2},
     {"_asmbPLS_asmbPLSDA_CV", (DL_FUNC) &_asmbPLS_asmbPLSDA_CV, 12},
     {"_asmbPLS_asmbPLSDA_binary_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_binary_fit, 7},
     {"_asmbPLS_asmbPLSDA_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_fit, 8},

@@ -15,12 +15,16 @@
 #' \code{\link[asmbPLS]{asmbPLSDA.cv}} using different decision rules, the name
 #' of each element in the list should be the corresponding name of decision 
 #' rule. 
+#' @param nPLS A vector containing the number of PLS components used for 
+#' different decision rules.
 #' @param outcome.type The type of the outcome Y. "\code{binary}" for binary 
 #' outcome, and "\code{morethan2levels}" for categorical outcome with more than 2 
 #' levels.
-#' @param expected.accuracy.increase The accuracy you expect to increase after 
-#' including one more PLS component, which will affect the selection of optimal 
-#' PLS components. The default is 0.005.
+#' @param method Vote options. "\code{unweighted}" gives each decision rule the 
+#' same weight; "\code{weighted}" assigns higher weight to method with higher 
+#' accuracy, i.e. weight = log(accuracy/(1-accuracy)); "\code{ranked}" ranks
+#' the given methods based on the average rank of methods using accuracy, 
+#' precision, recall and F1 score.
 #' @param center A logical value indicating whether weighted mean center should 
 #' be implemented for \code{X.matrix} and \code{Y.matrix}. The default is TRUE.
 #' @param scale  A logical value indicating whether scale should be 
@@ -31,7 +35,7 @@
 #' inputs for \code{\link{asmbPLSDA.vote.predict}}. Each list contains the 
 #' fit information for model with specific decision rule: 
 #' \item{fit.model}{A list containing model fit information.}
-#' \item{nPLS.optimal}{The optimal number of PLS components.}
+#' \item{nPLS}{The number of PLS components used.}
 #' \item{weight}{The weight for this model.}
 #' \item{outcome.type}{The type of the outcome Y.}
 #' 
@@ -39,6 +43,7 @@
 #' ## Use the example dataset
 #' data(asmbPLSDA.example)
 #' X.matrix = asmbPLSDA.example$X.matrix
+#' X.matrix.new = asmbPLSDA.example$X.matrix.new
 #' Y.matrix.morethan2levels = asmbPLSDA.example$Y.matrix.morethan2levels
 #' X.dim = asmbPLSDA.example$X.dim
 #' PLS.comp = asmbPLSDA.example$PLS.comp
@@ -83,8 +88,10 @@
 #' vote.fit <- asmbPLSDA.vote.fit(X.matrix = X.matrix, 
 #'                                Y.matrix = Y.matrix.morethan2levels, 
 #'                                X.dim = X.dim, 
+#'                                nPLS = c(2, 2, 2),
 #'                                cv.results.list = cv.results.list, 
-#'                                outcome.type = "morethan2levels")
+#'                                outcome.type = "morethan2levels",
+#'                                method = "weighted")
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
@@ -93,51 +100,58 @@
 asmbPLSDA.vote.fit <- function(X.matrix, 
                                Y.matrix, 
                                X.dim, 
-                               cv.results.list, 
+                               cv.results.list,
+                               nPLS,
                                outcome.type,
-                               expected.accuracy.increase = 0.005,
+                               method = "weighted",
                                center = TRUE, 
                                scale = TRUE) {
   
   n_dim = length(X.dim)
   fit.list = cv.results.list
-  accuracy.weight <- NULL
-  nPLS_optimal <- NULL
+  weight <- rep(0, length(cv.results.list))
+  measure <- NULL
   
-  for(i in 1:length(cv.results.list)) {
-    Method_used = names(cv.results.list)[i]
-    cv.results <- cv.results.list[[i]]
-    accuracy = cv.results[, n_dim + 1]
-    ## obtain optimal nPLS
-    nPLS_optimal_temp = 1
-    if(length(accuracy) > 1) {
-      for(j in 1:(length(accuracy) - 1)) {
-        if(accuracy[j + 1] > (accuracy[j] + expected.accuracy.increase)) {
-          nPLS_optimal_temp = nPLS_optimal_temp + 1
-        }
-      }
+  
+  if (method == "weighted") {
+    for(i in 1:length(cv.results.list)) {
+      cv.results <- cv.results.list[[i]]
+      accuracy = cv.results[, n_dim + 1]
+      weight[i] <- accuracy[nPLS[i]]
     }
-    nPLS_optimal[i] <- nPLS_optimal_temp
-    accuracy.weight[i] <- accuracy[nPLS_optimal_temp]
+    ## obtain weight for each method
+    weight = log(weight/(1-weight))
+    weight = weight/sum(weight)
   }
-  ## obtain weight for each method
-  accuracy.weight = log(accuracy.weight/(1-accuracy.weight))
-  accuracy.weight = accuracy.weight/sum(accuracy.weight)
+  if (method == "unweighted") {
+    for(i in 1:length(cv.results.list)) {
+      weight[i] <- 1/length(cv.results.list)
+    }
+  }
+  if (method == "ranked") {
+    for(i in 1:length(cv.results.list)) {
+      cv.results <- cv.results.list[[i]]
+      measure <- rbind(measure, cv.results[, (n_dim + 1):(n_dim + 4)])
+    }
+    rank_average <- apply(apply(measure, 2, rank), 1, mean)
+    max_index <- which.max(rank_average)
+    weight[max_index] <- 1
+  }
   
   for(i in 1:length(cv.results.list)) {
     cv.results <- cv.results.list[[i]]
-    quantile.comb = matrix(cv.results[1:nPLS_optimal[i], 1:n_dim], nrow = nPLS_optimal[i])
+    quantile.comb = matrix(cv.results[1:nPLS[i], 1:n_dim], nrow = nPLS[i])
     fit.model <- asmbPLSDA.fit(X.matrix,
                                Y.matrix,
-                               nPLS_optimal[i],
+                               nPLS[i],
                                X.dim,
                                quantile.comb,
                                outcome.type,
                                center,
                                scale)
     fit.list[[i]] <- list(fit.model = fit.model, 
-                          nPLS.optimal = nPLS_optimal[i], 
-                          weight = accuracy.weight[i],
+                          nPLS = nPLS[i], 
+                          weight = weight[i],
                           outcome.type = outcome.type)
   }
   

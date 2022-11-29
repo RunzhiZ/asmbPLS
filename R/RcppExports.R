@@ -29,8 +29,8 @@ Results_comparison_MSE <- function(Y_predict, Y_true) {
     .Call(`_asmbPLS_Results_comparison_MSE`, Y_predict, Y_true)
 }
 
-Results_comparison_accuracy <- function(Y_predict, Y_true) {
-    .Call(`_asmbPLS_Results_comparison_accuracy`, Y_predict, Y_true)
+Results_comparison_measure <- function(Y_predict, Y_true) {
+    .Call(`_asmbPLS_Results_comparison_measure`, Y_predict, Y_true)
 }
 
 asmbPLSDA_CV <- function(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, expected_accuracy_increase, center, scale) {

@@ -69,8 +69,10 @@ cv.results.list = list(Max_Y = quantile.comb.max,
 vote.fit <- asmbPLSDA.vote.fit(X.matrix = X.matrix, 
                                Y.matrix = Y.matrix.morethan2levels, 
                                X.dim = X.dim, 
+                               nPLS = c(2, 2, 2),
                                cv.results.list = cv.results.list, 
-                               outcome.type = "morethan2levels")
+                               outcome.type = "morethan2levels",
+                               method = "weighted")
 
 ## classification
 vote.predict <- asmbPLSDA.vote.predict(vote.fit, X.matrix.new)

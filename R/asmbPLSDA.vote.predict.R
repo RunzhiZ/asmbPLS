@@ -61,8 +61,10 @@
 #' vote.fit <- asmbPLSDA.vote.fit(X.matrix = X.matrix, 
 #'                                Y.matrix = Y.matrix.morethan2levels, 
 #'                                X.dim = X.dim, 
+#'                                nPLS = c(2, 2, 2),
 #'                                cv.results.list = cv.results.list, 
-#'                                outcome.type = "morethan2levels")
+#'                                outcome.type = "morethan2levels",
+#'                                method = "weighted")
 #' 
 #' ## classification
 #' vote.predict <- asmbPLSDA.vote.predict(vote.fit, X.matrix.new)
@@ -79,7 +81,7 @@ asmbPLSDA.vote.predict <- function(fit.results, X.matrix.new) {
   for(i in 1:length(fit.results)) {
     fit.single <- fit.results[[i]]
     Method_name = names(fit.results)[i]
-    predict.single <- asmbPLSDA.predict(fit.single$fit.model, X.matrix.new, fit.single$nPLS.optimal, Method = Method_name)
+    predict.single <- asmbPLSDA.predict(fit.single$fit.model, X.matrix.new, fit.single$nPLS, Method = Method_name)
     predict.results = predict.results + fit.single$weight * predict.single$Y_pred
   }
   
