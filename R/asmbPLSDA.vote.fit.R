@@ -131,7 +131,7 @@ asmbPLSDA.vote.fit <- function(X.matrix,
   if (method == "ranked") {
     for(i in 1:length(cv.results.list)) {
       cv.results <- cv.results.list[[i]]
-      measure <- rbind(measure, cv.results[, (n_dim + 1):(n_dim + 4)])
+      measure <- rbind(measure, cv.results[nPLS[i], (n_dim + 1):(n_dim + 4)])
     }
     rank_average <- apply(apply(measure, 2, rank), 1, mean)
     max_index <- which.max(rank_average)
