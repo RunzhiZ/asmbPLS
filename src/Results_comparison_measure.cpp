@@ -43,4 +43,4 @@ arma::rowvec Results_comparison_measure(arma::mat Y_predict,
   arma::rowvec output = mean(output_temp, 0);
   
   return(output);
-} 
+}

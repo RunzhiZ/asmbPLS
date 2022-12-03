@@ -9,7 +9,8 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
                           NumericVector X_dim, 
                           arma::mat percent,
                           LogicalVector center, 
-                          LogicalVector scale) {
+                          LogicalVector scale,
+                          int maxiter) {
   
   Environment stats("package:stats");
   Function quantile_f = stats["quantile"];
@@ -98,8 +99,8 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
   for (int i = 0; i < PLS_term; ++i) {
     u = F_matrix;
     t_T = F_matrix;
-    
-    while (accu(abs(t_diff)) > 0.00001) {
+    int n_iter = 0;
+    while (accu(abs(t_diff)) > 0.00001 && n_iter <= maxiter) {
       
       for (int j = 0; j < B; ++j) {
         X_matrix_temp = E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1);
@@ -129,6 +130,8 @@ List asmbPLSDA_binary_fit(arma::mat E_matrix,
       x_super_score.col(i) = t_T;
       y_weight.col(i) = q;
       y_score.col(i) = u;
+      // number of iterations
+      n_iter = n_iter + 1;
     } 
     // make while function run in the next loop
     t_diff = arma::ones<arma::mat>(n_row, 1);

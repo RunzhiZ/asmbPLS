@@ -84,7 +84,7 @@
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 
-asmbPLSDA.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, outcome.type, center = TRUE, scale = TRUE){
+asmbPLSDA.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, outcome.type, center = TRUE, scale = TRUE, maxiter = 100){
   stopifnot(!missing(X.matrix),
             !missing(Y.matrix),
             !missing(PLS.comp),
@@ -94,5 +94,5 @@ asmbPLSDA.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, ou
             is.matrix(X.matrix), 
             is.matrix(Y.matrix),
             is.matrix(quantile.comb))
-  return(asmbPLSDA_fit(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, outcome.type, center, scale))
+  return(asmbPLSDA_fit(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, outcome.type, center, scale, maxiter))
 }

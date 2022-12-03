@@ -91,7 +91,7 @@
 #' @importFrom Rcpp sourceCpp
 
 asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k = 5, ncv = 5, 
-                         expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE) {
+                         expected.accuracy.increase = 0.005, center = TRUE, scale = TRUE, maxiter = 100) {
   ## error check
   stopifnot(!missing(X.matrix),
             !missing(Y.matrix),
@@ -104,5 +104,5 @@ asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.tabl
             is.matrix(Y.matrix),
             is.matrix(quantile.comb.table),
             is.numeric(PLS.comp))
-  return(asmbPLSDA_CV(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k, ncv, expected.accuracy.increase, center, scale))
+  return(asmbPLSDA_CV(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, outcome.type, Method, k, ncv, expected.accuracy.increase, center, scale, maxiter))
 }

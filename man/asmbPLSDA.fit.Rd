@@ -12,7 +12,8 @@ asmbPLSDA.fit(
   quantile.comb,
   outcome.type,
   center = TRUE,
-  scale = TRUE
+  scale = TRUE,
+  maxiter = 100
 )
 }
 \arguments{

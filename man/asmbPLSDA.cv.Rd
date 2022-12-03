@@ -16,7 +16,8 @@ asmbPLSDA.cv(
   ncv = 5,
   expected.accuracy.increase = 0.005,
   center = TRUE,
-  scale = TRUE
+  scale = TRUE,
+  maxiter = 100
 )
 }
 \arguments{

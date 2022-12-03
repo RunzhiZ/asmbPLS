@@ -9,7 +9,8 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
                                NumericVector X_dim, 
                                arma::mat percent,
                                LogicalVector center, 
-                               LogicalVector scale) {
+                               LogicalVector scale,
+                               int maxiter) {
   
   Environment stats("package:stats");
   Function quantile_f = stats["quantile"];
@@ -147,10 +148,6 @@ List asmbPLSDA_morethantwo_fit(arma::mat E_matrix,
     } 
     // make while function run in the next loop
     t_diff = arma::ones<arma::colvec>(n_row);
-    
-    if (n_iter > 1000) {
-      Rcout << "Warning: asmbPLSDA algorithm may not converge. \n";
-    }
     
     // X and Y deflation
     for (int j = 0; j < B; ++j) {
