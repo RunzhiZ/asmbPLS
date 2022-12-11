@@ -7,7 +7,7 @@
 #' @param X.matrix.new A predictors matrix, whose predictors are the same as 
 #' the predictors in model fitting.
 #' @param PLS.comp Number of PLS components used for prediction.
-#' @param Method Decision rule used for prediction. For binary outcome, the 
+#' @param method Decision rule used for prediction. For binary outcome, the 
 #' methods include "\code{fixed_cutoff}" (default), "\code{Euclidean_distance_X}" 
 #' and "\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
 #' levels, the methods include "\code{Max_Y}" (default), 
@@ -21,7 +21,7 @@
 #' decision rules can be used to obtain different Y_pred.}
 #' \item{NewX_super_score}{Predicted super score for new samples, which can be
 #' used as predictors for other classification algorithms.}
-#' \item{Method}{Decision rule used for preidction.}
+#' \item{method}{Decision rule used for preidction.}
 #' 
 #' @examples
 #' ## Use the example dataset
@@ -29,7 +29,7 @@
 #' X.matrix = asmbPLSDA.example$X.matrix
 #' X.matrix.new = asmbPLSDA.example$X.matrix.new
 #' Y.matrix.binary = asmbPLSDA.example$Y.matrix.binary
-#' Y.matrix.morethan2levels = asmbPLSDA.example$Y.matrix.morethan2levels
+#' Y.matrix.multiclass = asmbPLSDA.example$Y.matrix.morethan2levels
 #' X.dim = asmbPLSDA.example$X.dim
 #' PLS.comp = asmbPLSDA.example$PLS.comp
 #' quantile.comb = asmbPLSDA.example$quantile.comb
@@ -43,12 +43,12 @@
 #'                                       outcome.type = "binary")
 #' 
 #' ## asmbPLSDA fit for categorical outcome with more than 2 levels
-#' asmbPLSDA.fit.morethan2levels <- asmbPLSDA.fit(X.matrix = X.matrix, 
-#'                                                Y.matrix = Y.matrix.morethan2levels,
-#'                                                PLS.comp = PLS.comp, 
-#'                                                X.dim = X.dim, 
-#'                                                quantile.comb = quantile.comb,
-#'                                                outcome.type = "morethan2levels")
+#' asmbPLSDA.fit.multiclass <- asmbPLSDA.fit(X.matrix = X.matrix, 
+#'                                           Y.matrix = Y.matrix.multiclass,
+#'                                           PLS.comp = PLS.comp, 
+#'                                           X.dim = X.dim, 
+#'                                           quantile.comb = quantile.comb,
+#'                                           outcome.type = "multiclass")
 #' 
 #' ## asmbPLSDA prediction for the new data, you could use different numbers of 
 #' ## PLS components for prediction
@@ -62,22 +62,25 @@
 #'                                      PLS.comp = 2)
 #' 
 #' ## PLS components for prediction
-#' Y.pred.morethan2levels.1 <- asmbPLSDA.predict(asmbPLSDA.fit.morethan2levels,
-#'                                               X.matrix.new, 
-#'                                               PLS.comp = 1)
+#' Y.pred.multiclass.1 <- asmbPLSDA.predict(asmbPLSDA.fit.multiclass,
+#'                                          X.matrix.new, 
+#'                                          PLS.comp = 1)
 #' ## Use the first two PLS components     
-#' Y.pred.morethan2levels.2 <- asmbPLSDA.predict(asmbPLSDA.fit.morethan2levels,
-#'                                               X.matrix.new, 
-#'                                               PLS.comp = 2)
+#' Y.pred.multiclass.2 <- asmbPLSDA.predict(asmbPLSDA.fit.multiclass,
+#'                                          X.matrix.new, 
+#'                                          PLS.comp = 2)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 
-asmbPLSDA.predict <- function(fit.results, X.matrix.new, PLS.comp, Method = NULL){
+asmbPLSDA.predict <- function(fit.results, X.matrix.new, PLS.comp, method = NULL){
+  outcome.type <- fit.results$Outcome_type
+  if(outcome.type == "binary" & is.null(method)) {method <- "fixed_cutoff"}
+  if(outcome.type == "multiclass" & is.null(method)) {method <- "Max_Y"}
   stopifnot(!missing(X.matrix.new),
             !missing(PLS.comp),
             !missing(fit.results),
             is.matrix(X.matrix.new))
-  return(asmbPLSDA_predict(fit.results, X.matrix.new, PLS.comp, Method))
+  return(asmbPLSDA_predict(fit.results, X.matrix.new, PLS.comp, method))
 }

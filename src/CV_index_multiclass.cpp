@@ -3,8 +3,8 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-List CV_index_binary(arma::mat F_matrix, 
-                     int K_input) {
+List CV_index_multiclass(arma::mat F_matrix, 
+                              int K_input) {
   
   // call functions
   Function stl_sort = Environment::namespace_env("asmbPLS")["stl_sort"];
@@ -14,15 +14,15 @@ List CV_index_binary(arma::mat F_matrix,
   
   // Take same proportion samples from both training and validation sets
   int n_sample = F_matrix.n_rows; // Number of samples
-  arma::colvec F_group = unique(F_matrix);
+  int F_col = F_matrix.n_cols; // Number of groups of samples
   
   List CV_index_output(K_input);
   NumericVector index_resample_all(n_sample);
   NumericVector index_K_all(n_sample);
   int n_g_start = 0;
   
-  for (int i = 0; i < 2; ++i) {
-    arma::uvec index_g = find(F_matrix == F_group[i]); // group indices
+  for (int i = 0; i < F_col; ++i) {
+    arma::uvec index_g = find(F_matrix.col(i) == 1); // group indices
     int n_g = index_g.n_rows; // Number of sample in the specific group
     NumericVector index_resample_g = sample_function(index_g, n_g, false); // Shuffle the indices
     NumericVector index_K_g = sample_group(n_g, K_input); // Group the samples

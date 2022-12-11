@@ -18,13 +18,15 @@
 #' @param nPLS A vector containing the number of PLS components used for 
 #' different decision rules.
 #' @param outcome.type The type of the outcome Y. "\code{binary}" for binary 
-#' outcome, and "\code{morethan2levels}" for categorical outcome with more than 2 
+#' outcome, and "\code{multiclass}" for categorical outcome with more than 2 
 #' levels.
 #' @param method Vote options. "\code{unweighted}" gives each decision rule the 
 #' same weight; "\code{weighted}" assigns higher weight to method with higher 
-#' accuracy, i.e. weight = log(accuracy/(1-accuracy)); "\code{ranked}" ranks
+#' measure, i.e. weight = log(measure/(1-measure)); "\code{ranked}" ranks
 #' the given methods based on the average rank of methods using accuracy, 
-#' precision, recall and F1 score.
+#' balanced accuracy, precision, recall and F1 score.
+#' @param measure Measure to be selected when \code{method} is \code{weighted}. 
+#' The default is \code{B_accuracy}.
 #' @param center A logical value indicating whether weighted mean center should 
 #' be implemented for \code{X.matrix} and \code{Y.matrix}. The default is TRUE.
 #' @param scale  A logical value indicating whether scale should be 
@@ -44,39 +46,39 @@
 #' data(asmbPLSDA.example)
 #' X.matrix = asmbPLSDA.example$X.matrix
 #' X.matrix.new = asmbPLSDA.example$X.matrix.new
-#' Y.matrix.morethan2levels = asmbPLSDA.example$Y.matrix.morethan2levels
+#' Y.matrix.multiclass = asmbPLSDA.example$Y.matrix.morethan2levels
 #' X.dim = asmbPLSDA.example$X.dim
 #' PLS.comp = asmbPLSDA.example$PLS.comp
 #' quantile.comb.table.cv = asmbPLSDA.example$quantile.comb.table.cv
 #' 
 #' ## Cross validaiton based on max Y
 #' cv.results.max <- asmbPLSDA.cv(X.matrix = X.matrix, 
-#'                                Y.matrix = Y.matrix.morethan2levels,
-#'                                PLS.comp = 5, 
+#'                                Y.matrix = Y.matrix.multiclass,
+#'                                PLS.comp = 3, 
 #'                                X.dim = X.dim, 
 #'                                quantile.comb.table = quantile.comb.table.cv, 
-#'                                outcome.type = "morethan2levels", 
-#'                                Method = "Max_Y")
+#'                                outcome.type = "multiclass", 
+#'                                method = "Max_Y")
 #' quantile.comb.max <- cv.results.max$quantile_table_CV
 #' 
 #' ## Cross validation using Euclidean distance of X super score
 #' cv.results.EDX <- asmbPLSDA.cv(X.matrix = X.matrix, 
-#'                                Y.matrix = Y.matrix.morethan2levels,
-#'                                PLS.comp = 5, 
+#'                                Y.matrix = Y.matrix.multiclass,
+#'                                PLS.comp = 3, 
 #'                                X.dim = X.dim, 
 #'                                quantile.comb.table = quantile.comb.table.cv, 
-#'                                outcome.type = "morethan2levels", 
-#'                                Method = "Euclidean_distance_X")
+#'                                outcome.type = "multiclass", 
+#'                                method = "Euclidean_distance_X")
 #' quantile.comb.EDX <- cv.results.EDX$quantile_table_CV
 #' 
 #' ## Cross validation using PCA + Mahalanobis distance of Y
 #' cv.results.PCAMDY <- asmbPLSDA.cv(X.matrix = X.matrix, 
-#'                                   Y.matrix = Y.matrix.morethan2levels,
-#'                                   PLS.comp = 5, 
+#'                                   Y.matrix = Y.matrix.multiclass,
+#'                                   PLS.comp = 3, 
 #'                                   X.dim = X.dim, 
 #'                                   quantile.comb.table = quantile.comb.table.cv, 
-#'                                   outcome.type = "morethan2levels", 
-#'                                   Method = "Euclidean_distance_X")
+#'                                   outcome.type = "multiclass", 
+#'                                   method = "Euclidean_distance_X")
 #' quantile.comb.PCAMDY <- cv.results.PCAMDY$quantile_table_CV
 #' 
 #' #### vote list ####
@@ -86,11 +88,13 @@
 #' 
 #' ## vote models fit
 #' vote.fit <- asmbPLSDA.vote.fit(X.matrix = X.matrix, 
-#'                                Y.matrix = Y.matrix.morethan2levels, 
+#'                                Y.matrix = Y.matrix.multiclass, 
 #'                                X.dim = X.dim, 
-#'                                nPLS = c(2, 2, 2),
+#'                                nPLS = c(cv.results.max$optimal_nPLS, 
+#'                                cv.results.EDX$optimal_nPLS, 
+#'                                cv.results.PCAMDY$optimal_nPLS),
 #'                                cv.results.list = cv.results.list, 
-#'                                outcome.type = "morethan2levels",
+#'                                outcome.type = "multiclass",
 #'                                method = "weighted")
 #' 
 #' @export
@@ -104,6 +108,7 @@ asmbPLSDA.vote.fit <- function(X.matrix,
                                nPLS,
                                outcome.type,
                                method = "weighted",
+                               measure = NULL,
                                center = TRUE, 
                                scale = TRUE) {
   
@@ -114,10 +119,14 @@ asmbPLSDA.vote.fit <- function(X.matrix,
   
   
   if (method == "weighted") {
+    if (is.null(measure)) {measure <- "B_accuracy"}
+    measure_list <- c("accuracy", "B_accuracy", "precision", "recall", "F1")
+    measure_indices <- 1:5
+    measure_index <- measure_indices[which(measure_list == measure)]
     for(i in 1:length(cv.results.list)) {
       cv.results <- cv.results.list[[i]]
-      accuracy = cv.results[, n_dim + 1]
-      weight[i] <- accuracy[nPLS[i]]
+      measure_value = cv.results[, n_dim + 1]
+      weight[i] <- measure_value[nPLS[i]]
     }
     ## obtain weight for each method
     weight = log(weight/(1-weight))

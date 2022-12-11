@@ -32,7 +32,7 @@ different PLS components, whose row number equals to the number of PLS
 components used, column number equals to the number of blocks.}
 
 \item{outcome.type}{The type of the outcome Y. "\code{binary}" for binary 
-outcome, and "\code{morethan2levels}" for categorical outcome with more than 2 
+outcome, and "\code{multiclass}" for categorical outcome with more than 2 
 levels.}
 
 \item{center}{A logical value indicating whether weighted mean center should 
@@ -40,26 +40,27 @@ be implemented for X.matrix and Y.matrix. The default is TRUE.}
 
 \item{scale}{A logical value indicating whether scale should be 
 implemented for X.matrix. The default is TRUE.}
+
+\item{maxiter}{A integer indicating the maximum number of iteration. The
+default number is 100.}
 }
 \value{
 \code{asmbPLSDA.fit} returns a list containing the following components:
 \item{X_dim}{A vector containing the number of predictors in each block.}
-\item{x_weight}{A list containing the weights of predictors for different 
+\item{X_weight}{A list containing the weights of predictors for different 
 blocks in different PLS components.}
-\item{x_score}{A list containing the scores of samples in different blocks
+\item{X_score}{A list containing the scores of samples in different blocks
 in different PLS components.}
-\item{x_loading}{A list containing the loadings of predictors for different
+\item{X_loading}{A list containing the loadings of predictors for different
 blocks in different PLS components.}
-\item{x_super_weight}{A matrix containing the super weights of different
+\item{X_super_weight}{A matrix containing the super weights of different
 blocks for different PLS components.}
-\item{x_super_score}{A matrix containing the super scores of samples for
+\item{X_super_score}{A matrix containing the super scores of samples for
 different PLS components.}
-\item{y_weight}{A matrix containing the weights of outcome for different 
+\item{Y_weight}{A matrix containing the weights of outcome for different 
 PLS components.}
-\item{y_score}{A matrix containing the scores of outcome for different 
+\item{Y_score}{A matrix containing the scores of outcome for different 
 PLS components.}
-\item{X_scaled}{Scaled predictors matrix.}
-\item{Y_scaled}{Scaled outcome matrix.}
 \item{X_col_mean}{A matrix containing the weighted mean of each predictor 
 for scaling.}
 \item{Y_col_mean}{The weighted mean of outcome matrix for scaling.}
@@ -70,7 +71,7 @@ implemented for X.matrix.}
 \item{scale}{A logical value indicating whether scale is implemented for 
 X.matrix.}
 \item{Outcome_type}{The type of the outcome Y. "\code{binary}" for binary 
-outcome, and "\code{morethan2levels}" for categorical outcome with more than 2
+outcome, and "\code{multiclass}" for categorical outcome with more than 2
 levels.}
 \item{Y_group}{Original Y.matrix.}
 }
@@ -84,7 +85,7 @@ discriminant analysis (asmbPLS-DA) model with several explanatory blocks
 data(asmbPLSDA.example)
 X.matrix = asmbPLSDA.example$X.matrix
 Y.matrix.binary = asmbPLSDA.example$Y.matrix.binary
-Y.matrix.morethan2levels = asmbPLSDA.example$Y.matrix.morethan2levels
+Y.matrix.multiclass = asmbPLSDA.example$Y.matrix.morethan2levels
 X.dim = asmbPLSDA.example$X.dim
 PLS.comp = asmbPLSDA.example$PLS.comp
 quantile.comb = asmbPLSDA.example$quantile.comb
@@ -98,11 +99,11 @@ asmbPLSDA.fit.binary <- asmbPLSDA.fit(X.matrix = X.matrix,
                                       outcome.type = "binary")
 
 ## asmbPLSDA fit for categorical outcome with more than 2 levels
-asmbPLSDA.fit.morethan2levels <- asmbPLSDA.fit(X.matrix = X.matrix, 
-                                               Y.matrix = Y.matrix.morethan2levels, 
-                                               PLS.comp = PLS.comp, 
-                                               X.dim = X.dim, 
-                                               quantile.comb = quantile.comb,
-                                               outcome.type = "morethan2levels")
+asmbPLSDA.fit.multiclass <- asmbPLSDA.fit(X.matrix = X.matrix, 
+                                          Y.matrix = Y.matrix.multiclass, 
+                                          PLS.comp = PLS.comp, 
+                                          X.dim = X.dim, 
+                                          quantile.comb = quantile.comb,
+                                          outcome.type = "multiclass")
 
 }

@@ -4,7 +4,7 @@
 \alias{asmbPLSDA.predict}
 \title{Using an asmbPLS-DA model for classification of new samples}
 \usage{
-asmbPLSDA.predict(fit.results, X.matrix.new, PLS.comp, Method = NULL)
+asmbPLSDA.predict(fit.results, X.matrix.new, PLS.comp, method = NULL)
 }
 \arguments{
 \item{fit.results}{The output of \code{\link[asmbPLS]{asmbPLSDA.fit}}}
@@ -14,7 +14,7 @@ the predictors in model fitting.}
 
 \item{PLS.comp}{Number of PLS components used for prediction.}
 
-\item{Method}{Decision rule used for prediction. For binary outcome, the 
+\item{method}{Decision rule used for prediction. For binary outcome, the 
 methods include "\code{fixed_cutoff}" (default), "\code{Euclidean_distance_X}" 
 and "\code{Mahalanobis_distance_X}". For categorical outcome with more than 2 
 levels, the methods include "\code{Max_Y}" (default), 
@@ -28,7 +28,7 @@ levels, the methods include "\code{Max_Y}" (default),
 decision rules can be used to obtain different Y_pred.}
 \item{NewX_super_score}{Predicted super score for new samples, which can be
 used as predictors for other classification algorithms.}
-\item{Method}{Decision rule used for preidction.}
+\item{method}{Decision rule used for preidction.}
 }
 \description{
 Derives classification for new samples from a model fitted by the function
@@ -40,7 +40,7 @@ data(asmbPLSDA.example)
 X.matrix = asmbPLSDA.example$X.matrix
 X.matrix.new = asmbPLSDA.example$X.matrix.new
 Y.matrix.binary = asmbPLSDA.example$Y.matrix.binary
-Y.matrix.morethan2levels = asmbPLSDA.example$Y.matrix.morethan2levels
+Y.matrix.multiclass = asmbPLSDA.example$Y.matrix.morethan2levels
 X.dim = asmbPLSDA.example$X.dim
 PLS.comp = asmbPLSDA.example$PLS.comp
 quantile.comb = asmbPLSDA.example$quantile.comb
@@ -54,12 +54,12 @@ asmbPLSDA.fit.binary <- asmbPLSDA.fit(X.matrix = X.matrix,
                                       outcome.type = "binary")
 
 ## asmbPLSDA fit for categorical outcome with more than 2 levels
-asmbPLSDA.fit.morethan2levels <- asmbPLSDA.fit(X.matrix = X.matrix, 
-                                               Y.matrix = Y.matrix.morethan2levels,
-                                               PLS.comp = PLS.comp, 
-                                               X.dim = X.dim, 
-                                               quantile.comb = quantile.comb,
-                                               outcome.type = "morethan2levels")
+asmbPLSDA.fit.multiclass <- asmbPLSDA.fit(X.matrix = X.matrix, 
+                                          Y.matrix = Y.matrix.multiclass,
+                                          PLS.comp = PLS.comp, 
+                                          X.dim = X.dim, 
+                                          quantile.comb = quantile.comb,
+                                          outcome.type = "multiclass")
 
 ## asmbPLSDA prediction for the new data, you could use different numbers of 
 ## PLS components for prediction
@@ -73,12 +73,12 @@ Y.pred.binary.2 <- asmbPLSDA.predict(asmbPLSDA.fit.binary,
                                      PLS.comp = 2)
 
 ## PLS components for prediction
-Y.pred.morethan2levels.1 <- asmbPLSDA.predict(asmbPLSDA.fit.morethan2levels,
-                                              X.matrix.new, 
-                                              PLS.comp = 1)
+Y.pred.multiclass.1 <- asmbPLSDA.predict(asmbPLSDA.fit.multiclass,
+                                         X.matrix.new, 
+                                         PLS.comp = 1)
 ## Use the first two PLS components     
-Y.pred.morethan2levels.2 <- asmbPLSDA.predict(asmbPLSDA.fit.morethan2levels,
-                                              X.matrix.new, 
-                                              PLS.comp = 2)
+Y.pred.multiclass.2 <- asmbPLSDA.predict(asmbPLSDA.fit.multiclass,
+                                         X.matrix.new, 
+                                         PLS.comp = 2)
 
 }

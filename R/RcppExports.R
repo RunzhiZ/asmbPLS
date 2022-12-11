@@ -9,8 +9,8 @@ CV_index_binary <- function(F_matrix, K_input) {
     .Call(`_asmbPLS_CV_index_binary`, F_matrix, K_input)
 }
 
-CV_index_morethan2levels <- function(F_matrix, K_input) {
-    .Call(`_asmbPLS_CV_index_morethan2levels`, F_matrix, K_input)
+CV_index_multiclass <- function(F_matrix, K_input) {
+    .Call(`_asmbPLS_CV_index_multiclass`, F_matrix, K_input)
 }
 
 Euclidean_distance <- function(matrix_fit, matrix_predict, F_matrix, outcome_type) {
@@ -29,12 +29,12 @@ Results_comparison_MSE <- function(Y_predict, Y_true) {
     .Call(`_asmbPLS_Results_comparison_MSE`, Y_predict, Y_true)
 }
 
-Results_comparison_measure <- function(Y_predict, Y_true) {
-    .Call(`_asmbPLS_Results_comparison_measure`, Y_predict, Y_true)
+Results_comparison_measure <- function(Y_predict, Y_true, outcome_type) {
+    .Call(`_asmbPLS_Results_comparison_measure`, Y_predict, Y_true, outcome_type)
 }
 
-asmbPLSDA_CV <- function(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, expected_accuracy_increase, center, scale, maxiter) {
-    .Call(`_asmbPLS_asmbPLSDA_CV`, E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, K, ncv, expected_accuracy_increase, center, scale, maxiter)
+asmbPLSDA_CV <- function(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, Measure, K, ncv, expected_measure_increase, center, scale, maxiter) {
+    .Call(`_asmbPLS_asmbPLSDA_CV`, E_matrix, F_matrix, PLS_term, X_dim, quantile_table, outcome_type, Method, Measure, K, ncv, expected_measure_increase, center, scale, maxiter)
 }
 
 asmbPLSDA_binary_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale, maxiter) {
@@ -45,11 +45,11 @@ asmbPLSDA_fit <- function(X_matrix, Y_matrix, PLS_term, X_dim, percent, outcome_
     .Call(`_asmbPLS_asmbPLSDA_fit`, X_matrix, Y_matrix, PLS_term, X_dim, percent, outcome_type, center, scale, maxiter)
 }
 
-asmbPLSDA_morethantwo_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale, maxiter) {
-    .Call(`_asmbPLS_asmbPLSDA_morethantwo_fit`, E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale, maxiter)
+asmbPLSDA_multiclass_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale, maxiter) {
+    .Call(`_asmbPLS_asmbPLSDA_multiclass_fit`, E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale, maxiter)
 }
 
-asmbPLSDA_predict <- function(asmbPLSDA_results, newdata, PLS_term_selected, Method = NULL) {
+asmbPLSDA_predict <- function(asmbPLSDA_results, newdata, PLS_term_selected, Method) {
     .Call(`_asmbPLS_asmbPLSDA_predict`, asmbPLSDA_results, newdata, PLS_term_selected, Method)
 }
 
