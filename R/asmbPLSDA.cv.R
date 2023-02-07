@@ -1,6 +1,6 @@
-#' Cross-validation for asmbPLS-DA to find the best combinations of quantiles for prediction
+#' Cross-validation for asmbPLS-DA to find the best combinations of quantiles for classification
 #'
-#' Function to find the best combinations of quantiles used for prediction via
+#' Function to find the best combinations of quantiles used for classification via
 #' cross-validation. Usually should be conducted before 
 #' \code{\link[asmbPLS]{asmbPLSDA.fit}} to obtain the quantile combinations.
 #' 
