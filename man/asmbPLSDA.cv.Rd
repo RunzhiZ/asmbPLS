@@ -2,7 +2,7 @@
 % Please edit documentation in R/asmbPLSDA.cv.R
 \name{asmbPLSDA.cv}
 \alias{asmbPLSDA.cv}
-\title{Cross-validation for asmbPLS-DA to find the best combinations of quantiles for prediction}
+\title{Cross-validation for asmbPLS-DA to find the best combinations of quantiles for classification}
 \usage{
 asmbPLSDA.cv(
   X.matrix,
@@ -75,7 +75,7 @@ combination and the corresponding measures of CV for each PLS component.}
 \item{optimal_nPLS}{Optimal number of PLS components.}
 }
 \description{
-Function to find the best combinations of quantiles used for prediction via
+Function to find the best combinations of quantiles used for classification via
 cross-validation. Usually should be conducted before 
 \code{\link[asmbPLS]{asmbPLSDA.fit}} to obtain the quantile combinations.
 }

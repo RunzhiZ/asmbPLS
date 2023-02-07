@@ -37,7 +37,7 @@
 #' default number is 100.
 #' 
 #' @return 
-#' \code{asmbPLSDA.cv} returns a list containing the following components:
+#' \code{asmbPLS.cv} returns a list containing the following components:
 #' \item{quantile_table_CV}{A matrix containing the selected quantile .
 #' combination and the corresponding measures of CV for each PLS component.}
 #' \item{optimal_nPLS}{Optimal number of PLS components.}.
