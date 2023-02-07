@@ -43,7 +43,7 @@ arma::rowvec Results_comparison_measure(arma::mat Y_predict,
   double specificity = n_TN/(n_TN + n_FP);
   double F1 = 2 * precision * recall/(precision + recall);
   
-  double balanced_accuracy;
+  double balanced_accuracy = 0;
   double balanced_accuracy_binary = (recall + specificity)/2;
   balanced_accuracy_multicalss = balanced_accuracy_multicalss/Y_col;
   if (outcome_type == "binary") {
