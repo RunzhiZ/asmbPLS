@@ -7,55 +7,68 @@ List asmbPLS_fit(arma::mat E_matrix,
                  arma::mat F_matrix, 
                  int PLS_term, 
                  NumericVector X_dim, 
-                 arma::mat percent) {
+                 arma::mat percent,
+                 LogicalVector center, 
+                 LogicalVector scale,
+                 int maxiter) {
   
   Environment stats("package:stats");
   Function quantile_f = stats["quantile"];
   Function weight_sparse = Environment::namespace_env("asmbPLS")["weight_sparse"];
+
+  int E_col = E_matrix.n_cols; // Number of features
+  int B = X_dim.length(); // Number of blocks
+  int n_row = E_matrix.n_rows; // Number of samples
+  int F_col = F_matrix.n_cols; // Number of columns of Y.matrix
   
-  // // column mean and sd
-  int E_col = E_matrix.n_cols;
-  arma::rowvec col_mean = mean(E_matrix, 0);
-  arma::rowvec col_sd = stddev(E_matrix, 0, 0 );
-  col_sd.elem( find(col_sd == 0) ).ones();
-  for (int i = 0; i < E_col; ++i) {
-    arma::mat temp = (E_matrix.cols(i, i) - arma::as_scalar(col_mean.col(i)))/arma::as_scalar(col_sd.col(i));
-    E_matrix.cols(i, i) = temp;
+  arma::rowvec X_col_mean; // Column mean for X
+  arma::rowvec X_col_sd; // Column sd for X
+  double Y_col_mean = arma::as_scalar(mean(F_matrix, 0)); // Column mean for Y
+  double Y_col_sd = arma::as_scalar(stddev(F_matrix, 0)); // Column sd for Y
+  
+  // Center and scale
+  if(center[0]) {
+    // Center for X
+    X_col_mean = mean(E_matrix, 0);
+    for (int i = 0; i < E_col; ++i) {
+      arma::colvec temp = E_matrix.col(i) - arma::as_scalar(X_col_mean(i));
+      E_matrix.col(i) = temp;
+    }
+    // Center for Y
+    arma::colvec temp = F_matrix - Y_col_mean;
+    F_matrix = temp;
   }
   
-  double Y_mean = arma::as_scalar(mean(F_matrix, 0));
-  double Y_sd = arma::as_scalar(stddev(F_matrix, 0));
-  arma::mat temp = (F_matrix - Y_mean)/Y_sd;
-  F_matrix = temp;
+  if(scale[0]) {
+    // Scale for X
+    X_col_sd = stddev(E_matrix, 0, 0); // Obtain column sd
+    X_col_sd.elem(find(X_col_sd == 0)).ones(); // Set sd = 0 to sd = 1
+    for (int i = 0; i < E_col; ++i) {
+      arma::colvec temp = E_matrix.col(i)/arma::as_scalar(X_col_sd(i));
+      E_matrix.col(i) = temp;
+    }
+    // Scale for Y
+    arma::colvec temp = F_matrix/Y_col_sd;
+    F_matrix = temp;
+  }
   
-  //scaled data
-  arma::mat E_matrix_scaled = E_matrix;
-  arma::mat F_matrix_scaled = F_matrix;
-  
-  // variables for convenient
-  int B = X_dim.length();
   NumericVector X_dim_o = X_dim;
   X_dim.push_front(0);
-  int n_row = E_matrix.n_rows;
-  int F_col = F_matrix.n_cols;
   
-  // variables for output
+  // Variables for output
   List x_weight(B);
   List x_score(B);
   List x_loading(B);
-  
   arma::mat x_weight_mat(sum(X_dim), PLS_term);
   arma::mat x_score_mat(n_row*B, PLS_term);
   arma::mat x_loading_mat(sum(X_dim), PLS_term);
-  
   arma::mat x_super_weight(B, PLS_term);
   arma::mat x_super_score(n_row, PLS_term);
   arma::rowvec y_weight(PLS_term);
   arma::mat y_score(n_row, PLS_term);
   
-  // temp variables
+  // Temp variables
   arma::mat X_matrix_temp;
-  
   arma::colvec w_temp;
   arma::colvec t_temp(n_row);
   double l_temp;
@@ -72,8 +85,8 @@ List asmbPLS_fit(arma::mat E_matrix,
   for (int i = 0; i < PLS_term; ++i) {
     u = F_matrix;
     t_T = F_matrix;
-    
-    while (accu(abs(t_diff)) > 0.00001) {
+    int n_iter = 0;
+    while (accu(abs(t_diff)) > 0.000001 && n_iter <= maxiter) {
       
       for (int j = 0; j < B; ++j) {
         X_matrix_temp = E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1);
@@ -88,7 +101,7 @@ List asmbPLS_fit(arma::mat E_matrix,
         t_temp = X_matrix_temp*w_temp/sqrt(X_dim[j+1]);
         t_cbind.col(j) = t_temp;
         
-        //save x_weight, x_score
+        // Save x_weight, x_score
         x_weight_mat.submat(sum(X_dim[Range(0, j)]), i, sum(X_dim[Range(0, j+1)]) - 1, i) = w_temp;
         x_score_mat.submat((j)*n_row, i, (j+1)*n_row-1, i) = t_temp;
       }
@@ -98,13 +111,15 @@ List asmbPLS_fit(arma::mat E_matrix,
       t_T = t_cbind*w_T_temp/arma::as_scalar(w_T_temp.t()*w_T_temp);
       q = F_matrix.t()*t_T/arma::as_scalar(t_T.t()*t_T);
       u = F_matrix*q/arma::as_scalar(q.t()*q);
-      // save matrix
+      // Save matrix
       x_super_weight.col(i) = w_T_temp;
       x_super_score.col(i) = t_T;
       y_weight.col(i) = q;
       y_score.col(i) = u;
+      // Number of iterations
+      n_iter = n_iter + 1;
     } 
-    // make while function run in the next loop
+    // Make while function run in the next loop
     t_diff = arma::ones<arma::mat>(n_row, 1);
     
     // X and Y deflation
@@ -113,7 +128,7 @@ List asmbPLS_fit(arma::mat E_matrix,
       p_temp = X_matrix_temp.t()*t_T/arma::as_scalar(t_T.t()*t_T);
       X_matrix_temp = X_matrix_temp - t_T*(p_temp.t());
       E_matrix.cols(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1) = X_matrix_temp;
-      // save x_loading
+      // Save x_loading
       x_loading_mat.submat(sum(X_dim[Range(0, j)]), i, sum(X_dim[Range(0, j+1)]) - 1, i) = p_temp;
     }
     F_matrix = F_matrix - t_T*(q.t());
@@ -125,19 +140,19 @@ List asmbPLS_fit(arma::mat E_matrix,
     x_loading[j] = x_loading_mat.rows(sum(X_dim[Range(0, j)]), sum(X_dim[Range(0, j+1)]) - 1);
   }
   List output = List::create(_["X_dim"] = X_dim_o,
-                             _["x_weight"] = x_weight,
-                             _["x_score"] = x_score,
-                             _["x_loading"] = x_loading,
-                             _["x_super_weight"] = x_super_weight,
-                             _["x_super_score"] = x_super_score,
-                             _["y_weight"] = y_weight,
-                             _["y_score"] = y_score,
-                             _["col_mean"] = col_mean,
-                             _["col_sd"] = col_sd,
-                             _["X_scaled"] = E_matrix_scaled,
-                             _["Y_mean"] = Y_mean,
-                             _["Y_sd"] = Y_sd,
-                             _["Y_scaled"] = F_matrix_scaled);
+                             _["X_weight"] = x_weight,
+                             _["X_score"] = x_score,
+                             _["X_loading"] = x_loading,
+                             _["X_super_weight"] = x_super_weight,
+                             _["X_super_score"] = x_super_score,
+                             _["Y_weight"] = y_weight,
+                             _["Y_score"] = y_score,
+                             _["X_col_mean"] = X_col_mean,
+                             _["Y_col_mean"] = Y_col_mean,
+                             _["X_col_sd"] = X_col_sd,
+                             _["Y_col_sd"] = Y_col_sd,
+                             _["center"] = center,
+                             _["scale"] = scale);
   
   return (output);
 }

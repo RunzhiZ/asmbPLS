@@ -12,8 +12,12 @@ asmbPLS.cv(
   quantile.comb.table,
   Y.indicator,
   k = 5,
+  ncv = 5,
   only.observe = TRUE,
-  seed = 1
+  expected.measure.decrease = 0.05,
+  center = TRUE,
+  scale = TRUE,
+  maxiter = 100
 )
 }
 \arguments{
@@ -43,20 +47,29 @@ instead.}
 
 \item{k}{The number of folds of CV procedure. The default is 5.}
 
+\item{ncv}{The number of repetitions of CV. The default is 5.}
+
 \item{only.observe}{Whether only observed samples in the validation set 
 should be used for calculating the MSE for CV. The default is TRUE.}
 
-\item{seed}{An integer given by user to obtain reproducible results. The
-default is 1.}
+\item{expected.measure.decrease}{The measure you expect to decrease by percent 
+after including one more PLS component, which will affect the selection of optimal 
+PLS components. The default is 0.05 (5\%).}
+
+\item{center}{A logical value indicating whether mean center should be 
+implemented for X.matrix and Y.matrix. The default is TRUE.}
+
+\item{scale}{A logical value indicating whether scale should be 
+implemented for X.matrix and Y.matrix. The default is TRUE.}
+
+\item{maxiter}{A integer indicating the maximum number of iteration. The
+default number is 100.}
 }
 \value{
-\code{asmbPLS.cv} returns a list containing the following components:
-\item{quantile_table_CV}{A matrix containing the selected quantile 
-combination and the corresponding MSE of CV for each PLS component.}
-\item{CV_results}{A list containing the details of the CV results for each PLS 
-component.}
-\item{CV_index}{A list containing the validation and training index for each 
-cross validation fold.}
+\code{asmbPLSDA.cv} returns a list containing the following components:
+\item{quantile_table_CV}{A matrix containing the selected quantile .
+combination and the corresponding measures of CV for each PLS component.}
+\item{optimal_nPLS}{Optimal number of PLS components.}.
 }
 \description{
 Function to find the best combinations of quantiles used for prediction via
@@ -79,10 +92,7 @@ cv.results <- asmbPLS.cv(X.matrix = X.matrix,
                          PLS.comp = PLS.comp, 
                          X.dim = X.dim, 
                          quantile.comb.table = quantile.comb.table.cv, 
-                         Y.indicator = Y.indicator, 
-                         k = 5, 
-                         only.observe = TRUE, 
-                         seed = 123)
+                         Y.indicator = Y.indicator)
 quantile.comb <- cv.results$quantile_table_CV[,1:length(X.dim)]
  
 ## asmbPLS fit

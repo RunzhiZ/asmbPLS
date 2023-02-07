@@ -67,7 +67,7 @@ for scaling.}
 \item{X_col_sd}{A matrix containing the standard deviation (sd) of each 
 predictor for scaling. sd for predictors with sd = 0 will be changed to 1.}
 \item{center}{A logical value indicating whether weighted mean center is
-implemented for X.matrix.}
+implemented for X.matrix and Y.matrix.}
 \item{scale}{A logical value indicating whether scale is implemented for 
 X.matrix.}
 \item{Outcome_type}{The type of the outcome Y. "\code{binary}" for binary 

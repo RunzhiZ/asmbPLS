@@ -46,7 +46,7 @@
 #' \item{X_col_sd}{A matrix containing the standard deviation (sd) of each 
 #' predictor for scaling. sd for predictors with sd = 0 will be changed to 1.}
 #' \item{center}{A logical value indicating whether weighted mean center is
-#' implemented for X.matrix.}
+#' implemented for X.matrix and Y.matrix.}
 #' \item{scale}{A logical value indicating whether scale is implemented for 
 #' X.matrix.}
 #' \item{Outcome_type}{The type of the outcome Y. "\code{binary}" for binary 
@@ -94,5 +94,11 @@ asmbPLSDA.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, ou
             is.matrix(X.matrix), 
             is.matrix(Y.matrix),
             is.matrix(quantile.comb))
-  return(asmbPLSDA_fit(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, outcome.type, center, scale, maxiter))
+  blocks_vector <- rep(1:length(X.dim), times = X.dim)
+  blocks <- lapply(1:2, function(x) which(blocks_vector == x))
+  fit.results <- asmbPLSDA_fit(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, outcome.type, center, scale, maxiter)
+  for(i in 1:length(X.dim)) {
+    row.names(fit.results$X_weight[[i]]) <- colnames(X.matrix)[blocks[[i]]]
+  }
+  return(fit.results)
 }

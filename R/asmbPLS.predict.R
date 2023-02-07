@@ -10,8 +10,10 @@
 #' @param PLS.comp Number of PLS components used for prediction.
 #' 
 #' @return 
-#' \code{asmbPLS.predict} returns a matrix containing the prediction for the 
-#' new data.
+#' \code{asmbPLSDA.predict} returns a list containing the following components:
+#' \item{Y_pred}{Predicted value for the new sampels.}
+#' \item{NewX_super_score}{Predicted super score for new samples, which can be
+#' used as predictors for other regression models.}
 #' 
 #' @examples
 #' ## Use the example dataset

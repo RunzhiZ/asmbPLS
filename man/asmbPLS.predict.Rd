@@ -16,8 +16,10 @@ the predictors in model fitting.}
 \item{PLS.comp}{Number of PLS components used for prediction.}
 }
 \value{
-\code{asmbPLS.predict} returns a matrix containing the prediction for the 
-new data.
+\code{asmbPLSDA.predict} returns a list containing the following components:
+\item{Y_pred}{Predicted value for the new sampels.}
+\item{NewX_super_score}{Predicted super score for new samples, which can be
+used as predictors for other regression models.}
 }
 \description{
 Derives predictions for new samples from a model fitted by the function

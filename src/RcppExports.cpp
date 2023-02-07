@@ -12,16 +12,15 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // CV_index
-List CV_index(arma::colvec Y_indicator, int K_input, int seed, LogicalVector only_observe);
-RcppExport SEXP _asmbPLS_CV_index(SEXP Y_indicatorSEXP, SEXP K_inputSEXP, SEXP seedSEXP, SEXP only_observeSEXP) {
+List CV_index(arma::colvec Y_indicator, int K_input, LogicalVector only_observe);
+RcppExport SEXP _asmbPLS_CV_index(SEXP Y_indicatorSEXP, SEXP K_inputSEXP, SEXP only_observeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::colvec >::type Y_indicator(Y_indicatorSEXP);
     Rcpp::traits::input_parameter< int >::type K_input(K_inputSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type only_observe(only_observeSEXP);
-    rcpp_result_gen = Rcpp::wrap(CV_index(Y_indicator, K_input, seed, only_observe));
+    rcpp_result_gen = Rcpp::wrap(CV_index(Y_indicator, K_input, only_observe));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -208,8 +207,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // asmbPLS_CV
-List asmbPLS_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, arma::colvec Y_indicator, Nullable<int> K, Nullable<LogicalVector> only_observe, Nullable<int> seed);
-RcppExport SEXP _asmbPLS_asmbPLS_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP Y_indicatorSEXP, SEXP KSEXP, SEXP only_observeSEXP, SEXP seedSEXP) {
+List asmbPLS_CV(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat quantile_table, arma::colvec Y_indicator, int K, int ncv, LogicalVector only_observe, double expected_MSE_decrease, LogicalVector center, LogicalVector scale, int maxiter);
+RcppExport SEXP _asmbPLS_asmbPLS_CV(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP quantile_tableSEXP, SEXP Y_indicatorSEXP, SEXP KSEXP, SEXP ncvSEXP, SEXP only_observeSEXP, SEXP expected_MSE_decreaseSEXP, SEXP centerSEXP, SEXP scaleSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -219,16 +218,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type quantile_table(quantile_tableSEXP);
     Rcpp::traits::input_parameter< arma::colvec >::type Y_indicator(Y_indicatorSEXP);
-    Rcpp::traits::input_parameter< Nullable<int> >::type K(KSEXP);
-    Rcpp::traits::input_parameter< Nullable<LogicalVector> >::type only_observe(only_observeSEXP);
-    Rcpp::traits::input_parameter< Nullable<int> >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(asmbPLS_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, Y_indicator, K, only_observe, seed));
+    Rcpp::traits::input_parameter< int >::type K(KSEXP);
+    Rcpp::traits::input_parameter< int >::type ncv(ncvSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type only_observe(only_observeSEXP);
+    Rcpp::traits::input_parameter< double >::type expected_MSE_decrease(expected_MSE_decreaseSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLS_CV(E_matrix, F_matrix, PLS_term, X_dim, quantile_table, Y_indicator, K, ncv, only_observe, expected_MSE_decrease, center, scale, maxiter));
     return rcpp_result_gen;
 END_RCPP
 }
 // asmbPLS_fit
-List asmbPLS_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent);
-RcppExport SEXP _asmbPLS_asmbPLS_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP) {
+List asmbPLS_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, arma::mat percent, LogicalVector center, LogicalVector scale, int maxiter);
+RcppExport SEXP _asmbPLS_asmbPLS_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP percentSEXP, SEXP centerSEXP, SEXP scaleSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -237,12 +240,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type percent(percentSEXP);
-    rcpp_result_gen = Rcpp::wrap(asmbPLS_fit(E_matrix, F_matrix, PLS_term, X_dim, percent));
+    Rcpp::traits::input_parameter< LogicalVector >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(asmbPLS_fit(E_matrix, F_matrix, PLS_term, X_dim, percent, center, scale, maxiter));
     return rcpp_result_gen;
 END_RCPP
 }
 // asmbPLS_predict
-arma::mat asmbPLS_predict(List asmbPLS_results, arma::mat newdata, int PLS_term_selected);
+List asmbPLS_predict(List asmbPLS_results, arma::mat newdata, int PLS_term_selected);
 RcppExport SEXP _asmbPLS_asmbPLS_predict(SEXP asmbPLS_resultsSEXP, SEXP newdataSEXP, SEXP PLS_term_selectedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -317,7 +323,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_asmbPLS_CV_index", (DL_FUNC) &_asmbPLS_CV_index, 4},
+    {"_asmbPLS_CV_index", (DL_FUNC) &_asmbPLS_CV_index, 3},
     {"_asmbPLS_CV_index_binary", (DL_FUNC) &_asmbPLS_CV_index_binary, 2},
     {"_asmbPLS_CV_index_multiclass", (DL_FUNC) &_asmbPLS_CV_index_multiclass, 2},
     {"_asmbPLS_Euclidean_distance", (DL_FUNC) &_asmbPLS_Euclidean_distance, 4},
@@ -330,8 +336,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_asmbPLS_asmbPLSDA_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_fit, 9},
     {"_asmbPLS_asmbPLSDA_multiclass_fit", (DL_FUNC) &_asmbPLS_asmbPLSDA_multiclass_fit, 8},
     {"_asmbPLS_asmbPLSDA_predict", (DL_FUNC) &_asmbPLS_asmbPLSDA_predict, 4},
-    {"_asmbPLS_asmbPLS_CV", (DL_FUNC) &_asmbPLS_asmbPLS_CV, 9},
-    {"_asmbPLS_asmbPLS_fit", (DL_FUNC) &_asmbPLS_asmbPLS_fit, 5},
+    {"_asmbPLS_asmbPLS_CV", (DL_FUNC) &_asmbPLS_asmbPLS_CV, 13},
+    {"_asmbPLS_asmbPLS_fit", (DL_FUNC) &_asmbPLS_asmbPLS_fit, 8},
     {"_asmbPLS_asmbPLS_predict", (DL_FUNC) &_asmbPLS_asmbPLS_predict, 3},
     {"_asmbPLS_mbPLS_fit", (DL_FUNC) &_asmbPLS_mbPLS_fit, 4},
     {"_asmbPLS_quantile_f", (DL_FUNC) &_asmbPLS_quantile_f, 2},

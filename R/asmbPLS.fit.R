@@ -15,32 +15,39 @@
 #' @param quantile.comb A matrix containing quantile combinations used for 
 #' different PLS components, whose row number equals to the number of PLS 
 #' components used, column number equals to the number of blocks.
+#' @param center A logical value indicating whether mean center should be 
+#' implemented for X.matrix and Y.matrix. The default is TRUE.
+#' @param scale  A logical value indicating whether scale should be 
+#' implemented for X.matrix and Y.matrix. The default is TRUE.
+#' @param maxiter A integer indicating the maximum number of iteration. The
+#' default number is 100.
 #' 
 #' @return 
 #' \code{asmbPLS.fit} returns a list containing the following components:
 #' \item{X_dim}{A vector containing the number of predictors in each block.}
-#' \item{x_weight}{A list containing the weights of predictors for different 
+#' \item{X_weight}{A list containing the weights of predictors for different 
 #' blocks in different PLS components.}
-#' \item{x_score}{A list containing the scores of samples in different blocks
+#' \item{X_score}{A list containing the scores of samples in different blocks
 #' in different PLS components.}
-#' \item{x_loading}{A list containing the loadings of predictors for different
+#' \item{X_loading}{A list containing the loadings of predictors for different
 #' blocks in different PLS components.}
-#' \item{x_super_weight}{A matrix containing the super weights of different
+#' \item{X_super_weight}{A matrix containing the super weights of different
 #' blocks for different PLS components.}
-#' \item{x_super_score}{A matrix containing the super scores of samples for
+#' \item{X_super_score}{A matrix containing the super scores of samples for
 #' different PLS components.}
-#' \item{y_weight}{A matrix containing the weights of outcome for different 
+#' \item{Y_weight}{A matrix containing the weights of outcome for different 
 #' PLS components.}
-#' \item{y_score}{A matrix containing the scores of outcome for different 
+#' \item{Y_score}{A matrix containing the scores of outcome for different 
 #' PLS components.}
-#' \item{col_mean}{A matrix containing the mean of each predictor for scaling.}
-#' \item{col_sd}{A matrix containing the standard deviation of each predictor
-#' for scaling. Predictor with sd = 0 will be changed to 1.}
-#' \item{X_scaled}{Scaled predictors matrix.}
-#' \item{Y_mean}{The mean of outcome matrix for scaling.}
-#' \item{Y_sd}{The standard deviation of outcome matrix for scaling.}
-#' \item{Y_scaled}{Scaled outcome matrix.}
-#' 
+#' \item{X_col_mean}{A matrix containing the mean of each predictor for scaling.}
+#' \item{Y_col_mean}{The mean of outcome matrix for scaling.}
+#' \item{X_col_sd}{A matrix containing the standard deviation of each predictor
+#' for scaling. Predictor with sd = 0 will be set to 1.}
+#' \item{Y_col_sd}{The standard deviation of outcome matrix for scaling.}
+#' \item{center}{A logical value indicating whether mean center is
+#' implemented for X.matrix and Y.matrix.}
+#' \item{scale}{A logical value indicating whether scale is implemented for 
+#' X.matrix and Y.matrix.}
 
 #' @examples
 #' ## Use the example dataset
@@ -62,7 +69,7 @@
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 
-asmbPLS.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb){
+asmbPLS.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, center = TRUE, scale = TRUE, maxiter = 100){
   stopifnot(!missing(X.matrix),
             !missing(Y.matrix),
             !missing(PLS.comp),
@@ -71,5 +78,11 @@ asmbPLS.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb){
             is.matrix(X.matrix), 
             is.matrix(Y.matrix),
             is.matrix(quantile.comb))
-  return(asmbPLS_fit(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb))
+  blocks_vector <- rep(1:length(X.dim), times = X.dim)
+  blocks <- lapply(1:2, function(x) which(blocks_vector == x))
+  fit.results <- asmbPLS_fit(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, center, scale, maxiter)
+  for(i in 1:length(X.dim)) {
+    row.names(fit.results$X_weight[[i]]) <- colnames(X.matrix)[blocks[[i]]]
+  }
+  return(fit.results)
 }
