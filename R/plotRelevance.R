@@ -68,7 +68,7 @@ plotRelevance <- function(fit.results, n.top = 10, ncomp = 1, block.name = NULL)
   if(is.null(block.name)) {
     n.block <- length(fit.results$X_dim)
     block.name <- paste0("block.", 1:n.block)
-  }
+  } else{n.block <- length(block.name)}
   X_weight <- fit.results$X_weight
   X_super_weight <- fit.results$X_super_weight
   
