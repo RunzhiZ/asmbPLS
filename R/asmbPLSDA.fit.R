@@ -95,7 +95,7 @@ asmbPLSDA.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, ou
             is.matrix(Y.matrix),
             is.matrix(quantile.comb))
   blocks_vector <- rep(1:length(X.dim), times = X.dim)
-  blocks <- lapply(1:2, function(x) which(blocks_vector == x))
+  blocks <- lapply(1:length(X.dim), function(x) which(blocks_vector == x))
   fit.results <- asmbPLSDA_fit(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, outcome.type, center, scale, maxiter)
   for(i in 1:length(X.dim)) {
     row.names(fit.results$X_weight[[i]]) <- colnames(X.matrix)[blocks[[i]]]
