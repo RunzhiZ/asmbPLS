@@ -92,7 +92,9 @@ cv.results <- asmbPLS.cv(X.matrix = X.matrix,
                          PLS.comp = PLS.comp, 
                          X.dim = X.dim, 
                          quantile.comb.table = quantile.comb.table.cv, 
-                         Y.indicator = Y.indicator)
+                         Y.indicator = Y.indicator,
+                         k = 3,
+                         ncv = 3)
 quantile.comb <- cv.results$quantile_table_CV[,1:length(X.dim)]
  
 ## asmbPLS fit

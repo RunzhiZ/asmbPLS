@@ -62,7 +62,6 @@
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @import ggplot2 ggpubr
-#' @importFrom Rcpp sourceCpp
 
 plotRelevance <- function(fit.results, n.top = 10, ncomp = 1, block.name = NULL) {
   if(is.null(block.name)) {
@@ -106,6 +105,7 @@ plotRelevance <- function(fit.results, n.top = 10, ncomp = 1, block.name = NULL)
         )")))
     
   }
+  p_output <- NULL
   eval(parse(text = paste0("p_output <- ggarrange(", paste(paste("p", 1:n.block, sep = ""), collapse = ", "), ", common.legend = TRUE)")))
   return(p_output)
 }

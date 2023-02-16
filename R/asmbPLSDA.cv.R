@@ -59,7 +59,9 @@
 #'                                   PLS.comp = PLS.comp, 
 #'                                   X.dim = X.dim, 
 #'                                   quantile.comb.table = quantile.comb.table.cv, 
-#'                                   outcome.type = "binary")
+#'                                   outcome.type = "binary",
+#'                                   k = 3,
+#'                                   ncv = 3)
 #' quantile.comb.binary <- cv.results.binary$quantile_table_CV[,1:length(X.dim)]
 #' 
 #' ## asmbPLSDA fit using the selected quantile combination (binary outcome)
@@ -78,7 +80,9 @@
 #'                                       PLS.comp = PLS.comp, 
 #'                                       X.dim = X.dim, 
 #'                                       quantile.comb.table = quantile.comb.table.cv, 
-#'                                       outcome.type = "multiclass")
+#'                                       outcome.type = "multiclass",
+#'                                       k = 3,
+#'                                       ncv = 3)
 #' quantile.comb.multiclass <- cv.results.multiclass$quantile_table_CV[,1:length(X.dim)]
 #' 
 #' ## asmbPLSDA fit (categorical outcome with more than 2 levels)
@@ -92,6 +96,7 @@
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom stats quantile
 
 asmbPLSDA.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, 
                          quantile.comb.table, outcome.type, method = NULL, 

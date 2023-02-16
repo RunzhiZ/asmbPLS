@@ -83,6 +83,7 @@
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom stats quantile
 
 asmbPLSDA.fit <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb, outcome.type, center = TRUE, scale = TRUE, maxiter = 100){
   stopifnot(!missing(X.matrix),

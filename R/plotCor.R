@@ -67,7 +67,7 @@
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @import ggplot2 ggpubr
-#' @importFrom Rcpp sourceCpp
+#' @importFrom stats cor
 
 plotCor <- function(fit.results, ncomp = 1, block.name = NULL, group.name = NULL, legend = T) {
   if(is.null(block.name)) {
@@ -166,6 +166,7 @@ plotCor <- function(fit.results, ncomp = 1, block.name = NULL, group.name = NULL
   panel.grid.minor = element_blank())")))
     }
   }
+  p_output <- NULL
   eval(parse(text = paste0("p_output <- ggarrange(", paste(paste("p", 1:n_length^2, sep = ""), collapse = ", "), ", ncol = ", n_length, ", nrow = ", n_length, ", align = \"hv\", 
           widths = c(1, 1), heights = c(1, 1),
           common.legend = TRUE)")))

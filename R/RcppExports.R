@@ -69,10 +69,6 @@ mbPLS_fit <- function(E_matrix, F_matrix, PLS_term, X_dim) {
     .Call(`_asmbPLS_mbPLS_fit`, E_matrix, F_matrix, PLS_term, X_dim)
 }
 
-quantile_f <- function(V, P) {
-    .Call(`_asmbPLS_quantile_f`, V, P)
-}
-
 sample_group <- function(n, K_input) {
     .Call(`_asmbPLS_sample_group`, n, K_input)
 }

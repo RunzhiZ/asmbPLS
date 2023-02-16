@@ -100,6 +100,7 @@
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom stats quantile
 
 asmbPLSDA.vote.fit <- function(X.matrix, 
                                Y.matrix, 

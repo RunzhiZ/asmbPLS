@@ -58,7 +58,9 @@
 #'                          PLS.comp = PLS.comp, 
 #'                          X.dim = X.dim, 
 #'                          quantile.comb.table = quantile.comb.table.cv, 
-#'                          Y.indicator = Y.indicator)
+#'                          Y.indicator = Y.indicator,
+#'                          k = 3,
+#'                          ncv = 3)
 #' quantile.comb <- cv.results$quantile_table_CV[,1:length(X.dim)]
 #'  
 #' ## asmbPLS fit
@@ -71,6 +73,7 @@
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom stats quantile
 
 asmbPLS.cv <- function(X.matrix, Y.matrix, PLS.comp, X.dim, quantile.comb.table, 
                        Y.indicator, k = 5, ncv = 5, only.observe = TRUE, 

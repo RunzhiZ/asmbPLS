@@ -65,7 +65,6 @@
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @import ggplot2 ggpubr
-#' @importFrom Rcpp sourceCpp
 
 plotPLS <- function(fit.results, comp.X = 1, comp.Y = 2, group.name = NULL, legend = TRUE) {
   ## extract the Y information
@@ -92,6 +91,7 @@ plotPLS <- function(fit.results, comp.X = 1, comp.Y = 2, group.name = NULL, lege
   df$X <- as.numeric(df$X)
   df$Y <- as.numeric(df$Y)
   df$Group <- as.factor(df$Group)
+  p_output <- NULL
   eval(parse(text = paste0("p_output <- ggplot(data = df, aes(X, Y, color = Group)) + geom_point(show.legend = ", legend, ") + 
                            stat_ellipse(show.legend = FALSE) + xlab(\"PLS ", comp.X, "\") + ylab(\"PLS ", comp.Y, "\") + theme_bw()")))
   return(p_output)

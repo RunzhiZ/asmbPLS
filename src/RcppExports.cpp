@@ -274,18 +274,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// quantile_f
-arma::vec quantile_f(arma::vec V, arma::vec P);
-RcppExport SEXP _asmbPLS_quantile_f(SEXP VSEXP, SEXP PSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type V(VSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type P(PSEXP);
-    rcpp_result_gen = Rcpp::wrap(quantile_f(V, P));
-    return rcpp_result_gen;
-END_RCPP
-}
 // sample_group
 NumericVector sample_group(double n, double K_input);
 RcppExport SEXP _asmbPLS_sample_group(SEXP nSEXP, SEXP K_inputSEXP) {
@@ -340,7 +328,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_asmbPLS_asmbPLS_fit", (DL_FUNC) &_asmbPLS_asmbPLS_fit, 8},
     {"_asmbPLS_asmbPLS_predict", (DL_FUNC) &_asmbPLS_asmbPLS_predict, 3},
     {"_asmbPLS_mbPLS_fit", (DL_FUNC) &_asmbPLS_mbPLS_fit, 4},
-    {"_asmbPLS_quantile_f", (DL_FUNC) &_asmbPLS_quantile_f, 2},
     {"_asmbPLS_sample_group", (DL_FUNC) &_asmbPLS_sample_group, 2},
     {"_asmbPLS_stl_sort", (DL_FUNC) &_asmbPLS_stl_sort, 1},
     {"_asmbPLS_weight_sparse", (DL_FUNC) &_asmbPLS_weight_sparse, 2},

@@ -1,11 +1,10 @@
-#' Create the quantile combination set for asmbPLS
+#' Create the quantile combination set for asmbPLS and asmbPLS-DA
 #'
 #' Create the quantile combination set given quantile set for each block
 #' 
 #' @param quantile.list A list containing the quantile set for each block.
 #' 
-#' @return 
-#' \item{quantile.comb}{The quantile combination used for asmbPLS}
+#' @return The quantile combination used for asmbPLS and asmbPLS-DA models
 #' 
 #' @examples
 #' ## Generate quantile set for each block
@@ -14,15 +13,14 @@
 #' quantile_2 <- c(0.96, 0.97, 0.98, 0.99, 0.995)
 #' quantile_3 <- c(0.95, 0.96, 0.97, 0.98, 0.99)
 #' quantilelist <- list(quantile_1, quantile_2, quantile_3)
-#' quantile.comb <- quantile.combination(quantilelist)
+#' quantile.comb <- quantileComb(quantilelist)
 #' 
 #' @export
 #' @useDynLib asmbPLS, .registration=TRUE
-#' @importFrom Rcpp sourceCpp
 
-quantile.combination <- function(quantilelist) {
-  n <- length(quantilelist)
-  eval(parse(text = paste0("output <- expand.grid(", paste(paste0("quantilelist[[", 1:n, "]]"), collapse = ", "), ")")))
+quantileComb <- function(quantile.list) {
+  n <- length(quantile.list)
+  eval(parse(text = paste0("output <- expand.grid(", paste(paste0("quantile.list[[", 1:n, "]]"), collapse = ", "), ")")))
   colnames(output) <- paste0("block_", 1:n)
   output <- as.matrix(output)
   return(output)
