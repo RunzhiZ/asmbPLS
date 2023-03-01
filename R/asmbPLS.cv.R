@@ -38,7 +38,7 @@
 #' 
 #' @return 
 #' \code{asmbPLS.cv} returns a list containing the following components:
-#' \item{quantile_table_CV}{A matrix containing the selected quantile .
+#' \item{quantile_table_CV}{A matrix containing the selected quantile 
 #' combination and the corresponding measures of CV for each PLS component.}
 #' \item{optimal_nPLS}{Optimal number of PLS components.}.
 #' 
