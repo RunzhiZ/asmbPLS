@@ -1,6 +1,6 @@
 #' Graphical output for the asmbPLS-DA framework
 #'
-#' Function to visualize correlation between PLS components from different blocks 
+#' Function to visualize correlations between PLS components from different blocks 
 #' using the model fitted by the function \code{\link[asmbPLS]{asmbPLSDA.fit}}.
 #' 
 #' @param fit.results The output of \code{\link[asmbPLS]{asmbPLSDA.fit}}.
@@ -20,9 +20,9 @@
 #' none
 #' 
 #' @details 
-#' The function returns a plot to show correlation between PLS components from 
-#' different blocks. The lower triangular panel indicates the Pearson's 
-#' correlation coefficient, the upper triangular panel the scatter plot.
+#' The function returns a plot to show correlations between PLS components from 
+#' different blocks. The lower triangular panel indicates Pearson's 
+#' correlation coefficient, and the upper triangular panel the scatter plot.
 #' 
 #' @examples
 #' ## Use the example dataset

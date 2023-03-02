@@ -65,8 +65,8 @@ asmbPLS_predict <- function(asmbPLS_results, newdata, PLS_term_selected) {
     .Call(`_asmbPLS_asmbPLS_predict`, asmbPLS_results, newdata, PLS_term_selected)
 }
 
-mbPLS_fit <- function(E_matrix, F_matrix, PLS_term, X_dim) {
-    .Call(`_asmbPLS_mbPLS_fit`, E_matrix, F_matrix, PLS_term, X_dim)
+mbPLS_fit <- function(E_matrix, F_matrix, PLS_term, X_dim, center, scale, maxiter) {
+    .Call(`_asmbPLS_mbPLS_fit`, E_matrix, F_matrix, PLS_term, X_dim, center, scale, maxiter)
 }
 
 sample_group <- function(n, K_input) {

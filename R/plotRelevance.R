@@ -1,12 +1,12 @@
 #' Relevance plot for asmbPLS-DA
 #'
-#' Function to visualize the most relevant features (relevant to outcome) in 
+#' Function to visualize the most relevant features (relevant to the outcome) in 
 #' each block.
 #' 
 #' @param fit.results The output of \code{\link[asmbPLS]{asmbPLSDA.fit}}.
 #' @param n.top A integer indicating the number of the most relevant features to 
 #' be displayed for each block. The default is 10. If the number of selected 
-#' features in block is smaller than \code{n.top}, all the selected features in
+#' features in the block is smaller than \code{n.top}, all the selected features in
 #' that block will be displayed.
 #' @param ncomp Which component to plot from each block. Should not be larger 
 #' than the number of PLS components used (\code{PLS.comp}) in the function

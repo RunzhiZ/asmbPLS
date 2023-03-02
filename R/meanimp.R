@@ -3,8 +3,9 @@
 #' In this approach, \eqn{\mu} can be computed using the familiar sample mean
 #' formula provided the censored values are imputed.
 #' 
-#' @param survival_data A matrix of two columns with the first column indicates
-#' the survival time and the second column indicates the event indicator.
+#' @param survival.data A matrix of two columns with the first column indicates
+#' the survival time and the second column indicates the event indicator (1 and 
+#' 0, where 1 indicates observed event and 0 indicates unobserved event).
 #' @param round Whether survival time should be rounded, default = FALSE.
 #' 
 #' @return 
@@ -24,22 +25,22 @@
 #' @useDynLib asmbPLS, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 
-meanimp <- function(survival_data, round = FALSE) {
-  colnames(survival_data) <- c("Survival_time", "Event_indicator")
-  n <- nrow(survival_data)
-  survival_data <- cbind(survival_data, 1:n, NA)
-  colnames(survival_data)[3:4] <- c("ID", "Imputed_time")
-  survival_data <- survival_data[order(survival_data[, "Survival_time"]), ]
-  survival_data[n, "Event_indicator"]<-1
+meanimp <- function(survival.data, round = FALSE) {
+  colnames(survival.data) <- c("Survival_time", "Event_indicator")
+  n <- nrow(survival.data)
+  survival.data <- cbind(survival.data, 1:n, NA)
+  colnames(survival.data)[3:4] <- c("ID", "Imputed_time")
+  survival.data <- survival.data[order(survival.data[, "Survival_time"]), ]
+  survival.data[n, "Event_indicator"]<-1
   if (round == T) {
-    survival_data[, "Survival_time"] <- round(survival_data[, "Survival_time"])
+    survival.data[, "Survival_time"] <- round(survival.data[, "Survival_time"])
   }
-  KM_table <- KM.estimator(survival_data)
+  KM_table <- KM.estimator(survival.data)
   
-  censored_index <- which(survival_data[, "Event_indicator"] == 0)
+  censored_index <- which(survival.data[, "Event_indicator"] == 0)
   
   for (i in 1:length(censored_index)) {
-    censored_time <- survival_data[censored_index[i], "Survival_time"]
+    censored_time <- survival.data[censored_index[i], "Survival_time"]
     min_survival_time_index <- min(which(KM_table[, "Time"] > censored_time))
     numerator_table <- matrix(NA, nrow = nrow(KM_table) - min_survival_time_index + 1, ncol = 2)
     colnames(numerator_table) <- c("Tao", "Survival_diff")
@@ -57,11 +58,11 @@ meanimp <- function(survival_data, round = FALSE) {
     } else {
       denominator <- 1
     }
-    survival_data[censored_index[i], "Imputed_time"] <- numerator / denominator
+    survival.data[censored_index[i], "Imputed_time"] <- numerator / denominator
   }
   
-  survival_data <- survival_data[order(survival_data[, "ID"]), ]
-  survival_data[which(survival_data[,"Event_indicator"] == 1),"Imputed_time"] <- survival_data[which(survival_data[,"Event_indicator"] == 1),"Survival_time"]
-  return(list(imputed_table = survival_data,
+  survival.data <- survival.data[order(survival.data[, "ID"]), ]
+  survival.data[which(survival.data[,"Event_indicator"] == 1),"Imputed_time"] <- survival.data[which(survival.data[,"Event_indicator"] == 1),"Survival_time"]
+  return(list(imputed_table = survival.data,
               KM_table = KM_table))
 }

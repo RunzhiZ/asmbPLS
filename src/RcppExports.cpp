@@ -261,8 +261,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // mbPLS_fit
-List mbPLS_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim);
-RcppExport SEXP _asmbPLS_mbPLS_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP) {
+List mbPLS_fit(arma::mat E_matrix, arma::mat F_matrix, int PLS_term, NumericVector X_dim, LogicalVector center, LogicalVector scale, int maxiter);
+RcppExport SEXP _asmbPLS_mbPLS_fit(SEXP E_matrixSEXP, SEXP F_matrixSEXP, SEXP PLS_termSEXP, SEXP X_dimSEXP, SEXP centerSEXP, SEXP scaleSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -270,7 +270,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::mat >::type F_matrix(F_matrixSEXP);
     Rcpp::traits::input_parameter< int >::type PLS_term(PLS_termSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type X_dim(X_dimSEXP);
-    rcpp_result_gen = Rcpp::wrap(mbPLS_fit(E_matrix, F_matrix, PLS_term, X_dim));
+    Rcpp::traits::input_parameter< LogicalVector >::type center(centerSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(mbPLS_fit(E_matrix, F_matrix, PLS_term, X_dim, center, scale, maxiter));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -327,7 +330,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_asmbPLS_asmbPLS_CV", (DL_FUNC) &_asmbPLS_asmbPLS_CV, 13},
     {"_asmbPLS_asmbPLS_fit", (DL_FUNC) &_asmbPLS_asmbPLS_fit, 8},
     {"_asmbPLS_asmbPLS_predict", (DL_FUNC) &_asmbPLS_asmbPLS_predict, 3},
-    {"_asmbPLS_mbPLS_fit", (DL_FUNC) &_asmbPLS_mbPLS_fit, 4},
+    {"_asmbPLS_mbPLS_fit", (DL_FUNC) &_asmbPLS_mbPLS_fit, 7},
     {"_asmbPLS_sample_group", (DL_FUNC) &_asmbPLS_sample_group, 2},
     {"_asmbPLS_stl_sort", (DL_FUNC) &_asmbPLS_stl_sort, 1},
     {"_asmbPLS_weight_sparse", (DL_FUNC) &_asmbPLS_weight_sparse, 2},

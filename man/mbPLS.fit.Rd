@@ -4,10 +4,18 @@
 \alias{mbPLS.fit}
 \title{mbPLS for block-structured data}
 \usage{
-mbPLS.fit(X.matrix, Y.matrix, PLS.comp, X.dim)
+mbPLS.fit(
+  X.matrix,
+  Y.matrix,
+  PLS.comp,
+  X.dim,
+  center = TRUE,
+  scale = TRUE,
+  maxiter = 100
+)
 }
 \arguments{
-\item{X.matrix}{Predictors matrix. Samples in rows, variables in columns}
+\item{X.matrix}{Predictors matrix. Samples in rows, variables in columns.}
 
 \item{Y.matrix}{Outcome matrix. Samples in rows, this is a matrix with one 
 column (continuous variable). The outcome could be imputed survival time. 
@@ -18,35 +26,46 @@ right censored time could be imputed by \code{\link{meanimp}}.}
 
 \item{X.dim}{A vector containing the number of predictors in each block 
 (ordered).}
+
+\item{center}{A logical value indicating whether mean center should be 
+implemented for X.matrix and Y.matrix. The default is TRUE.}
+
+\item{scale}{A logical value indicating whether scale should be 
+implemented for X.matrix and Y.matrix. The default is TRUE.}
+
+\item{maxiter}{A integer indicating the maximum number of iteration. The
+default number is 100.}
 }
 \value{
 \code{mbPLS.fit} returns a list containing the following components:
 \item{X_dim}{A vector containing the number of predictors in each block.}
-\item{x_weight}{A list containing the weights of predictors for different 
+\item{X_weight}{A list containing the weights of predictors for different 
 blocks in different PLS components.}
-\item{x_score}{A list containing the scores of samples in different blocks
+\item{X_score}{A list containing the scores of samples in different blocks
 in different PLS components.}
-\item{x_loading}{A list containing the loadings of predictors for different
+\item{X_loading}{A list containing the loadings of predictors for different
 blocks in different PLS components.}
-\item{x_super_weight}{A matrix containing the super weights of different
+\item{X_super_weight}{A matrix containing the super weights of different
 blocks for different PLS components.}
-\item{x_super_score}{A matrix containing the super scores of samples for
+\item{X_super_score}{A matrix containing the super scores of samples for
 different PLS components.}
-\item{y_weight}{A matrix containing the weights of outcome for different 
+\item{Y_weight}{A matrix containing the weights of outcome for different 
 PLS components.}
-\item{y_score}{A matrix containing the scores of outcome for different 
+\item{Y_score}{A matrix containing the scores of outcome for different 
 PLS components.}
-\item{col_mean}{A vector containing the mean of each predictor for scaling.}
-\item{col_sd}{A vector containing the standard deviation of each predictor
-for scaling. Predictor with sd = 0 will be changed to 1.}
-\item{X_scaled}{Scaled predictors matrix.}
-\item{Y_mean}{The mean of outcome matrix for scaling.}
-\item{Y_sd}{The standard deviation of outcome matrix for scaling.}
-\item{Y_scaled}{Scaled outcome matrix.}
+\item{X_col_mean}{A matrix containing the mean of each predictor for scaling.}
+\item{Y_col_mean}{The mean of outcome matrix for scaling.}
+\item{X_col_sd}{A matrix containing the standard deviation of each predictor
+for scaling. Predictor with sd = 0 will be set to 1.}
+\item{Y_col_sd}{The standard deviation of outcome matrix for scaling.}
+\item{center}{A logical value indicating whether mean center is
+implemented for X.matrix and Y.matrix.}
+\item{scale}{A logical value indicating whether scale is implemented for 
+X.matrix and Y.matrix.}
 }
 \description{
 Function to fit the multi-block partial least square model 
-(mbPLS) with several explanatory blocks (X_1, ..., X_B) as our predictors
+(mbPLS) with several explanatory blocks \eqn{(X_1, ..., X_B)} as our predictors
 to explain the outcome Y.
 }
 \examples{

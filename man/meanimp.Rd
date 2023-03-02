@@ -4,11 +4,12 @@
 \alias{meanimp}
 \title{Mean imputation for the survival time}
 \usage{
-meanimp(survival_data, round = FALSE)
+meanimp(survival.data, round = FALSE)
 }
 \arguments{
-\item{survival_data}{A matrix of two columns with the first column indicates
-the survival time and the second column indicates the event indicator.}
+\item{survival.data}{A matrix of two columns with the first column indicates
+the survival time and the second column indicates the event indicator (1 and 
+0, where 1 indicates observed event and 0 indicates unobserved event).}
 
 \item{round}{Whether survival time should be rounded, default = FALSE.}
 }

@@ -11,7 +11,7 @@ plotRelevance(fit.results, n.top = 10, ncomp = 1, block.name = NULL)
 
 \item{n.top}{A integer indicating the number of the most relevant features to 
 be displayed for each block. The default is 10. If the number of selected 
-features in block is smaller than \code{n.top}, all the selected features in
+features in the block is smaller than \code{n.top}, all the selected features in
 that block will be displayed.}
 
 \item{ncomp}{Which component to plot from each block. Should not be larger 
@@ -25,7 +25,7 @@ must be ordered and match each block.}
 none
 }
 \description{
-Function to visualize the most relevant features (relevant to outcome) in 
+Function to visualize the most relevant features (relevant to the outcome) in 
 each block.
 }
 \details{

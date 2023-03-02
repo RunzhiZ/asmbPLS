@@ -2,7 +2,7 @@
 #'
 #' Function to fit the adaptive sparse multi-block partial least square 
 #' discriminant analysis (asmbPLS-DA) model with several explanatory blocks 
-#' (X_1, ..., X_B) as our predictors to explain the categorical outcome Y.
+#' \eqn{(X_1, ..., X_B)} as our predictors to explain the categorical outcome Y.
 #' 
 #' @param X.matrix Predictors matrix. Samples in rows, variables in columns
 #' @param Y.matrix Outcome matrix. Samples in rows, this is a matrix with one 

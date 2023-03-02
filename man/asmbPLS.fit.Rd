@@ -70,7 +70,7 @@ X.matrix and Y.matrix.}
 }
 \description{
 Function to fit the adaptive sparse multi-block partial least square model 
-(asmbPLS) with several explanatory blocks (X_1, ..., X_B) as our predictors
+(asmbPLS) with several explanatory blocks \eqn{(X_1, ..., X_B)} as our predictors
 to explain the outcome Y.
 }
 \examples{

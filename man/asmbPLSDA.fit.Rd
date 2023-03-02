@@ -78,7 +78,7 @@ levels.}
 \description{
 Function to fit the adaptive sparse multi-block partial least square 
 discriminant analysis (asmbPLS-DA) model with several explanatory blocks 
-(X_1, ..., X_B) as our predictors to explain the categorical outcome Y.
+\eqn{(X_1, ..., X_B)} as our predictors to explain the categorical outcome Y.
 }
 \examples{
 ## Use the example dataset
