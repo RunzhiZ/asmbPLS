@@ -10,10 +10,10 @@ quantileComb(quantile.list)
 \item{quantile.list}{A list containing the quantile set for each block.}
 }
 \value{
-The quantile combination used for asmbPLS and asmbPLS-DA models
+The quantile combination used for asmbPLS and asmbPLS-DA models.
 }
 \description{
-Create the quantile combination set given quantile set for each block
+Create the quantile combination set given quantile set for each block.
 }
 \examples{
 ## Generate quantile set for each block

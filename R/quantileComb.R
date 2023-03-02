@@ -1,10 +1,10 @@
 #' Create the quantile combination set for asmbPLS and asmbPLS-DA
 #'
-#' Create the quantile combination set given quantile set for each block
+#' Create the quantile combination set given quantile set for each block.
 #' 
 #' @param quantile.list A list containing the quantile set for each block.
 #' 
-#' @return The quantile combination used for asmbPLS and asmbPLS-DA models
+#' @return The quantile combination used for asmbPLS and asmbPLS-DA models.
 #' 
 #' @examples
 #' ## Generate quantile set for each block
