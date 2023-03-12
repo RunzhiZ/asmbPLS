@@ -76,11 +76,12 @@ plotRelevance <- function(fit.results, n.top = 10, ncomp = 1, block.name = NULL)
     df <- as.data.frame(cbind(names(non_zero_index), X_weight[[i]][non_zero_index, ncomp]))
     colnames(df) <- c("feature", "value")
     df$value <- as.numeric(df$value)
+    df$abs_value <- abs(df$value)
     df$weight <- ifelse(df$value > 0, "positive", "negative")
     df$weight <- factor(df$weight, levels = c("positive", "negative"))
     df$feature <- factor(df$feature, levels = df$feature[order(abs(df$value))])
     df$block <- block.name[i]
-    df <- df[order(df$value, decreasing = T), ]
+    df <- df[order(df$abs_value, decreasing = T), ]
     ## Take Top n
     if(n.top <= nrow(df)) {
       df <- df[1:n.top, ]
