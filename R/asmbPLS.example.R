@@ -20,7 +20,7 @@
 #' 
 #' 6) \code{quantile.comb}, selected quantile combinations; 
 #' 
-#' 7) \code{quantile.comb.table.cv}, pre-defined quantile combinations for cross validaiton;
+#' 7) \code{quantile.comb.table.cv}, pre-defined quantile combinations for cross validation;
 #' 
 #' 8) \code{Y.indicator}, a vector containing the event indicator for each sample.
 #' 

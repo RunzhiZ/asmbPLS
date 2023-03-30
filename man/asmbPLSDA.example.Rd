@@ -21,7 +21,7 @@ A list including 8 components:
 
 7) \code{quantile.comb}, selected quantile combinations;
 
-8) \code{quantile.comb.table.cv}, pre-defined quantile combinations for cross validaiton.
+8) \code{quantile.comb.table.cv}, pre-defined quantile combinations for cross validation.
 }
 \usage{
 data(asmbPLSDA.example)
