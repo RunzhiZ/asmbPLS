@@ -10,9 +10,9 @@
 #' @param block.name A vector containing the named character for each block. It
 #' must be ordered and match each block. 
 #' @param group.name A vector containing the named character for each sample 
-#' group. For \code{binary} outcome, first group name matchs \code{Y.matrix} = 0, 
-#' second group name matchs \code{Y.matrix} = 1. For \code{multiclass} outcome,
-#'  \code{i}th group name matchs \code{i}th column of \code{Y.matrix} = 1. 
+#' group. For \code{binary} outcome, first group name matches \code{Y.matrix} = 0, 
+#' second group name matches \code{Y.matrix} = 1. For \code{multiclass} outcome,
+#'  \code{i}th group name matches \code{i}th column of \code{Y.matrix} = 1. 
 #' @param legend A logical value indicating whether the legend should be added.
 #' The default is TRUE.
 #' 
