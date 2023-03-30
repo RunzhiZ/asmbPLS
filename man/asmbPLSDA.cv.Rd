@@ -96,14 +96,15 @@ cv.results.binary <- asmbPLSDA.cv(X.matrix = X.matrix,
                                   X.dim = X.dim, 
                                   quantile.comb.table = quantile.comb.table.cv, 
                                   outcome.type = "binary",
-                                  k = 3,
+                                  k = 5,
                                   ncv = 3)
 quantile.comb.binary <- cv.results.binary$quantile_table_CV[,1:length(X.dim)]
+n.PLS.binary <- cv.results.binary$optimal_nPLS
 
 ## asmbPLSDA fit using the selected quantile combination (binary outcome)
 asmbPLSDA.fit.binary <- asmbPLSDA.fit(X.matrix = X.matrix, 
                                       Y.matrix = Y.matrix.binary, 
-                                      PLS.comp = PLS.comp, 
+                                      PLS.comp = n.PLS.binary, 
                                       X.dim = X.dim, 
                                       quantile.comb = quantile.comb.binary,
                                       outcome.type = "binary")
@@ -117,14 +118,15 @@ cv.results.multiclass <- asmbPLSDA.cv(X.matrix = X.matrix,
                                       X.dim = X.dim, 
                                       quantile.comb.table = quantile.comb.table.cv, 
                                       outcome.type = "multiclass",
-                                      k = 3,
+                                      k = 5,
                                       ncv = 3)
 quantile.comb.multiclass <- cv.results.multiclass$quantile_table_CV[,1:length(X.dim)]
+n.PLS.multiclass <- cv.results.multiclass$optimal_nPLS
 
 ## asmbPLSDA fit (categorical outcome with more than 2 levels)
 asmbPLSDA.fit.multiclass <- asmbPLSDA.fit(X.matrix = X.matrix, 
                                           Y.matrix = Y.matrix.multiclass, 
-                                          PLS.comp = PLS.comp, 
+                                          PLS.comp = n.PLS.multiclass, 
                                           X.dim = X.dim, 
                                           quantile.comb = quantile.comb.multiclass,
                                           outcome.type = "multiclass")

@@ -59,14 +59,15 @@
 #'                          X.dim = X.dim, 
 #'                          quantile.comb.table = quantile.comb.table.cv, 
 #'                          Y.indicator = Y.indicator,
-#'                          k = 3,
+#'                          k = 5,
 #'                          ncv = 3)
 #' quantile.comb <- cv.results$quantile_table_CV[,1:length(X.dim)]
+#' n.PLS <- cv.results$optimal_nPLS
 #'  
 #' ## asmbPLS fit
 #' asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix, 
 #'                                Y.matrix = Y.matrix, 
-#'                                PLS.comp = PLS.comp, 
+#'                                PLS.comp = n.PLS, 
 #'                                X.dim = X.dim, 
 #'                                quantile.comb = quantile.comb)
 #' 

@@ -25,53 +25,61 @@ results are the weighted classification using the decision rules included.
 data(asmbPLSDA.example)
 X.matrix = asmbPLSDA.example$X.matrix
 X.matrix.new = asmbPLSDA.example$X.matrix.new
-Y.matrix.multiclass = asmbPLSDA.example$Y.matrix.morethan2levels
+Y.matrix.binary = asmbPLSDA.example$Y.matrix.binary
 X.dim = asmbPLSDA.example$X.dim
 PLS.comp = asmbPLSDA.example$PLS.comp
 quantile.comb.table.cv = asmbPLSDA.example$quantile.comb.table.cv
 
-## Cross validaiton based on max Y
-cv.results.max <- asmbPLSDA.cv(X.matrix = X.matrix, 
-                               Y.matrix = Y.matrix.multiclass,
-                               PLS.comp = 5, 
-                               X.dim = X.dim, 
-                               quantile.comb.table = quantile.comb.table.cv, 
-                               outcome.type = "multiclass", 
-                               method = "Max_Y")
-quantile.comb.max <- cv.results.max$quantile_table_CV
+## Cross validaiton based on fixed cutoff
+cv.results.cutoff <- asmbPLSDA.cv(X.matrix = X.matrix, 
+                                  Y.matrix = Y.matrix.binary,
+                                  PLS.comp = PLS.comp, 
+                                  X.dim = X.dim, 
+                                  quantile.comb.table = quantile.comb.table.cv, 
+                                  outcome.type = "binary", 
+                                  method = "fixed_cutoff",
+                                  k = 5,
+                                  ncv = 3)
+quantile.comb.cutoff <- cv.results.cutoff$quantile_table_CV
 
 ## Cross validation using Euclidean distance of X super score
 cv.results.EDX <- asmbPLSDA.cv(X.matrix = X.matrix, 
-                               Y.matrix = Y.matrix.multiclass,
-                               PLS.comp = 5, 
+                               Y.matrix = Y.matrix.binary,
+                               PLS.comp = PLS.comp, 
                                X.dim = X.dim, 
                                quantile.comb.table = quantile.comb.table.cv, 
-                               outcome.type = "multiclass", 
-                               method = "Euclidean_distance_X")
+                               outcome.type = "binary", 
+                               method = "Euclidean_distance_X",
+                               k = 5,
+                               ncv = 3)
 quantile.comb.EDX <- cv.results.EDX$quantile_table_CV
 
-## Cross validation using PCA + Mahalanobis distance of Y
-cv.results.PCAMDY <- asmbPLSDA.cv(X.matrix = X.matrix, 
-                                  Y.matrix = Y.matrix.multiclass,
-                                  PLS.comp = 5, 
+## Cross validation using Mahalanobis distance of X super score
+cv.results.MDX <- asmbPLSDA.cv(X.matrix = X.matrix, 
+                                  Y.matrix = Y.matrix.binary,
+                                  PLS.comp = PLS.comp, 
                                   X.dim = X.dim, 
                                   quantile.comb.table = quantile.comb.table.cv, 
-                                  outcome.type = "multiclass", 
-                                  method = "Euclidean_distance_X")
-quantile.comb.PCAMDY <- cv.results.PCAMDY$quantile_table_CV
+                                  outcome.type = "binary", 
+                                  method = "Mahalanobis_distance_X",
+                                  k = 5,
+                                  ncv = 3)
+quantile.comb.MDX <- cv.results.MDX$quantile_table_CV
 
 #### vote list ####
-cv.results.list = list(Max_Y = quantile.comb.max,
+cv.results.list = list(fixed_cutoff = quantile.comb.cutoff,
                        Euclidean_distance_X = quantile.comb.EDX,
-                       PCA_Mahalanobis_distance_Y = quantile.comb.PCAMDY)
+                       Mahalanobis_distance_X = quantile.comb.MDX)
 
 ## vote models fit
 vote.fit <- asmbPLSDA.vote.fit(X.matrix = X.matrix, 
-                               Y.matrix = Y.matrix.multiclass, 
+                               Y.matrix = Y.matrix.binary, 
                                X.dim = X.dim, 
-                               nPLS = c(2, 2, 2),
+                               nPLS = c(cv.results.cutoff$optimal_nPLS, 
+                               cv.results.EDX$optimal_nPLS, 
+                               cv.results.MDX$optimal_nPLS),
                                cv.results.list = cv.results.list, 
-                               outcome.type = "multiclass",
+                               outcome.type = "binary",
                                method = "weighted")
 
 ## classification
