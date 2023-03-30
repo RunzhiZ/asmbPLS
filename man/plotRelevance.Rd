@@ -7,7 +7,8 @@
 plotRelevance(fit.results, n.top = 10, ncomp = 1, block.name = NULL)
 }
 \arguments{
-\item{fit.results}{The output of \code{\link[asmbPLS]{asmbPLSDA.fit}}.}
+\item{fit.results}{The output of \code{\link[asmbPLS]{asmbPLSDA.fit}} or 
+\code{\link[asmbPLS]{asmbPLS.fit}}.}
 
 \item{n.top}{A integer indicating the number of the most relevant features to 
 be displayed for each block. The default is 10. If the number of selected 
@@ -16,7 +17,8 @@ that block will be displayed.}
 
 \item{ncomp}{Which component to plot from each block. Should not be larger 
 than the number of PLS components used (\code{PLS.comp}) in the function
-\code{\link[asmbPLS]{asmbPLSDA.fit}}. The default is 1.}
+\code{\link[asmbPLS]{asmbPLSDA.fit}} or \code{\link[asmbPLS]{asmbPLS.fit}}. 
+The default is 1.}
 
 \item{block.name}{A vector containing the named character for each block. It
 must be ordered and match each block.}

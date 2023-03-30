@@ -3,14 +3,16 @@
 #' Function to visualize the most relevant features (relevant to the outcome) in 
 #' each block.
 #' 
-#' @param fit.results The output of \code{\link[asmbPLS]{asmbPLSDA.fit}}.
+#' @param fit.results The output of \code{\link[asmbPLS]{asmbPLSDA.fit}} or 
+#' \code{\link[asmbPLS]{asmbPLS.fit}}.
 #' @param n.top A integer indicating the number of the most relevant features to 
 #' be displayed for each block. The default is 10. If the number of selected 
 #' features in the block is smaller than \code{n.top}, all the selected features in
 #' that block will be displayed.
 #' @param ncomp Which component to plot from each block. Should not be larger 
 #' than the number of PLS components used (\code{PLS.comp}) in the function
-#' \code{\link[asmbPLS]{asmbPLSDA.fit}}. The default is 1.
+#' \code{\link[asmbPLS]{asmbPLSDA.fit}} or \code{\link[asmbPLS]{asmbPLS.fit}}. 
+#' The default is 1.
 #' @param block.name A vector containing the named character for each block. It
 #' must be ordered and match each block.
 #' 
