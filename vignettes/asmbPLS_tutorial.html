@@ -392,7 +392,8 @@ each sample.</p>
 <code>X.matrix</code>.<br />
 Different types of omics data require specific pre-processing steps
 tailored to their unique characteristics.</p>
-<pre class="r"><code>asmbPLS.example$X.matrix[1:5, c(1:5, 201:205)] ## show the first 5 microbial taxa and the first 5 metabolites for the first 5 samples. </code></pre>
+<pre class="r"><code>## show the first 5 microbial taxa and the first 5 metabolites for the first 5 samples. 
+asmbPLS.example$X.matrix[1:5, c(1:5, 201:205)] </code></pre>
 <pre><code>##           Taxa_1     Taxa_2     Taxa_3     Taxa_4     Taxa_5 metabolite_1
 ## [1,] -1.63175165  2.4625929  2.6119703 -0.7154609 -4.1166583     6.900372
 ## [2,] -3.27012529  1.9821481 -0.3256863  0.1956106  0.6617003     8.074607
@@ -405,7 +406,8 @@ tailored to their unique characteristics.</p>
 ## [3,]     3.815648     6.653860     4.064987     5.377000
 ## [4,]     1.731010     4.232027     6.144947     5.382338
 ## [5,]     3.829668     4.680280     4.678092     5.505065</code></pre>
-<pre class="r"><code>asmbPLS.example$Y.matrix[1:5,] ## show the outcome for the first 5 samples.</code></pre>
+<pre class="r"><code>## show the outcome for the first 5 samples.
+asmbPLS.example$Y.matrix[1:5,] </code></pre>
 <pre><code>## [1] 6.410580 5.899169 5.684940 7.034513 5.842238</code></pre>
 </div>
 <div id="cross-validation" class="section level4">
@@ -430,8 +432,10 @@ cv.results &lt;- asmbPLS.cv(X.matrix = X.matrix,
                          Y.indicator = Y.indicator,
                          k = 5,
                          ncv = 5)
-quantile.comb &lt;- cv.results$quantile_table_CV[,1:length(X.dim)] ## obtain the best quantile combination for each PLS component
-n.PLS &lt;- cv.results$optimal_nPLS ## obtain the optimal number of PLS components</code></pre>
+## obtain the best quantile combination for each PLS component
+quantile.comb &lt;- cv.results$quantile_table_CV[,1:length(X.dim)] 
+## obtain the optimal number of PLS components
+n.PLS &lt;- cv.results$optimal_nPLS </code></pre>
 </div>
 <div id="model-fit" class="section level4">
 <h4><strong>Model Fit</strong></h4>
@@ -495,7 +499,8 @@ column;<br />
 7) <code>quantile.comb</code>, selected quantile combinations;<br />
 8) <code>quantile.comb.table.cv</code>, pre-defined quantile
 combinations for cross validation.</p>
-<pre class="r"><code>asmbPLSDA.example$X.matrix[1:5, c(1:5, 201:205)] ## show the first 5 features from block 1 and the first 5 features from block 2 for the first 5 samples. </code></pre>
+<pre class="r"><code>## show the first 5 features from block 1 and the first 5 features from block 2 for the first 5 samples.
+asmbPLSDA.example$X.matrix[1:5, c(1:5, 201:205)]  </code></pre>
 <pre><code>##      G1_feature_1 G1_feature_2 G1_feature_3 G1_feature_4 G1_feature_5
 ## [1,]    0.2444821    0.3715013  -0.21780418   0.58436337  -1.19637830
 ## [2,]   -0.2323967   -0.2874724  -0.31100383  -0.11253287  -0.03668811
@@ -508,9 +513,11 @@ combinations for cross validation.</p>
 ## [3,]   -0.1695784   0.24391203    0.8735221    0.5688791   -0.1548541
 ## [4,]    0.8182932   1.38808419   -0.9268429   -1.8371658    1.1532969
 ## [5,]   -0.8297609   0.01371050    0.6736516   -0.7678065   -0.7571429</code></pre>
-<pre class="r"><code>asmbPLSDA.example$Y.matrix.binary[1:5,] ## show the binary outcome for the first 5 samples.</code></pre>
+<pre class="r"><code>## show the binary outcome for the first 5 samples.
+asmbPLSDA.example$Y.matrix.binary[1:5,] </code></pre>
 <pre><code>## [1] 0 0 1 1 1</code></pre>
-<pre class="r"><code>asmbPLSDA.example$Y.matrix.morethan2levels[1:5,] ## show the multiclass outcome for the first 5 samples.</code></pre>
+<pre class="r"><code>## show the multiclass outcome for the first 5 samples.
+asmbPLSDA.example$Y.matrix.morethan2levels[1:5,] </code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    0    1    0
 ## [2,]    0    0    1
