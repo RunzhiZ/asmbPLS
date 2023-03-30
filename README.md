@@ -27,3 +27,6 @@ Possible solution for **error 2**: https://stackoverflow.com/questions/43555410/
 
 ## Installation error report
 If you have more errors installing the R package, please report to runzhi.zhang@ufl.edu
+
+## Tutorial
+[Click here to view the vignette](asmbPLS/vignettes/asmbPLS_tutorial.html)
