@@ -1,13 +1,28 @@
 ---
-title: "asmbPLS_tutorial"
-author: "Runzhi Zhang (runzhi.zhang@ufl.edu)"
-date: "March 30, 2023"
-output: rmarkdown::html_vignette
+title: "Tutorial for asmbPLS package"
+author: "Runzhi Zhang, Ph.D.<br><small>Department of Biostatistics<br>University of Florida</small>"
+date: "<small>`r Sys.Date()`</small>"
+output: 
+  html_document:
+    toc: yes
+    toc_depth: 2
+    number_sections: true
+    toc_float:
+      collapsed: false
+    code_folding: hide
+    theme: cerulean
+css: rmarkdownstyle.css
 vignette: >
   %\VignetteIndexEntry{asmbPLS_tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+<button id="toc-toggle" type="button" class="btn btn-default btn-xs code-folding-btn pull-right collapsed" onclick="toggletoc()"><span>Outline</span></button>
+<script>
+function toggletoc(){
+$("#TOC").toggle();
+}
+</script>
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -16,7 +31,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-### Requirements
+# Requirements
 Please install the R package prior to use asmbPLS. 
 ```{r}
 library(asmbPLS) ## load the R package
@@ -24,8 +39,8 @@ library(asmbPLS) ## load the R package
 If you want to see the list of functions in asmbPLS, please use `?asmbPLS`.  
 If you want to see the detailed description for each function, please use `?function`, for example `?asmbPLS.cv`.
 
-### **asmbPLS**
-#### **Example data for asmbPLS algorithm**
+# asmbPLS
+## Example data for asmbPLS algorithm
 ```{r, cache=TRUE}
 data(asmbPLS.example) ## load the example data set for asmbPLS
 ```
@@ -50,7 +65,7 @@ asmbPLS.example$Y.matrix[1:5,]
 ```
 
 
-#### **Cross Validation**
+## Cross Validation
 The 5-fold CV with 5 repetitions is implemented to help find the best quantile combination for each PLS component as well as the optimal number of PLS components.
 ```{r, cache=TRUE}
 X.matrix = asmbPLS.example$X.matrix
@@ -77,7 +92,7 @@ n.PLS <- cv.results$optimal_nPLS
 ```
 
 
-#### **Model Fit**
+## Model Fit
 The selected quantile combination for each PLS component and the optimal number of PLS components can be used as input for the `asmbPLS.fit` function to fit the final model.
 ```{r, cache=TRUE}
 asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix, 
@@ -88,7 +103,7 @@ asmbPLS.results <- asmbPLS.fit(X.matrix = X.matrix,
 ```
 
 
-#### **Prediction**
+## Prediction
 Once the model is fitted, you can use the model to do the prediction using the new data set (`X.matrix.new`).
 ```{r, cache=TRUE}
 Y.pred <- asmbPLS.predict(asmbPLS.results, X.matrix.new, n.PLS)
@@ -102,8 +117,8 @@ check.fit <- cbind(Y.matrix, Y.fit$Y_pred)
 head(check.fit)
 ```
 
-### **asmbPLS-DA**
-#### **Example data for asmbPLS-DA algorithm**
+# asmbPLS-DA
+## Example data for asmbPLS-DA algorithm
 ```{r, cache=TRUE}
 data(asmbPLSDA.example) ## load the example data set for asmbPLS-DA
 ```
@@ -128,7 +143,7 @@ asmbPLSDA.example$Y.matrix.morethan2levels[1:5,]
 In the example data set, we include both binary outcome and multiclass outcome.
 
 
-#### **Cross Validation**
+## Cross Validation
 Similarly, the 5-fold CV with 5 repetitions is implemented to help find the best quantile combination for each PLS component as well as the optimal number of PLS components.  
 You can use different decision rules (`method` in the function, the default is `fixed_cutoff` for the binary outcome and `Max_Y` for the multiclass outcome) and different `measure` (The default is balanced accuracy `B_accuracy`) for the CV.  
 Also, note that you need to set different `outcome.type` for different types of outcomes.  
@@ -142,7 +157,7 @@ X.dim = asmbPLSDA.example$X.dim
 PLS.comp = asmbPLSDA.example$PLS.comp
 quantile.comb.table.cv = asmbPLSDA.example$quantile.comb.table.cv
 ```
-CV for the **binary** outcome:
+CV for the binary outcome:
 ```{r, cache=TRUE}
 ## cv to find the best quantile combinations for model fitting (binary outcome)
 cv.results.binary <- asmbPLSDA.cv(X.matrix = X.matrix, 
@@ -156,7 +171,7 @@ cv.results.binary <- asmbPLSDA.cv(X.matrix = X.matrix,
 quantile.comb.binary <- cv.results.binary$quantile_table_CV[,1:length(X.dim)]
 n.PLS.binary <- cv.results.binary$optimal_nPLS
 ```
-CV for the **multiclass** outcome:
+CV for the multiclass outcome:
 ```{r, cache=TRUE}
 ## cv to find the best quantile combinations for model fitting 
 ## (categorical outcome with more than 2 levels)
@@ -172,9 +187,9 @@ quantile.comb.multiclass <- cv.results.multiclass$quantile_table_CV[,1:length(X.
 n.PLS.multiclass <- cv.results.multiclass$optimal_nPLS
 ```
 
-#### **Model Fit**
+## Model Fit
 `asmbPLSDA.fit` function is used to fit the final model for both the binary and multiclass outcome.  
-Model fit for the **binary** outcome:
+Model fit for the binary outcome:
 ```{r, cache=TRUE}
 ## asmbPLSDA fit using the selected quantile combination (binary outcome)
 asmbPLSDA.fit.binary <- asmbPLSDA.fit(X.matrix = X.matrix, 
@@ -184,7 +199,7 @@ asmbPLSDA.fit.binary <- asmbPLSDA.fit(X.matrix = X.matrix,
                                       quantile.comb = quantile.comb.binary,
                                       outcome.type = "binary")
 ```
-Model fit for the **multiclass** outcome:
+Model fit for the multiclass outcome:
 ```{r, cache=TRUE}
 ## asmbPLSDA fit (categorical outcome with more than 2 levels)
 asmbPLSDA.fit.multiclass <- asmbPLSDA.fit(X.matrix = X.matrix, 
@@ -195,7 +210,7 @@ asmbPLSDA.fit.multiclass <- asmbPLSDA.fit(X.matrix = X.matrix,
                                           outcome.type = "multiclass")
 ```
 
-#### **Classification**
+## Classification
 `asmbPLSDA.predict` function is used to classify the sample group for the new sample.
 ```{r, cache=TRUE}
 ## classification for the new data based on the asmbPLS-DA model with the binary outcome.
@@ -208,7 +223,7 @@ Y.pred.multiclass <- asmbPLSDA.predict(asmbPLSDA.fit.multiclass,
                                        PLS.comp = n.PLS.multiclass)
 ```
 
-#### **Vote Function**
+## Vote Function
 When we have multiple models using different decision rules, we can use the vote functions to combine the classification results.  
 For example, for the binary outcome, we have already built the asmbPLS-DA model with fixed cutoff as our decision rule. We want to build two more models with different decision rules `Euclidean_distance_X` and `Mahalanobis_distance_X` and then combine the results using the vote function.
 ```{r, cache=TRUE}
@@ -265,8 +280,8 @@ vote.predict <- asmbPLSDA.vote.predict(vote.fit, X.matrix.new)
 head(vote.predict)
 ```
 
-## **Visualization**
-#### **Correlation between different blocks**
+# Visualization
+## Correlation between different blocks
 You can use function `plotCor` to visualize correlations between PLS components from different blocks using the model fitted by the function `asmbPLSDA.fit`. For here, we use the first block score from each block to make the plot.  
 `block.name` should be a vector containing the named character for each block. It must be ordered and match each block.  
 `group.name` should be a vector containing the named character for each sample group. For binary outcome, first group name matchs Y.matrix = 0, second group name matchs Y.matrix = 1. For multiclass outcome, ith group name matches ith column of Y.matrix = 1.
@@ -279,7 +294,7 @@ plotCor(asmbPLSDA.fit.binary,
 ```  
 
 
-#### **PLS plot**
+## PLS plot
 You can use function `plotPLS` to visualize cluster of samples using super score of different PLS components. It can only be used for the output of `asmbPLSDA.fit` function.  
 ```{r, cache=TRUE}
 ## custom block.name and group.name
@@ -289,7 +304,7 @@ plotPLS(asmbPLSDA.fit.binary,
         group.name = c("control", "case"))
 ```
 
-#### **Relevance plot**
+## Relevance plot
 You can use function `plotRelevance` to visualize the most relevant features (relevant to the outcome) in each block. Both the fitted asmbPLS and asmbPLS-DA models can be used as input.
 ```{r}
 plotRelevance(asmbPLSDA.fit.binary, 

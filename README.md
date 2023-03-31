@@ -29,4 +29,4 @@ Possible solution for **error 2**: https://stackoverflow.com/questions/43555410/
 If you have more errors installing the R package, please report to runzhi.zhang@ufl.edu
 
 ## Tutorial
-[Click here to view the vignette](https://rpubs.com/spencer886/1022448)
+[Click here to view the vignette](https://rpubs.com/spencer886/1022825)
