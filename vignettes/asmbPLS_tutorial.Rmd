@@ -35,6 +35,7 @@ knitr::opts_chunk$set(
 Please install the R package prior to use asmbPLS. 
 ```{r}
 library(asmbPLS) ## load the R package
+set.seed(123) ## set seed to generate the same results
 ```
 If you want to see the list of functions in asmbPLS, please use `?asmbPLS`.  
 If you want to see the detailed description for each function, please use `?function`, for example `?asmbPLS.cv`.
