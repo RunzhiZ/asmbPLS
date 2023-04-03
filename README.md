@@ -11,6 +11,12 @@ In addition, Adaptive Sparse Multi-block Partial Least Square Discriminant Analy
 ```
 devtools::install_github("RunzhiZ/asmbPLS")
 ```
+or
+```
+devtools::install_github("RunzhiZ/asmbPLS", build_vignettes = TRUE, force = TRUE) ## if you want to build the vignettes also
+browseVignettes() ## you can find the corresponding vignettes for asmbPLS after installing the package
+```
+
 ### Common errors for MAC users:
 * **Error 1**:
 ```
