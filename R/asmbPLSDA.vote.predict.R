@@ -30,7 +30,7 @@
 #'                                   quantile.comb.table = quantile.comb.table.cv, 
 #'                                   outcome.type = "binary", 
 #'                                   method = "fixed_cutoff",
-#'                                   k = 5,
+#'                                   k = 3,
 #'                                   ncv = 3)
 #' quantile.comb.cutoff <- cv.results.cutoff$quantile_table_CV
 #' 
@@ -42,7 +42,7 @@
 #'                                quantile.comb.table = quantile.comb.table.cv, 
 #'                                outcome.type = "binary", 
 #'                                method = "Euclidean_distance_X",
-#'                                k = 5,
+#'                                k = 3,
 #'                                ncv = 3)
 #' quantile.comb.EDX <- cv.results.EDX$quantile_table_CV
 #' 
@@ -54,7 +54,7 @@
 #'                                   quantile.comb.table = quantile.comb.table.cv, 
 #'                                   outcome.type = "binary", 
 #'                                   method = "Mahalanobis_distance_X",
-#'                                   k = 5,
+#'                                   k = 3,
 #'                                   ncv = 3)
 #' quantile.comb.MDX <- cv.results.MDX$quantile_table_CV
 #' 

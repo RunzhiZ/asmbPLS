@@ -38,7 +38,7 @@ cv.results.cutoff <- asmbPLSDA.cv(X.matrix = X.matrix,
                                   quantile.comb.table = quantile.comb.table.cv, 
                                   outcome.type = "binary", 
                                   method = "fixed_cutoff",
-                                  k = 5,
+                                  k = 3,
                                   ncv = 3)
 quantile.comb.cutoff <- cv.results.cutoff$quantile_table_CV
 
@@ -50,7 +50,7 @@ cv.results.EDX <- asmbPLSDA.cv(X.matrix = X.matrix,
                                quantile.comb.table = quantile.comb.table.cv, 
                                outcome.type = "binary", 
                                method = "Euclidean_distance_X",
-                               k = 5,
+                               k = 3,
                                ncv = 3)
 quantile.comb.EDX <- cv.results.EDX$quantile_table_CV
 
@@ -62,7 +62,7 @@ cv.results.MDX <- asmbPLSDA.cv(X.matrix = X.matrix,
                                   quantile.comb.table = quantile.comb.table.cv, 
                                   outcome.type = "binary", 
                                   method = "Mahalanobis_distance_X",
-                                  k = 5,
+                                  k = 3,
                                   ncv = 3)
 quantile.comb.MDX <- cv.results.MDX$quantile_table_CV
 
