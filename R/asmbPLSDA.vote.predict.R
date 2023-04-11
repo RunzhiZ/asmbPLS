@@ -31,7 +31,7 @@
 #'                                   outcome.type = "binary", 
 #'                                   method = "fixed_cutoff",
 #'                                   k = 3,
-#'                                   ncv = 3)
+#'                                   ncv = 2)
 #' quantile.comb.cutoff <- cv.results.cutoff$quantile_table_CV
 #' 
 #' ## Cross validation using Euclidean distance of X super score
@@ -43,7 +43,7 @@
 #'                                outcome.type = "binary", 
 #'                                method = "Euclidean_distance_X",
 #'                                k = 3,
-#'                                ncv = 3)
+#'                                ncv = 2)
 #' quantile.comb.EDX <- cv.results.EDX$quantile_table_CV
 #' 
 #' ## Cross validation using Mahalanobis distance of X super score
@@ -55,7 +55,7 @@
 #'                                   outcome.type = "binary", 
 #'                                   method = "Mahalanobis_distance_X",
 #'                                   k = 3,
-#'                                   ncv = 3)
+#'                                   ncv = 2)
 #' quantile.comb.MDX <- cv.results.MDX$quantile_table_CV
 #' 
 #' #### vote list ####
