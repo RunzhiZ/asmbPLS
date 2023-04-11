@@ -9,9 +9,8 @@ output:
     number_sections: true
     toc_float:
       collapsed: false
-    code_folding: hide
+    code_folding: show
     theme: cerulean
-css: rmarkdownstyle.css
 vignette: >
   %\VignetteIndexEntry{asmbPLS_tutorial}
   %\VignetteEngine{knitr::rmarkdown}
