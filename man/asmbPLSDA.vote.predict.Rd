@@ -39,7 +39,7 @@ cv.results.cutoff <- asmbPLSDA.cv(X.matrix = X.matrix,
                                   outcome.type = "binary", 
                                   method = "fixed_cutoff",
                                   k = 3,
-                                  ncv = 2)
+                                  ncv = 1)
 quantile.comb.cutoff <- cv.results.cutoff$quantile_table_CV
 
 ## Cross validation using Euclidean distance of X super score
@@ -51,7 +51,7 @@ cv.results.EDX <- asmbPLSDA.cv(X.matrix = X.matrix,
                                outcome.type = "binary", 
                                method = "Euclidean_distance_X",
                                k = 3,
-                               ncv = 2)
+                               ncv = 1)
 quantile.comb.EDX <- cv.results.EDX$quantile_table_CV
 
 ## Cross validation using Mahalanobis distance of X super score
@@ -63,7 +63,7 @@ cv.results.MDX <- asmbPLSDA.cv(X.matrix = X.matrix,
                                   outcome.type = "binary", 
                                   method = "Mahalanobis_distance_X",
                                   k = 3,
-                                  ncv = 2)
+                                  ncv = 1)
 quantile.comb.MDX <- cv.results.MDX$quantile_table_CV
 
 #### vote list ####
