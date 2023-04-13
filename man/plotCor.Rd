@@ -9,7 +9,7 @@ plotCor(
   ncomp = 1,
   block.name = NULL,
   group.name = NULL,
-  legend = T
+  legend = TRUE
 )
 }
 \arguments{

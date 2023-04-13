@@ -69,7 +69,7 @@
 #' @import ggplot2 ggpubr
 #' @importFrom stats cor
 
-plotCor <- function(fit.results, ncomp = 1, block.name = NULL, group.name = NULL, legend = T) {
+plotCor <- function(fit.results, ncomp = 1, block.name = NULL, group.name = NULL, legend = TRUE) {
   if(is.null(block.name)) {
     n.block <- length(fit.results$X_dim)
     block.name <- paste0("block.", 1:n.block)

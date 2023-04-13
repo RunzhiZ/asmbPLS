@@ -1,0 +1,11 @@
+citHeader("To cite asmbPLS in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "asmbPLS: Adaptive Sparse Multi-block Partial Least Square for Survival Prediction using Multi-Omics Data",
+  author   = c(person("Runzhi", "Zhang"), person("Susmita", "Datta")),
+  journal  = "bioRxiv",
+  year     = 2023,
+  pages    = "2023.04.03.535442",
+  url      = "https://www.biorxiv.org/content/biorxiv/early/2023/04/05/2023.04.03.535442.full.pdf"
+)

@@ -35,3 +35,6 @@ If you have more errors installing the R package, please report to runzhi.zhang@
 
 ## Tutorial
 [Click here to view the tutorial for the R package](https://rpubs.com/spencer886/1026803)
+
+## References
+* Zhang R, Datta S: asmbPLS: Adaptive Sparse Multi-block Partial Least Square for Survival Prediction using Multi-Omics Data. bioRxiv 2023:2023.2004.2003.535442.
