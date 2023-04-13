@@ -1,9 +1,9 @@
 citHeader("To cite asmbPLS in publications use:")
 
-citEntry(
-  entry    = "Article",
+bibentry(
+  bibtype = "article",
   title    = "asmbPLS: Adaptive Sparse Multi-block Partial Least Square for Survival Prediction using Multi-Omics Data",
-  author   = c(person("Runzhi", "Zhang"), person("Susmita", "Datta")),
+  author   = c(person("Runzhi", "Zhang", role = "aut"), person("Susmita", "Datta", role = "aut")),
   journal  = "bioRxiv",
   year     = 2023,
   pages    = "2023.04.03.535442",
