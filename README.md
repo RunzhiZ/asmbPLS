@@ -3,17 +3,13 @@
 Runzhi Zhang, Susmita Datta
 
 ## Description
-Adaptive Sparse Multi-block Partial Least Square (asmbPLS), a supervised algorithm, is an extension of the smbPLS, which allows different quantiles to be used in different blocks of different PLS components to decide the proportion of features to be retained. The best combinations of quantiles can be chosen from a set of user-defined quantile combinations by cross-validation. By doing this, asmbPLS enables us to do the feature selection for different blocks, and the selected features can then be further used to predict the outcome. For example, in biomedical applications, clinical covariates plus different types of omics data such as microbiome, metabolome, mRNA data, methylation data, and CNV data might be predictive for patients' outcomes such as survival time or response to therapy. Different types of data could be put in different blocks along with survival time to fit the asmbPLS model. The fitted model can then be used to predict the survival of the new samples with the corresponding clinical covariates and omics data.
+Adaptive Sparse Multi-block Partial Least Square, a supervised algorithm, is an extension of the Sparse Multi-block Partial Least Square, which allows different quantiles to be used in different blocks of different partial least square components to decide the proportion of features to be retained. The best combinations of quantiles can be chosen from a set of user-defined quantiles combinations by cross-validation. By doing this, it enables us to do the feature selection for different blocks, and the selected features can then be further used to predict the outcome. For example, in biomedical applications, clinical covariates plus different types of omics data such as microbiome, metabolome, mRNA data, methylation data, copy number variation data might be predictive for patients outcome such as survival time or response to therapy. Different types of data could be put in different blocks and along with survival time to fit the model. The fitted model can then be used to predict the survival for the new samples with the corresponding clinical covariates and omics data. 
 
-In addition, Adaptive Sparse Multi-block Partial Least Square Discriminant Analysis (asmbPLS-DA) is also included, which extends asmbPLS for classifying the categorical outcome.
+In addition, Adaptive Sparse Multi-block Partial Least Square Discriminant Analysis is also included, which extends Adaptive Sparse Multi-block Partial Least Square for classifying the categorical outcome.
 
 ## R package installation
 ```
-devtools::install_github("RunzhiZ/asmbPLS")
-```
-If you want to build the vignettes, you should include `build_vignettes = TRUE`.
-```
-devtools::install_github("RunzhiZ/asmbPLS", build_vignettes = TRUE, force = TRUE)
+install.packages("asmbPLS")
 ```
 
 ### Common errors for MAC users:
