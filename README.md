@@ -11,6 +11,7 @@ In addition, Adaptive Sparse Multi-block Partial Least Square Discriminant Analy
 ```
 install.packages("asmbPLS")
 ```
+R cran link: https://cran.r-project.org/web/packages/asmbPLS/index.html
 
 ### Common errors for MAC users:
 * **Error 1**:
@@ -33,4 +34,5 @@ If you have more errors installing the R package, please report to runzhi.zhang@
 [Click here to view the tutorial for the R package](https://rpubs.com/spencer886/1026803)
 
 ## References
-* Zhang R, Datta S: asmbPLS: Adaptive Sparse Multi-block Partial Least Square for Survival Prediction using Multi-Omics Data. bioRxiv 2023:2023.2004.2003.535442.
+* [Zhang R, Datta S: asmbPLS: Adaptive Sparse Multi-block Partial Least Square for Survival Prediction using Multi-Omics Data. bioRxiv 2023:2023.2004.2003.535442.](https://www.biorxiv.org/content/10.1101/2023.04.03.535442v1)
+* [Zhang R, Datta S: Adaptive Sparse Multi-Block PLS Discriminant Analysis: An Integrative Method for Identifying Key Biomarkers from Multi-Omics Data. Genes 2023, 14(5), 961.](https://www.mdpi.com/2073-4425/14/5/961/htm)
