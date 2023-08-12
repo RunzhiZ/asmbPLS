@@ -1,7 +1,7 @@
 Package: asmbPLS
 Type: Package
 Title: Predicting and Classifying Patient Phenotypes with Multi-Omics Data
-Version: 1.0.0
+Version: 1.0.1
 Date: 2023-04-13
 Authors@R: c(
     person("Runzhi", "Zhang", role = c("aut", "cre"), email = "runzhi.zhang@ufl.edu"), 
