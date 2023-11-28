@@ -9,6 +9,10 @@ In addition, Adaptive Sparse Multi-block Partial Least Square Discriminant Analy
 
 ## R package installation
 ```
+install_github("RunzhiZ/asmbPLS")
+```
+or
+```
 install.packages("asmbPLS")
 ```
 R cran link: https://cran.r-project.org/web/packages/asmbPLS/index.html
