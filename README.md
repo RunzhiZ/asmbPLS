@@ -7,6 +7,8 @@ Adaptive Sparse Multi-block Partial Least Square, a supervised algorithm, is an 
 
 In addition, Adaptive Sparse Multi-block Partial Least Square Discriminant Analysis is also included, which extends Adaptive Sparse Multi-block Partial Least Square for classifying the categorical outcome.
 
+## R package: asmbPLS (Version: 1.0.1)
+
 ## R package installation
 ```
 install_github("RunzhiZ/asmbPLS")
